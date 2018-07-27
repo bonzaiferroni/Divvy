@@ -1,0 +1,11 @@
+{
+    "name": "Divvy",
+    "references": [
+        "Unity.TextMeshPro",
+        "Utilities"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

@@ -1,0 +1,15 @@
+{
+    "name": "DivvyTests",
+    "references": [
+        "Unity.TextMeshPro",
+        "Divvy"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
