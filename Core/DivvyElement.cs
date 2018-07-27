@@ -22,13 +22,13 @@ namespace Divvy.Core
 		
 		public DivvyParent Parent { get; set; }
 		
-		public float Width
+		public virtual float Width
 		{
 			get { return Rect.sizeDelta.x; }
 			protected set { Rect.sizeDelta = new Vector2(value, Rect.sizeDelta.y); }
 		}
 
-		public float Height
+		public virtual float Height
 		{
 			get { return Rect.sizeDelta.y; }
 			protected set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }

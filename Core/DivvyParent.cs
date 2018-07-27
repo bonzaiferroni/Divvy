@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Divvy.Core
 {
     [ExecuteInEditMode]
     public class DivvyParent : DivvyElement
     {
+        public Padding Padding;
+        public float Spacing;
+        public Vector2 ChildSize;
         public LayoutStyle Style;
         private float _newHeight;
         private float _newWidth;
@@ -75,34 +80,44 @@ namespace Divvy.Core
         {
             if (Style != LayoutStyle.Vertical) return;
             
-            var heightSum = 0f;
+            var heightSum = Padding.Top;
             var maxWidth = 0f;
+            var count = 0;
             foreach (var child in Children)
             {
                 if (!child.IsVisible) continue;
-                child.TargetPosition = new Vector2(0, -heightSum);
+                child.TargetPosition = new Vector2(Padding.Left, -heightSum);
                 heightSum += child.Height;
                 if (child.Width > maxWidth) maxWidth = child.Width;
+                count++;
+                if (count < Children.Count) heightSum += Spacing;
             }
 
-            AdjustSize(maxWidth, heightSum);
+            heightSum += Padding.Bottom;
+
+            AdjustSize(maxWidth + Padding.Left + Padding.Right, heightSum);
         }
 
         private void PositionHorizontal()
         {
             if (Style != LayoutStyle.Horizontal) return;
             
-            var widthSum = 0f;
+            var widthSum = Padding.Left;
             var maxHeight = 0f;
+            var count = 0;
             foreach (var child in Children)
             {
                 if (!child.IsVisible) continue;
-                child.TargetPosition = new Vector2(widthSum, 0);
+                child.TargetPosition = new Vector2(widthSum, Padding.Top);
                 widthSum += child.Width;
                 if (child.Height > maxHeight) maxHeight = child.Height;
+                count++;
+                if (count < Children.Count) widthSum += Spacing;
             }
 
-            AdjustSize(widthSum, maxHeight);
+            widthSum += Padding.Right;
+
+            AdjustSize(widthSum, maxHeight + Padding.Top + Padding.Bottom);
         }
 
         private void Finish()
@@ -121,5 +136,14 @@ namespace Divvy.Core
             Height = height;
             if (Parent) Parent.ChildrenPositioned = false;
         }
+    }
+
+    [Serializable]
+    public struct Padding
+    {
+        public float Top;
+        public float Right;
+        public float Bottom;
+        public float Left;
     }
 }
