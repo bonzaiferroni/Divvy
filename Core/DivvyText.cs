@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Divvy.Core
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class DivvyText : DivvyElement
+    public class DivvyText : DivvyPanel
     {
         private TextMeshProUGUI _label;
 

@@ -9,11 +9,11 @@ namespace Divvy
     public class DivvyLayoutEditor : Editor
     {
         private SerializedProperty _styleProperty;
-        private DivvyElement _element;
+        private DivvyPanel _panel;
 
         void OnEnable ()
         {
-            _element = target as DivvyElement;
+            _panel = target as DivvyPanel;
             // Setup the SerializedProperties.
             _styleProperty = serializedObject.FindProperty ("Style");
         }

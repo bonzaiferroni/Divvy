@@ -7,7 +7,7 @@ namespace Divvy.Core
 {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
-	public class DivvyElement : MonoBehaviour
+	public class DivvyPanel : MonoBehaviour
 	{
 		protected bool Initialized;
 		

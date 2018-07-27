@@ -24,7 +24,7 @@ namespace Divvy.Tests
                 {
                     var layoutGo = new GameObject($"Child_{i}_{j}", typeof(RectTransform));
                     StandardizeRect(layoutGo);
-                    layoutGo.AddComponent<DivvyElement>();
+                    layoutGo.AddComponent<DivvyPanel>();
                     layoutGo.AddComponent<DivvyScale>();
                     layoutGo.AddComponent<Image>().color = Random.ColorHSV();
                     layoutGo.transform.SetParent(horizontalParentGo.transform);

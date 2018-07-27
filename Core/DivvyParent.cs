@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Divvy.Core
 {
     [ExecuteInEditMode]
-    public class DivvyParent : DivvyElement
+    public class DivvyParent : DivvyPanel
     {
         public Padding Padding;
         public float Spacing;
@@ -15,9 +15,9 @@ namespace Divvy.Core
         private float _newHeight;
         private float _newWidth;
         
-        private readonly Stack<DivvyElement> _finish = new Stack<DivvyElement>(); 
+        private readonly Stack<DivvyPanel> _finish = new Stack<DivvyPanel>(); 
 
-        public List<DivvyElement> Children { get; } = new List<DivvyElement>();
+        public List<DivvyPanel> Children { get; } = new List<DivvyPanel>();
         public bool ChildrenPositioned { get; set; }
 
         // life cycle 
@@ -30,7 +30,7 @@ namespace Divvy.Core
             for (var i = 0; i < transform.childCount; i++)
             {
                 var childTransform = transform.GetChild(i);
-                var child = childTransform.GetComponent<DivvyElement>();
+                var child = childTransform.GetComponent<DivvyPanel>();
                 if (child == null) continue;
                 child.Init();
                 AddChild(child);
@@ -46,7 +46,7 @@ namespace Divvy.Core
         
         // public
         
-        public void AddChild(DivvyElement child)
+        public void AddChild(DivvyPanel child)
         {
             if (child.Parent != this && child.Parent != null) child.Parent.RemoveElement(child);
             Children.Add(child);
@@ -56,7 +56,7 @@ namespace Divvy.Core
             ChildrenPositioned = false;
         }
 
-        public void RemoveElement(DivvyElement child)
+        public void RemoveElement(DivvyPanel child)
         {
             Children.Remove(child);
             if (child.Parent == this) child.Parent = null;
