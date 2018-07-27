@@ -81,7 +81,8 @@ namespace Divvy.Core
 			}
 			
 			Rect = GetComponent<RectTransform>();
-			Rect.pivot = new Vector2(0, 1);
+			
+			Rect.pivot = Rect.anchorMin = Rect.anchorMax = new Vector2(0, 1);
 			Transported = false;
 			Initialized = true;
 		}
