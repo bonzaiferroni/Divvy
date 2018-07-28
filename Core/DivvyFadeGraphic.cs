@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Divvy.Core
 {
-    public class DivvyFadeGraphic : DivvyVisibility
+    public class DivvyFadeGraphic : DivvyAnimatedVisibility
     {
         
         public Graphic Graphic { get; private set; }

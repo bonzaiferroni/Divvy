@@ -3,7 +3,7 @@
 namespace Divvy.Core
 {
     [RequireComponent(typeof(DivvyText))]
-    public class DivvyFadeText : DivvyVisibility
+    public class DivvyFadeText : DivvyAnimatedVisibility
     {
         public DivvyText Label { get; private set; }
         

@@ -42,13 +42,13 @@ namespace Divvy.Core
 				if (value == _targetPosition) return;
 				_targetPosition = value;
 				
-				// quick transport
-				if (Application.isPlaying && (!Visibility || Visibility.CurrentVisibility > .2f))
+				if (Application.isPlaying && (Visibility && Visibility.IsVisible))
 				{
 					Transported = false;
 				}
 				else
 				{
+					// quick transport
 					Position = TargetPosition;
 					Transported = true;
 				}

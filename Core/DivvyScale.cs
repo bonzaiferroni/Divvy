@@ -2,7 +2,7 @@
 
 namespace Divvy.Core
 {
-    public class DivvyScale : DivvyVisibility
+    public class DivvyScale : DivvyAnimatedVisibility
     {
         protected override void Modify(float amount)
         {

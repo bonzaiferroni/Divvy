@@ -13,7 +13,7 @@ namespace Divvy.PlayTests
         public IEnumerator SetVisibility_True_AnimatesFrom0to1()
         {
             var data = new DivvyData();
-            var visibility = data.RootObject.GetComponentInChildren<DivvyVisibility>();
+            var visibility = data.RootObject.GetComponentInChildren<DivvyAnimatedVisibility>();
             visibility.SetVisibility(false, true);
             visibility.SetVisibility(true);
             Assert.AreEqual(0, visibility.CurrentVisibility);

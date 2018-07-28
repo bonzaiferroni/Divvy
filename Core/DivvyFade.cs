@@ -3,7 +3,7 @@
 namespace Divvy.Core
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class DivvyFade : DivvyVisibility
+    public class DivvyFade : DivvyAnimatedVisibility
     {
         private CanvasGroup _canvasGroup;
 
