@@ -8,12 +8,6 @@ namespace Divvy.Core
     {
         private TextMeshProUGUI _label;
 
-        public override void Init()
-        {
-            base.Init();
-            _label = GetComponent<TextMeshProUGUI>();
-        }
-
         public override float Width
         {
             get
@@ -30,6 +24,23 @@ namespace Divvy.Core
                 Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.ChildSize.y);
                 return Parent.ChildSize.y;
             }
+        }
+
+        public string Text
+        {
+            get { return _label.text; }
+            set
+            {
+                if (_label.text == value) return;
+                _label.text = value;
+                Parent.ChildrenPositioned = false;
+            }
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            _label = GetComponent<TextMeshProUGUI>();
         }
     }
 }

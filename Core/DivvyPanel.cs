@@ -11,11 +11,11 @@ namespace Divvy.Core
 	{
 		protected bool Initialized;
 		
-		private DivvyVisibility _visibility;
 		private Vector2 _targetPosition;
 		private float _posRef;
 		private Vector2 _position;
 
+		public DivvyVisibility Visibility { get; private set; }
 		public bool IsVisible { get; private set; }
 		public bool Transported { get; set; }
 		public RectTransform Rect { get; private set; }
@@ -43,7 +43,7 @@ namespace Divvy.Core
 				_targetPosition = value;
 				
 				// quick transport
-				if (Application.isPlaying && (!_visibility || _visibility.CurrentVisibility > .2f))
+				if (Application.isPlaying && (!Visibility || Visibility.CurrentVisibility > .2f))
 				{
 					Transported = false;
 				}
@@ -68,12 +68,12 @@ namespace Divvy.Core
 
 		public virtual void Init()
 		{
-			_visibility = GetComponent<DivvyVisibility>();
-			if (_visibility)
+			Visibility = GetComponent<DivvyVisibility>();
+			if (Visibility)
 			{
-				IsVisible = _visibility.IsVisible;
-				_visibility.OnVisibilityChange += OnVisibilityChange;
-				_visibility.Init();
+				IsVisible = Visibility.IsVisible;
+				Visibility.OnVisibilityChange += OnVisibilityChange;
+				Visibility.Init();
 			}
 			else
 			{
