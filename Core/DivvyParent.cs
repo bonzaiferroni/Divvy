@@ -45,20 +45,43 @@ namespace Divvy.Core
         }
         
         // public
-        
-        public void AddChild(DivvyPanel child)
+
+        public void AddAfter(DivvyPanel child, DivvyPanel afterChild)
         {
-            if (child.Parent != this && child.Parent != null) child.Parent.RemoveElement(child);
-            Children.Add(child);
+            for (int i = 0; i < Children.Count; i++)
+            {
+                var currentChild = Children[i];
+                if (currentChild == afterChild)
+                {
+                    AddChild(child, i + 1);
+                    return;
+                }
+            }
+
+            throw new Exception("Didn't find child to insert after");
+        }
+        
+        public void AddChild(DivvyPanel child, int index = -1)
+        {
+            if (child.Parent != this && child.Parent != null) child.Parent.RemoveChild(child);
+            if (index >= 0)
+            {
+                Children.Insert(index, child);
+            }
+            else
+            {
+                Children.Add(child);
+            }
+            
             child.Parent = this;
             if (child.transform != transform) child.transform.SetParent(transform, false);
             _finish.Push(child);
             ChildrenPositioned = false;
         }
 
-        public void RemoveElement(DivvyPanel child)
+        public void RemoveChild(DivvyPanel child)
         {
-            Children.Remove(child);
+            if (!Children.Remove(child)) throw new Exception("Didn't find child to remove");
             if (child.Parent == this) child.Parent = null;
             ChildrenPositioned = false;
         }

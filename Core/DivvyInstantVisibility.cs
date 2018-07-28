@@ -19,6 +19,7 @@
 
         public override void SetVisibility(bool isVisible)
         {
+            IsVisible = isVisible;
             Modify(isVisible);
             VisibilityChangeHandler(isVisible);
         }
