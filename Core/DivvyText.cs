@@ -37,6 +37,12 @@ namespace Divvy.Core
             }
         }
 
+        public float Alpha
+        {
+            get { return _label.color.a; }
+            set { _label.color = new Color(_label.color.r, _label.color.g, _label.color.b, value); }
+        }
+
         public override void Init()
         {
             base.Init();
