@@ -42,7 +42,7 @@ namespace Divvy.Core
 				if (value == _targetPosition) return;
 				_targetPosition = value;
 				
-				if (Application.isPlaying && (Visibility && Visibility.IsVisible))
+				if (Application.isPlaying)
 				{
 					Transported = false;
 				}
