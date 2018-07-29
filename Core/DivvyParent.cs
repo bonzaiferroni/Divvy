@@ -10,13 +10,13 @@ namespace Divvy.Core
     {
         public Padding Padding;
         public float Spacing;
-        public Vector2 ChildSize;
         public LayoutStyle Style;
+        [SerializeField] private bool _reversed;
+        [SerializeField] private Vector2 _childSize;
+        
         private float _newHeight;
         private float _newWidth;
-        
         private readonly Stack<DivvyPanel> _finish = new Stack<DivvyPanel>();
-        [SerializeField] private bool _reversed;
 
         public List<DivvyPanel> Children { get; } = new List<DivvyPanel>();
         public bool ChildrenPositioned { get; set; }
@@ -29,6 +29,15 @@ namespace Divvy.Core
                 if (_reversed == value) return;
                 _reversed = value;
                 ChildrenPositioned = false;
+            }
+        }
+        
+        public Vector2 ChildSize
+        {
+            get
+            {
+                if (_childSize == Vector2.zero && Parent != null) return Parent.ChildSize;
+                return _childSize;
             }
         }
 
@@ -93,9 +102,9 @@ namespace Divvy.Core
 
         public void RemoveChild(DivvyPanel child)
         {
-            if (!Children.Remove(child)) throw new Exception("Didn't find child to remove");
             if (child.Parent == this) child.Parent = null;
             ChildrenPositioned = false;
+            Children.Remove(child);
         }
         
         // Position Children
@@ -111,6 +120,15 @@ namespace Divvy.Core
             ChildrenPositioned = true;
         }
 
+        public IEnumerable<DivvyPanel> Reverse()
+        {
+            for (int i = Children.Count - 1; i >= 0; i--)
+            {
+                var child = Children[i];
+                yield return child;
+            }
+        }
+
         private void PositionVertical()
         {
             if (Style != LayoutStyle.Vertical) return;
@@ -118,7 +136,10 @@ namespace Divvy.Core
             var heightSum = Padding.Top;
             var maxWidth = 0f;
             var count = 0;
-            foreach (var child in Children)
+
+            var enumerable = Reversed ? Reverse() : Children;
+            
+            foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
                 child.TargetPosition = new Vector2(Padding.Left, -heightSum);
@@ -140,7 +161,10 @@ namespace Divvy.Core
             var widthSum = Padding.Left;
             var maxHeight = 0f;
             var count = 0;
-            foreach (var child in Children)
+            
+            var enumerable = Reversed ? Reverse() : Children;
+
+            foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
                 child.TargetPosition = new Vector2(widthSum, Padding.Top);
