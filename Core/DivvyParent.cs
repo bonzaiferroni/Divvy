@@ -15,10 +15,22 @@ namespace Divvy.Core
         private float _newHeight;
         private float _newWidth;
         
-        private readonly Stack<DivvyPanel> _finish = new Stack<DivvyPanel>(); 
+        private readonly Stack<DivvyPanel> _finish = new Stack<DivvyPanel>();
+        [SerializeField] private bool _reversed;
 
         public List<DivvyPanel> Children { get; } = new List<DivvyPanel>();
         public bool ChildrenPositioned { get; set; }
+
+        public bool Reversed
+        {
+            get { return _reversed; }
+            set
+            {
+                if (_reversed == value) return;
+                _reversed = value;
+                ChildrenPositioned = false;
+            }
+        }
 
         // life cycle 
 
