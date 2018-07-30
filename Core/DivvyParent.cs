@@ -16,7 +16,7 @@ namespace Divvy.Core
         
         private float _newHeight;
         private float _newWidth;
-        private readonly Stack<DivvyPanel> _finish = new Stack<DivvyPanel>();
+        private readonly Stack<DivvyPanel> _newChildren = new Stack<DivvyPanel>();
 
         public List<DivvyPanel> Children { get; } = new List<DivvyPanel>();
         public bool ChildrenPositioned { get; set; }
@@ -47,7 +47,7 @@ namespace Divvy.Core
         {
             base.Init();
             Children.Clear();
-            _finish.Clear();
+            _newChildren.Clear();
             for (var i = 0; i < transform.childCount; i++)
             {
                 var childTransform = transform.GetChild(i);
@@ -62,24 +62,16 @@ namespace Divvy.Core
         protected override void Update()
         {
             base.Update();
-            PositionChildren();
+            PositionChildren(false);
         }
         
         // public
 
         public void AddAfter(DivvyPanel child, DivvyPanel afterChild)
         {
-            for (int i = 0; i < Children.Count; i++)
-            {
-                var currentChild = Children[i];
-                if (currentChild == afterChild)
-                {
-                    AddChild(child, i + 1);
-                    return;
-                }
-            }
-
-            throw new Exception("Didn't find child to insert after");
+            var index = Children.IndexOf(afterChild);
+            if (index < 0) throw new Exception("Didn't find child to insert after");
+            AddChild(child, index + 1);
         }
         
         public void AddChild(DivvyPanel child, int index = -1)
@@ -96,7 +88,7 @@ namespace Divvy.Core
             
             child.Parent = this;
             if (child.transform != transform) child.transform.SetParent(transform, false);
-            _finish.Push(child);
+            _newChildren.Push(child);
             ChildrenPositioned = false;
         }
 
@@ -109,13 +101,24 @@ namespace Divvy.Core
         
         // Position Children
 
-        private void PositionChildren()
+        public override void FinishTransport()
+        {
+            foreach (var child in Children)
+            {
+                child.FinishTransport();
+            }
+
+            PositionChildren(true);
+            base.FinishTransport();
+        }
+
+        private void PositionChildren(bool instant)
         {
             if (ChildrenPositioned) return;
 
-            PositionVertical();
-            PositionHorizontal();
-            Finish();
+            PositionVertical(instant);
+            PositionHorizontal(instant);
+            FinishNewChildren();
 
             ChildrenPositioned = true;
         }
@@ -129,7 +132,7 @@ namespace Divvy.Core
             }
         }
 
-        private void PositionVertical()
+        private void PositionVertical(bool instant)
         {
             if (Style != LayoutStyle.Vertical) return;
             
@@ -142,7 +145,7 @@ namespace Divvy.Core
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                child.TargetPosition = new Vector2(Padding.Left, -heightSum);
+                child.SetTargetPosition(new Vector2(Padding.Left, -heightSum), instant);
                 heightSum += child.Height;
                 if (child.Width > maxWidth) maxWidth = child.Width;
                 count++;
@@ -154,7 +157,7 @@ namespace Divvy.Core
             AdjustSize(maxWidth + Padding.Left + Padding.Right, heightSum);
         }
 
-        private void PositionHorizontal()
+        private void PositionHorizontal(bool instant)
         {
             if (Style != LayoutStyle.Horizontal) return;
             
@@ -167,7 +170,7 @@ namespace Divvy.Core
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                child.TargetPosition = new Vector2(widthSum, Padding.Top);
+                child.SetTargetPosition(new Vector2(widthSum, -Padding.Top), instant);
                 widthSum += child.Width;
                 if (child.Height > maxHeight) maxHeight = child.Height;
                 count++;
@@ -179,11 +182,11 @@ namespace Divvy.Core
             AdjustSize(widthSum, maxHeight + Padding.Top + Padding.Bottom);
         }
 
-        private void Finish()
+        private void FinishNewChildren()
         {
-            while (_finish.Count > 0)
+            while (_newChildren.Count > 0)
             {
-                var child = _finish.Pop();
+                var child = _newChildren.Pop();
                 child.FinishTransport();
             }
         }

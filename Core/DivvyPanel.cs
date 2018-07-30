@@ -11,14 +11,14 @@ namespace Divvy.Core
 	{
 		protected bool Initialized;
 		
-		private Vector2 _targetPosition;
 		private float _posRef;
 		private Vector2 _position;
 
 		public DivvyVisibility Visibility { get; private set; }
 		public bool IsVisible { get; private set; }
-		public bool Transported { get; set; }
+		public bool Transported { get; private set; }
 		public RectTransform Rect { get; private set; }
+		public Vector2 TargetPosition { get; private set; }
 		
 		public DivvyParent Parent { get; set; }
 		
@@ -34,32 +34,13 @@ namespace Divvy.Core
 			protected set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
 		}
 		
-		public Vector2 TargetPosition
-		{
-			get { return _targetPosition; }
-			set
-			{
-				if (value == _targetPosition) return;
-				_targetPosition = value;
-				
-				if (Application.isPlaying)
-				{
-					Transported = false;
-				}
-				else
-				{
-					// quick transport
-					Position = TargetPosition;
-					Transported = true;
-				}
-			}
-		}
 
 		public Vector2 Position
 		{
 			get { return Rect.anchoredPosition; }
 			private set { Rect.anchoredPosition = value; }
 		}
+		
 
 		private void Start()
 		{
@@ -86,7 +67,8 @@ namespace Divvy.Core
 			Transported = false;
 			Initialized = true;
 		}
-		
+
+
 		protected virtual void Update()
 		{
 #if UNITY_EDITOR
@@ -104,6 +86,23 @@ namespace Divvy.Core
 			IsVisible = isVisible;
 			if (Parent == null) return;
 			Parent.ChildrenPositioned = false;
+		}
+
+		public void SetTargetPosition(Vector2 position, bool instant)
+		{
+			if (position == TargetPosition) return;
+			TargetPosition = position;
+				
+			if (!instant && Application.isPlaying)
+			{
+				Transported = false;
+			}
+			else
+			{
+				// quick transport
+				Position = TargetPosition;
+				Transported = true;
+			}
 		}
 
 		// TransportSelf
@@ -129,7 +128,7 @@ namespace Divvy.Core
 			FinishTransport();
 		}
 
-		public void FinishTransport()
+		public virtual void FinishTransport()
 		{
 			Position = TargetPosition;
 			Transported = true;
