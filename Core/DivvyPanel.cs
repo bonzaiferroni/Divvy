@@ -33,14 +33,12 @@ namespace Divvy.Core
 			get { return Rect.sizeDelta.y; }
 			protected set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
 		}
-		
 
 		public Vector2 Position
 		{
 			get { return Rect.anchoredPosition; }
 			private set { Rect.anchoredPosition = value; }
 		}
-		
 
 		private void Start()
 		{
@@ -109,7 +107,7 @@ namespace Divvy.Core
 
 		private void TransportSelf()
 		{
-			if (Transported) return;
+			if (Transported || !Parent) return;
 			
 			if (Math.Abs(Position.x - TargetPosition.x) > .00001f)
 			{

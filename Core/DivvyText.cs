@@ -43,10 +43,19 @@ namespace Divvy.Core
             set { _label.color = new Color(_label.color.r, _label.color.g, _label.color.b, value); }
         }
 
+        public bool RaycastTarget
+        {
+            get { return _label.raycastTarget; }
+            set
+            {
+                if (_label.raycastTarget != value) _label.raycastTarget = value;
+            }
+        }
+
         public override void Init()
         {
+            _label = GetComponent<TextMeshProUGUI>(); // needs to come before base.Init()
             base.Init();
-            _label = GetComponent<TextMeshProUGUI>();
         }
     }
 }

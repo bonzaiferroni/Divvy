@@ -9,13 +9,14 @@ namespace Divvy.Core
         
         public override void Init()
         {
+            Label = GetComponent<DivvyText>(); // needs to come before base.Init() because Label is referenced
             base.Init();
-            Label = GetComponent<DivvyText>();
         }
 
         protected override void Modify(float amount)
         {
             Label.Alpha = amount;
+            Label.RaycastTarget = IsVisible;
         }
     }
 }

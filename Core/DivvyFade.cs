@@ -16,7 +16,7 @@ namespace Divvy.Core
         protected override void Modify(float amount)
         {
             _canvasGroup.alpha = amount;
-            if (amount > 0)
+            if (IsVisible)
             {
                 if (!_canvasGroup.blocksRaycasts) _canvasGroup.blocksRaycasts = true;
             }

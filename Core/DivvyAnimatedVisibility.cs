@@ -63,6 +63,7 @@ namespace Divvy.Core
             if (instant)
             {
                 CurrentVisibility = target;
+                ModifyVisibility();
             }
             
             VisibilityChangeHandler(IsVisible);
