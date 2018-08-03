@@ -13,6 +13,7 @@ namespace Divvy.Core
         public LayoutStyle Style;
         [SerializeField] private bool _reversed;
         [SerializeField] private Vector2 _childSize;
+        [SerializeField] private bool _expandChildren;
         
         private float _newHeight;
         private float _newWidth;
@@ -59,10 +60,14 @@ namespace Divvy.Core
             ChildrenPositioned = false;
         }
 
-        protected override void Update()
+        public override void UpdatePosition(bool instant)
         {
-            base.Update();
-            PositionChildren(false);
+            foreach (var child in Children)
+            {
+                child.UpdatePosition(instant);
+            }
+            base.UpdatePosition(instant);
+            PositionChildren(instant);
         }
         
         // public
@@ -100,17 +105,6 @@ namespace Divvy.Core
         }
         
         // Position Children
-
-        public override void FinishTransport()
-        {
-            foreach (var child in Children)
-            {
-                child.FinishTransport();
-            }
-
-            PositionChildren(true);
-            base.FinishTransport();
-        }
 
         private void PositionChildren(bool instant)
         {
@@ -154,6 +148,14 @@ namespace Divvy.Core
 
             heightSum += Padding.Bottom;
 
+            if (_expandChildren)
+            {
+                foreach (var child in Children)
+                {
+                    child.Width = maxWidth;
+                }
+            }
+
             AdjustSize(maxWidth + Padding.Left + Padding.Right, heightSum);
         }
 
@@ -178,6 +180,14 @@ namespace Divvy.Core
             }
 
             widthSum += Padding.Right;
+            
+            if (_expandChildren)
+            {
+                foreach (var child in Children)
+                {
+                    child.Height = maxHeight;
+                }
+            }
 
             AdjustSize(widthSum, maxHeight + Padding.Top + Padding.Bottom);
         }

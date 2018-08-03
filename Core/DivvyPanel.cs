@@ -25,13 +25,13 @@ namespace Divvy.Core
 		public virtual float Width
 		{
 			get { return Rect.sizeDelta.x; }
-			protected set { Rect.sizeDelta = new Vector2(value, Rect.sizeDelta.y); }
+			set { Rect.sizeDelta = new Vector2(value, Rect.sizeDelta.y); }
 		}
 
 		public virtual float Height
 		{
 			get { return Rect.sizeDelta.y; }
-			protected set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
+			set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
 		}
 
 		public Vector2 Position
@@ -66,8 +66,7 @@ namespace Divvy.Core
 			Initialized = true;
 		}
 
-
-		protected virtual void Update()
+		private void Update()
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
@@ -75,7 +74,12 @@ namespace Divvy.Core
 				Init();
 			}
 #endif
-			TransportSelf();
+			if (Parent == null) UpdatePosition(!Application.isPlaying);
+		}
+
+		public virtual void UpdatePosition(bool instant)
+		{
+			TransportSelf(instant);
 		}
 
 		private void OnVisibilityChange(bool isVisible)
@@ -91,7 +95,7 @@ namespace Divvy.Core
 			if (position == TargetPosition) return;
 			TargetPosition = position;
 				
-			if (!instant && Application.isPlaying)
+			if (!instant)
 			{
 				Transported = false;
 			}
@@ -105,28 +109,31 @@ namespace Divvy.Core
 
 		// TransportSelf
 
-		private void TransportSelf()
+		private void TransportSelf(bool instant)
 		{
 			if (Transported || !Parent) return;
-			
-			if (Math.Abs(Position.x - TargetPosition.x) > .00001f)
+
+			if (!instant)
 			{
-				var x = Mathf.SmoothDamp(Position.x, TargetPosition.x, ref _posRef, .2f);
-				Position = new Vector2(x, Position.y);
-				return;
-			}
+				if (Math.Abs(Position.x - TargetPosition.x) > .00001f)
+				{
+					var x = Mathf.SmoothDamp(Position.x, TargetPosition.x, ref _posRef, .2f);
+					Position = new Vector2(x, Position.y);
+					return;
+				}
 			
-			if (Math.Abs(Position.y - TargetPosition.y) > .00001f)
-			{
-				var y = Mathf.SmoothDamp(Position.y, TargetPosition.y, ref _posRef, .2f);
-				Position = new Vector2(Position.x, y);
-				return;
+				if (Math.Abs(Position.y - TargetPosition.y) > .00001f)
+				{
+					var y = Mathf.SmoothDamp(Position.y, TargetPosition.y, ref _posRef, .2f);
+					Position = new Vector2(Position.x, y);
+					return;
+				}
 			}
 
 			FinishTransport();
 		}
 
-		public virtual void FinishTransport()
+		public void FinishTransport()
 		{
 			Position = TargetPosition;
 			Transported = true;
