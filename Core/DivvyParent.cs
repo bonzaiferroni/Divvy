@@ -81,7 +81,7 @@ namespace Divvy.Core
         
         public void AddChild(DivvyPanel child, int index = -1)
         {
-            if (child.Parent != this && child.Parent != null) child.Parent.RemoveChild(child);
+            if (child.Parent != null) throw new Exception("You must remove child from previous parent before adding");
             if (index >= 0)
             {
                 Children.Insert(index, child);
@@ -99,7 +99,8 @@ namespace Divvy.Core
 
         public void RemoveChild(DivvyPanel child)
         {
-            if (child.Parent == this) child.Parent = null;
+            if (child.Parent != this) throw new Exception("Cannot remove child with a different parent");
+            child.Parent = null;
             ChildrenPositioned = false;
             Children.Remove(child);
         }
@@ -199,6 +200,15 @@ namespace Divvy.Core
                 var child = _newChildren.Pop();
                 child.FinishTransport();
             }
+        }
+
+        public override void FinishTransport()
+        {
+            foreach (var child in Children)
+            {
+                child.FinishTransport();
+            }
+            base.FinishTransport();
         }
 
         private void AdjustSize(float width, float height)

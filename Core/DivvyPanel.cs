@@ -133,7 +133,7 @@ namespace Divvy.Core
 			FinishTransport();
 		}
 
-		public void FinishTransport()
+		public virtual void FinishTransport()
 		{
 			Position = TargetPosition;
 			Transported = true;
