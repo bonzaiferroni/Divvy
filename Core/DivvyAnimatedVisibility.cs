@@ -6,11 +6,11 @@ namespace Divvy.Core
     public abstract class DivvyAnimatedVisibility : DivvyVisibility
     {
         private float _targetRef;
-        
+
         public bool Transitioning { get; private set; }
         public float CurrentVisibility { get; private set; }
         public float TargetVisibility { get; private set; }
-        
+
         public event Action<bool> OnFinishedAnimation;
         
         public override void Init()
@@ -34,12 +34,14 @@ namespace Divvy.Core
         {
             if (!Transitioning) return;
 
+            if (name == "CodexCursor") Debug.Log($"{Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f}");
+            
             if (Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f)
             {
-                OnFinishedAnimation?.Invoke(IsVisible);
                 CurrentVisibility = TargetVisibility;
                 Modify(CurrentVisibility);
                 Transitioning = false;
+                OnFinishedAnimation?.Invoke(IsVisible);
             }
             else
             {

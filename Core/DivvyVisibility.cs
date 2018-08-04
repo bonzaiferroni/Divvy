@@ -26,7 +26,7 @@ namespace Divvy.Core
 
         private void Start()
         {
-            if (!_initialized) Init();
+            // if (!_initialized) Init();
         }
 
         public virtual void Init()

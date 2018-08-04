@@ -9,6 +9,8 @@ namespace Divvy.Core
 	[RequireComponent(typeof(RectTransform))]
 	public class DivvyPanel : MonoBehaviour
 	{
+		[SerializeField] private bool _expandSelf;
+		
 		protected bool Initialized;
 		
 		private float _posRef;
@@ -21,6 +23,12 @@ namespace Divvy.Core
 		public Vector2 TargetPosition { get; private set; }
 		
 		public DivvyParent Parent { get; set; }
+
+		public bool ExpandSelf
+		{
+			get { return _expandSelf; }
+			set { _expandSelf = value; }
+		}
 		
 		public virtual float Width
 		{

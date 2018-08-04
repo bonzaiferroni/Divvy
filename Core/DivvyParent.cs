@@ -18,6 +18,7 @@ namespace Divvy.Core
         private float _newHeight;
         private float _newWidth;
         private readonly Stack<DivvyPanel> _newChildren = new Stack<DivvyPanel>();
+        private readonly Stack<DivvyPanel> _expand = new Stack<DivvyPanel>();
 
         public List<DivvyPanel> Children { get; } = new List<DivvyPanel>();
         public bool ChildrenPositioned { get; set; }
@@ -79,9 +80,9 @@ namespace Divvy.Core
             AddChild(child, index + 1);
         }
         
-        public void AddChild(DivvyPanel child, int index = -1)
+        public void AddChild(DivvyPanel child, int index = -1, bool instantPositioning = true)
         {
-            if (child.Parent != null) throw new Exception("You must remove child from previous parent before adding");
+            if (child.Parent != null) child.Parent.RemoveChild(child);
             if (index >= 0)
             {
                 Children.Insert(index, child);
@@ -93,7 +94,7 @@ namespace Divvy.Core
             
             child.Parent = this;
             if (child.transform != transform) child.transform.SetParent(transform, false);
-            _newChildren.Push(child);
+            if (instantPositioning) _newChildren.Push(child);
             ChildrenPositioned = false;
         }
 
@@ -145,16 +146,15 @@ namespace Divvy.Core
                 if (child.Width > maxWidth) maxWidth = child.Width;
                 count++;
                 if (count < Children.Count) heightSum += Spacing;
+                if (_expandChildren || child.ExpandSelf) _expand.Push(child);
             }
 
             heightSum += Padding.Bottom;
 
-            if (_expandChildren)
+            while (_expand.Count > 0)
             {
-                foreach (var child in Children)
-                {
-                    child.Width = maxWidth;
-                }
+                var child = _expand.Pop();
+                child.Width = maxWidth;
             }
 
             AdjustSize(maxWidth + Padding.Left + Padding.Right, heightSum);
@@ -178,16 +178,15 @@ namespace Divvy.Core
                 if (child.Height > maxHeight) maxHeight = child.Height;
                 count++;
                 if (count < Children.Count) widthSum += Spacing;
+                if (_expandChildren || child.ExpandSelf) _expand.Push(child);
             }
 
             widthSum += Padding.Right;
             
-            if (_expandChildren)
+            while (_expand.Count > 0)
             {
-                foreach (var child in Children)
-                {
-                    child.Height = maxHeight;
-                }
+                var child = _expand.Pop();
+                child.Height = maxHeight;
             }
 
             AdjustSize(widthSum, maxHeight + Padding.Top + Padding.Bottom);
