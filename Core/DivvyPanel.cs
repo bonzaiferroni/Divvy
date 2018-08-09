@@ -13,7 +13,7 @@ namespace Divvy.Core
 		
 		protected bool Initialized;
 		
-		private float _posRef;
+		private Vector2 _posRef;
 		private Vector2 _position;
 
 		public DivvyVisibility Visibility { get; private set; }
@@ -123,16 +123,16 @@ namespace Divvy.Core
 
 			if (!instant)
 			{
-				if (Math.Abs(Position.x - TargetPosition.x) > .00001f)
+				if (Math.Abs(Position.x - TargetPosition.x) > .001f)
 				{
-					var x = Mathf.SmoothDamp(Position.x, TargetPosition.x, ref _posRef, .2f);
+					var x = Mathf.SmoothDamp(Position.x, TargetPosition.x, ref _posRef.x, .2f);
 					Position = new Vector2(x, Position.y);
 					return;
 				}
 			
-				if (Math.Abs(Position.y - TargetPosition.y) > .00001f)
+				if (Math.Abs(Position.y - TargetPosition.y) > .001f)
 				{
-					var y = Mathf.SmoothDamp(Position.y, TargetPosition.y, ref _posRef, .2f);
+					var y = Mathf.SmoothDamp(Position.y, TargetPosition.y, ref _posRef.y, .2f);
 					Position = new Vector2(Position.x, y);
 					return;
 				}
@@ -143,6 +143,7 @@ namespace Divvy.Core
 
 		public virtual void FinishTransport()
 		{
+			_posRef = TargetPosition;
 			Position = TargetPosition;
 			Transported = true;
 		}

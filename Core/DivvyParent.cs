@@ -9,6 +9,7 @@ namespace Divvy.Core
     public class DivvyParent : DivvyPanel
     {
         public Padding Padding;
+        public Dimensions MinSize;
         public float Spacing;
         public LayoutStyle Style;
         [SerializeField] private bool _reversed;
@@ -212,6 +213,8 @@ namespace Divvy.Core
 
         private void AdjustSize(float width, float height)
         {
+            width = Mathf.Max(width, MinSize.Width);
+            height = Mathf.Max(height, MinSize.Height);
             if (width == Width && height == Height) return;
             Width = width;
             Height = height;
@@ -226,5 +229,12 @@ namespace Divvy.Core
         public float Right;
         public float Bottom;
         public float Left;
+    }
+    
+    [Serializable]
+    public struct Dimensions
+    {
+        public float Width;
+        public float Height;
     }
 }
