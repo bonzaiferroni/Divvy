@@ -34,8 +34,6 @@ namespace Divvy.Core
         {
             if (!Transitioning) return;
 
-            if (name == "CodexCursor") Debug.Log($"{Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f}");
-            
             if (Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f)
             {
                 CurrentVisibility = TargetVisibility;
