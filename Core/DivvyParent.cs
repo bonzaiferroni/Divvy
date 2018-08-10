@@ -94,7 +94,7 @@ namespace Divvy.Core
             }
             
             child.Parent = this;
-            if (child.transform != transform) child.transform.SetParent(transform, false);
+            if (child.transform != transform) child.transform.SetParent(transform, instantPositioning);
             if (instantPositioning) _newChildren.Push(child);
             ChildrenPositioned = false;
         }
@@ -155,7 +155,7 @@ namespace Divvy.Core
             while (_expand.Count > 0)
             {
                 var child = _expand.Pop();
-                child.Width = maxWidth;
+                child.ExpandWidth(maxWidth);
             }
 
             AdjustSize(maxWidth + Padding.Left + Padding.Right, heightSum);
@@ -219,6 +219,16 @@ namespace Divvy.Core
             Width = width;
             Height = height;
             if (Parent) Parent.ChildrenPositioned = false;
+        }
+
+        public override void ExpandWidth(float width)
+        {
+            base.ExpandWidth(width);
+            if (!_expandChildren || Style != LayoutStyle.Vertical) return;
+            foreach (var child in Children)
+            {
+                child.ExpandWidth(width);
+            }
         }
     }
 

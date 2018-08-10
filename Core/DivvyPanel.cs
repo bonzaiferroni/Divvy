@@ -147,6 +147,11 @@ namespace Divvy.Core
 			Position = TargetPosition;
 			Transported = true;
 		}
+
+		public virtual void ExpandWidth(float width)
+		{
+			Width = width;
+		}
 	}
 
 	public enum LayoutStyle

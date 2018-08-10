@@ -5,6 +5,8 @@ namespace Divvy.Core
 {
     public abstract class DivvyAnimatedVisibility : DivvyVisibility
     {
+        [SerializeField] private float _speed = DivvyConstants.Speed;
+        
         private float _targetRef;
 
         public bool Transitioning { get; private set; }
@@ -43,7 +45,7 @@ namespace Divvy.Core
             }
             else
             {
-                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, DivvyConstants.Speed);
+                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, _speed);
                 Modify(CurrentVisibility);
             }
         }
