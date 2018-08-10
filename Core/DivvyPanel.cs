@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Common;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Divvy.Core
 {
@@ -12,15 +9,11 @@ namespace Divvy.Core
 		[SerializeField] private bool _expandSelf;
 		
 		protected bool Initialized;
-		
-		private Vector2 _posRef;
-		private Vector2 _position;
 
 		public DivvyVisibility Visibility { get; private set; }
 		public bool IsVisible { get; private set; }
-		public bool Transported { get; private set; }
 		public RectTransform Rect { get; private set; }
-		public Vector2 TargetPosition { get; private set; }
+		public DivvyPosition Position { get; private set; }
 		
 		public DivvyParent Parent { get; set; }
 
@@ -42,12 +35,6 @@ namespace Divvy.Core
 			set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
 		}
 
-		public Vector2 Position
-		{
-			get { return Rect.anchoredPosition; }
-			private set { Rect.anchoredPosition = value; }
-		}
-
 		private void Start()
 		{
 			if (!Initialized) Init();
@@ -66,11 +53,12 @@ namespace Divvy.Core
 			{
 				IsVisible = true;
 			}
-			
+
 			Rect = GetComponent<RectTransform>();
+			Position = new DivvyAnimatedPosition();
+			Position.Init(Rect);
 			
 			Rect.pivot = Rect.anchorMin = Rect.anchorMax = new Vector2(0, 1);
-			Transported = false;
 			Initialized = true;
 		}
 
@@ -87,7 +75,7 @@ namespace Divvy.Core
 
 		public virtual void UpdatePosition(bool instant)
 		{
-			TransportSelf(instant);
+			Position.TransportSelf(instant);
 		}
 
 		private void OnVisibilityChange(bool isVisible)
@@ -98,54 +86,9 @@ namespace Divvy.Core
 			Parent.ChildrenPositioned = false;
 		}
 
-		public void SetTargetPosition(Vector2 position, bool instant)
-		{
-			if (position == TargetPosition) return;
-			TargetPosition = position;
-				
-			if (!instant)
-			{
-				Transported = false;
-			}
-			else
-			{
-				// quick transport
-				Position = TargetPosition;
-				Transported = true;
-			}
-		}
-
-		// TransportSelf
-
-		private void TransportSelf(bool instant)
-		{
-			if (Transported || !Parent) return;
-
-			if (!instant)
-			{
-				if (Math.Abs(Position.x - TargetPosition.x) > .001f)
-				{
-					var x = Mathf.SmoothDamp(Position.x, TargetPosition.x, ref _posRef.x, .2f);
-					Position = new Vector2(x, Position.y);
-					return;
-				}
-			
-				if (Math.Abs(Position.y - TargetPosition.y) > .001f)
-				{
-					var y = Mathf.SmoothDamp(Position.y, TargetPosition.y, ref _posRef.y, .2f);
-					Position = new Vector2(Position.x, y);
-					return;
-				}
-			}
-
-			FinishTransport();
-		}
-
 		public virtual void FinishTransport()
 		{
-			_posRef = TargetPosition;
-			Position = TargetPosition;
-			Transported = true;
+			Position.FinishTransport();
 		}
 
 		public virtual void ExpandWidth(float width)

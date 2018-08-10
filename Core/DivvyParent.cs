@@ -142,7 +142,7 @@ namespace Divvy.Core
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                child.SetTargetPosition(new Vector2(Padding.Left, -heightSum), instant);
+                child.Position.SetTargetPosition(new Vector2(Padding.Left, -heightSum), instant);
                 heightSum += child.Height;
                 if (child.Width > maxWidth) maxWidth = child.Width;
                 count++;
@@ -174,7 +174,7 @@ namespace Divvy.Core
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                child.SetTargetPosition(new Vector2(widthSum, -Padding.Top), instant);
+                child.Position.SetTargetPosition(new Vector2(widthSum, -Padding.Top), instant);
                 widthSum += child.Width;
                 if (child.Height > maxHeight) maxHeight = child.Height;
                 count++;
