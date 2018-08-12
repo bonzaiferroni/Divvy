@@ -11,21 +11,10 @@ namespace Divvy.Core
         {
             if (Transported) return;
 
-            if (!instant)
+            if (!instant && (Current - Target).sqrMagnitude > .001f)
             {
-                if (Math.Abs(Current.x - Target.x) > .001f)
-                {
-                    var x = Mathf.SmoothDamp(Current.x, Target.x, ref _posRef.x, .2f);
-                    Current = new Vector2(x, Current.y);
-                    return;
-                }
-			
-                if (Math.Abs(Current.y - Target.y) > .001f)
-                {
-                    var y = Mathf.SmoothDamp(Current.y, Target.y, ref _posRef.y, .2f);
-                    Current = new Vector2(Current.x, y);
-                    return;
-                }
+                Current = Vector2.SmoothDamp(Current, Target, ref _posRef, .2f);
+                return;
             }
 
             FinishTransport();
