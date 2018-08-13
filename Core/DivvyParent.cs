@@ -227,7 +227,7 @@ namespace Divvy.Core
             if (!_expandChildren || Style != LayoutStyle.Vertical) return;
             foreach (var child in Children)
             {
-                child.ExpandWidth(width);
+                child.ExpandWidth(width - (Padding.Left + Padding.Right));
             }
         }
     }
