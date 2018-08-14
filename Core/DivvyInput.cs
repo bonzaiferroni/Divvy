@@ -54,5 +54,10 @@ namespace Divvy.Core
             Parent.ChildrenPositioned = false;
             OnValueChanged?.Invoke(str);
         }
+
+        public void Activate()
+        {
+            _input.ActivateInputField();
+        }
     }
 }

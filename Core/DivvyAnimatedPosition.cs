@@ -23,7 +23,7 @@ namespace Divvy.Core
         public override void FinishTransport()
         {
             base.FinishTransport();
-            _posRef = Target;
+            _posRef = Vector2.zero;
         }
     }
 }
