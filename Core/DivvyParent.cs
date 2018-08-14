@@ -230,6 +230,13 @@ namespace Divvy.Core
                 child.ExpandWidth(width - (Padding.Left + Padding.Right));
             }
         }
+
+        public void SetAsLast()
+        {
+            Parent.Children.Remove(this);
+            Parent.Children.Add(this);
+            Parent.ChildrenPositioned = false;
+        }
     }
 
     [Serializable]
