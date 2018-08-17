@@ -12,9 +12,10 @@ namespace Divvy.Core
         public Dimensions MinSize;
         public float Spacing;
         public LayoutStyle Style;
+        public bool ExpandChildren;
+        
         [SerializeField] private bool _reversed;
         [SerializeField] private Vector2 _childSize;
-        [SerializeField] private bool _expandChildren;
         
         private float _newHeight;
         private float _newWidth;
@@ -147,7 +148,7 @@ namespace Divvy.Core
                 if (child.Width > maxWidth) maxWidth = child.Width;
                 count++;
                 if (count < Children.Count) heightSum += Spacing;
-                if (_expandChildren || child.ExpandSelf) _expand.Push(child);
+                if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
             }
 
             heightSum += Padding.Bottom;
@@ -179,7 +180,7 @@ namespace Divvy.Core
                 if (child.Height > maxHeight) maxHeight = child.Height;
                 count++;
                 if (count < Children.Count) widthSum += Spacing;
-                if (_expandChildren || child.ExpandSelf) _expand.Push(child);
+                if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
             }
 
             widthSum += Padding.Right;
@@ -224,7 +225,7 @@ namespace Divvy.Core
         public override void ExpandWidth(float width)
         {
             base.ExpandWidth(width);
-            if (!_expandChildren || Style != LayoutStyle.Vertical) return;
+            if (!ExpandChildren || Style != LayoutStyle.Vertical) return;
             foreach (var child in Children)
             {
                 child.ExpandWidth(width - (Padding.Left + Padding.Right));
@@ -246,6 +247,25 @@ namespace Divvy.Core
         public float Right;
         public float Bottom;
         public float Left;
+
+        public void Set(float all)
+        {
+            Top = Right = Bottom = Left = all;
+        }
+
+        public void Set(float topBottom, float leftRight)
+        {
+            Top = Bottom = topBottom;
+            Left = Right = leftRight;
+        }
+
+        public void Set(float top, float right, float bottom, float left)
+        {
+            Top = top;
+            Right = right;
+            Bottom = bottom;
+            Left = left;
+        }
     }
     
     [Serializable]

@@ -42,6 +42,7 @@ namespace Divvy.Core
 
 		public virtual void Init()
 		{
+			
 			Visibility = GetComponent<DivvyVisibility>();
 			if (Visibility)
 			{

@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Divvy.Core
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
     public class DivvyText : DivvyPanel
     {
         private TextMeshProUGUI _label;
@@ -12,7 +11,7 @@ namespace Divvy.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(_label.preferredWidth, Rect.sizeDelta.y);
+                Rect.sizeDelta = new Vector2(_label.preferredWidth, Parent.ChildSize.y);
                 return _label.preferredWidth;
             }
         }
