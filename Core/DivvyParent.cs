@@ -8,7 +8,7 @@ namespace Divvy.Core
     [ExecuteInEditMode]
     public class DivvyParent : DivvyPanel
     {
-        public Padding Padding;
+        public Spacing Padding;
         public Dimensions MinSize;
         public float Spacing;
         public LayoutStyle Style;
@@ -43,6 +43,7 @@ namespace Divvy.Core
                 if (_childSize == Vector2.zero && Parent != null) return Parent.ChildSize;
                 return _childSize;
             }
+            set { _childSize = value; }
         }
 
         // life cycle 
@@ -241,7 +242,7 @@ namespace Divvy.Core
     }
 
     [Serializable]
-    public struct Padding
+    public struct Spacing
     {
         public float Top;
         public float Right;
