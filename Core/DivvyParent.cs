@@ -274,5 +274,11 @@ namespace Divvy.Core
     {
         public float Width;
         public float Height;
+
+        public Dimensions(float width, float height)
+        {
+            Width = width;
+            Height = height;
+        }
     }
 }
