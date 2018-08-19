@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Divvy.Core
 {
-    public class DivvyText : DivvyPanel
+    public class DivvyText : Element
     {
         private TextMeshProUGUI _label;
 

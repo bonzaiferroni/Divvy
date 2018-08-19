@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Divvy.Core
 {
     [RequireComponent(typeof(Image))]
-    public class DivvySprite : DivvyPanel
+    public class DivvySprite : Element
     {
         private Image _image;
 

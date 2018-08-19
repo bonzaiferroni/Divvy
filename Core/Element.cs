@@ -4,7 +4,7 @@ namespace Divvy.Core
 {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
-	public class DivvyPanel : MonoBehaviour
+	public class Element : MonoBehaviour
 	{
 		[SerializeField] private bool _expandSelf;
 		public Spacing Margin;
@@ -16,7 +16,7 @@ namespace Divvy.Core
 		public RectTransform Rect { get; private set; }
 		public DivvyPosition Position { get; private set; }
 		
-		public DivvyParent Parent { get; set; }
+		public Div Parent { get; set; }
 
 		public bool ExpandSelf
 		{
@@ -43,7 +43,6 @@ namespace Divvy.Core
 
 		public virtual void Init()
 		{
-			
 			Visibility = GetComponent<DivvyVisibility>();
 			if (Visibility)
 			{

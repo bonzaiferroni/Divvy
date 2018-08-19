@@ -2,12 +2,12 @@
 
 namespace Divvy.Core
 {
-    public class DivvyScroll : DivvyParent
+    public class DivvyScroll : Div
     {
-        [SerializeField] private DivvyParent _content;
+        [SerializeField] private Div _content;
         public Dimensions MaxSize;
         
-        public DivvyParent Content => _content;
+        public Div Content => _content;
 
         public override void Init()
         {

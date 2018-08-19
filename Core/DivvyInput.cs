@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Divvy.Core
 {
     [RequireComponent(typeof(Image))]
-    public class DivvyInput : DivvyPanel
+    public class DivvyInput : Element
     {
         [SerializeField] private TMP_InputField _input;
         [SerializeField] private bool _interactable = true;

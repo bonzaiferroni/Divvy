@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Divvy.Core
 {
     [ExecuteInEditMode]
-    public class DivvyParent : DivvyPanel
+    public class Div : Element
     {
         public Spacing Padding;
         public Dimensions MinSize;
@@ -19,10 +19,10 @@ namespace Divvy.Core
         
         private float _newHeight;
         private float _newWidth;
-        private readonly Stack<DivvyPanel> _newChildren = new Stack<DivvyPanel>();
-        private readonly Stack<DivvyPanel> _expand = new Stack<DivvyPanel>();
+        private readonly Stack<Element> _newChildren = new Stack<Element>();
+        private readonly Stack<Element> _expand = new Stack<Element>();
 
-        public List<DivvyPanel> Children { get; } = new List<DivvyPanel>();
+        public List<Element> Children { get; } = new List<Element>();
         public bool ChildrenPositioned { get; set; }
 
         public bool Reversed
@@ -46,17 +46,22 @@ namespace Divvy.Core
             set { _childSize = value; }
         }
 
-        // life cycle 
+        // life cycle  
 
         public override void Init()
         {
             base.Init();
+            FindChildren();
+        }
+
+        public void FindChildren()
+        {
             Children.Clear();
             _newChildren.Clear();
             for (var i = 0; i < transform.childCount; i++)
             {
                 var childTransform = transform.GetChild(i);
-                var child = childTransform.GetComponent<DivvyPanel>();
+                var child = childTransform.GetComponent<Element>();
                 if (child == null) continue;
                 child.Init();
                 AddChild(child);
@@ -76,14 +81,14 @@ namespace Divvy.Core
         
         // public
 
-        public void AddAfter(DivvyPanel child, DivvyPanel afterChild)
+        public void AddAfter(Element child, Element afterChild)
         {
             var index = Children.IndexOf(afterChild);
             if (index < 0) throw new Exception("Didn't find child to insert after");
             AddChild(child, index + 1);
         }
         
-        public void AddChild(DivvyPanel child, int index = -1, bool instantPositioning = true)
+        public void AddChild(Element child, int index = -1, bool instantPositioning = true)
         {
             if (child.Parent != null) child.Parent.RemoveChild(child);
             if (index >= 0)
@@ -101,7 +106,7 @@ namespace Divvy.Core
             ChildrenPositioned = false;
         }
 
-        public void RemoveChild(DivvyPanel child)
+        public void RemoveChild(Element child)
         {
             if (child.Parent != this) throw new Exception("Cannot remove child with a different parent");
             child.Parent = null;
@@ -122,7 +127,7 @@ namespace Divvy.Core
             ChildrenPositioned = true;
         }
 
-        public IEnumerable<DivvyPanel> Reverse()
+        public IEnumerable<Element> Reverse()
         {
             for (int i = Children.Count - 1; i >= 0; i--)
             {
