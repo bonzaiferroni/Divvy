@@ -7,6 +7,7 @@ namespace Divvy.Core
 	public class DivvyPanel : MonoBehaviour
 	{
 		[SerializeField] private bool _expandSelf;
+		public Spacing Margin;
 		
 		protected bool Initialized;
 
@@ -94,7 +95,8 @@ namespace Divvy.Core
 
 		public virtual void ExpandWidth(float width)
 		{
-			Width = width;
+			// not sure if this is correct
+			Width = width - (Margin.Right + Margin.Left);
 		}
 	}
 

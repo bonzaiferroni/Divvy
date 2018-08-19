@@ -144,9 +144,12 @@ namespace Divvy.Core
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                child.Position.SetTargetPosition(new Vector2(Padding.Left, -heightSum), instant);
-                heightSum += child.Height;
-                if (child.Width > maxWidth) maxWidth = child.Width;
+                heightSum += child.Margin.Top;
+                var xPos = Padding.Left + child.Margin.Left;
+                child.Position.SetTargetPosition(new Vector2(xPos, -heightSum), instant);
+                heightSum += child.Height + child.Margin.Bottom;
+                var width = child.Margin.Left + child.Width + child.Margin.Right;
+                if (width > maxWidth) maxWidth = width;
                 count++;
                 if (count < Children.Count) heightSum += Spacing;
                 if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
@@ -176,9 +179,12 @@ namespace Divvy.Core
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                child.Position.SetTargetPosition(new Vector2(widthSum, -Padding.Top), instant);
-                widthSum += child.Width;
-                if (child.Height > maxHeight) maxHeight = child.Height;
+                widthSum += child.Margin.Left;
+                var yPos = Padding.Top + child.Margin.Top;
+                child.Position.SetTargetPosition(new Vector2(widthSum, -yPos), instant);
+                widthSum += child.Width + child.Margin.Right;
+                var height = child.Margin.Top + child.Height + child.Margin.Bottom;
+                if (height > maxHeight) maxHeight = height;
                 count++;
                 if (count < Children.Count) widthSum += Spacing;
                 if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
@@ -189,7 +195,7 @@ namespace Divvy.Core
             while (_expand.Count > 0)
             {
                 var child = _expand.Pop();
-                child.Height = maxHeight;
+                child.Height = maxHeight - (child.Margin.Top + child.Margin.Bottom);
             }
 
             AdjustSize(widthSum, maxHeight + Padding.Top + Padding.Bottom);
