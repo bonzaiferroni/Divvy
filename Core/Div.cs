@@ -291,5 +291,11 @@ namespace Divvy.Core
             Width = width;
             Height = height;
         }
+
+        public void Set(float width, float height)
+        {
+            Width = width;
+            Height = height;
+        }
     }
 }
