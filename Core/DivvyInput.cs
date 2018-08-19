@@ -58,6 +58,11 @@ namespace Divvy.Core
             }
         }
 
+        public void Inject(TMP_InputField inputField)
+        {
+            _input = inputField;
+        }
+
         public override void Init()
         {
             _image = GetComponent<Image>();
