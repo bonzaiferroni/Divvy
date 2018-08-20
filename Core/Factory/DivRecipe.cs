@@ -8,32 +8,35 @@ namespace DivLib.Core
 {
     public class DivRecipe
     {
-        public static Color DarkBackgroundColor { get; } = new Color(.2f, .2f, .2f);
-        public static Color LightBackgroundColor { get; } = new Color(.5f, .5f, .5f);
-        public static Color TextColor { get; } = Color.white;
-        public static Color ButtonColor { get; } = new Color(.2f, .4f, 1);
-        public static Color InputColor { get; } = new Color(.2f, .6f, .4f);
+        public virtual Color DarkBackgroundColor { get; } = new Color(.2f, .2f, .2f);
+        public virtual Color LightBackgroundColor { get; } = new Color(.5f, .5f, .5f);
+        public virtual Color TextColor { get; } = Color.white;
+        public virtual Color ButtonColor { get; } = new Color(.2f, .4f, 1);
+        public virtual Color InputColor { get; } = new Color(.2f, .6f, .4f);
+
+        public virtual float LineMargin => DivConstants.LineMargin;
+        public virtual float LineSpacing => DivConstants.LineSpacing;
         
         /*
          * Apply colors
          */
         
-        public static void LightBackground(Image image)
+        public void LightBackground(Image image)
         {
             image.color = LightBackgroundColor;
         }
 
-        public static void DarkBackground(Image image)
+        public void DarkBackground(Image image)
         {
             image.color = DarkBackgroundColor;
         }
         
-        public static void ButtonBackground(Image image)
+        public void ButtonBackground(Image image)
         {
             image.color = ButtonColor;
         }
         
-        public static void InputBackground(Image image)
+        public void InputBackground(Image image)
         {
             image.color = InputColor;
         }
@@ -42,7 +45,7 @@ namespace DivLib.Core
          * Text
          */
         
-        public static void StyleText(TextMeshProUGUI tmp)
+        public void StyleText(TextMeshProUGUI tmp)
         {
             tmp.alignment = TextAlignmentOptions.Left;
             tmp.autoSizeTextContainer = false;
@@ -53,7 +56,7 @@ namespace DivLib.Core
          * Rect
          */
 
-        public static void FillParent(Fusion obj)
+        public void FillParent(Fusion obj)
         {
             obj.Rect.anchorMin = Vector2.zero;
             obj.Rect.anchorMax = Vector2.one;
@@ -66,7 +69,7 @@ namespace DivLib.Core
          * Helpers
          */
 
-        public static Color ChangeAlpha(Color color, float alpha)
+        public Color ChangeAlpha(Color color, float alpha)
         {
             return new Color(color.r, color.g, color.b, alpha);
         }
@@ -75,12 +78,12 @@ namespace DivLib.Core
          * Line
          */
 
-        public static void LineParts(Fusion obj)
+        public void LineParts(Fusion obj)
         {
             var div = obj.Add<Div>();
-            div.Spacing = DivConstants.LineSpacing;
+            div.Spacing = LineSpacing;
             div.Style = LayoutStyle.Horizontal;
-            div.Padding.Left = div.Padding.Right = DivConstants.LineMargin;
+            div.Padding.Left = div.Padding.Right = LineMargin;
         }
         
         /*
@@ -93,7 +96,7 @@ namespace DivLib.Core
         public const string InputChildTag = "InputChild";
         public const string InputTag = "Input";
 
-        public static void InputParts(Fusion obj)
+        public void InputParts(Fusion obj)
         {
             obj.NewChild(InputChildTag, InputChildParts);
             
@@ -104,13 +107,13 @@ namespace DivLib.Core
             obj.Add<DivInput>();
         }
         
-        private static void InputTextParts(Fusion obj)
+        private void InputTextParts(Fusion obj)
         {
             obj.Add<TextMeshProUGUI>(FormatInputText);
             FillParent(obj);
         }
 
-        private static void PlaceholderParts(Fusion obj)
+        private void PlaceholderParts(Fusion obj)
         {
             var label = obj.Add<TextMeshProUGUI>(FormatInputText);
             label.faceColor = ChangeAlpha(label.color, .5f);
@@ -118,13 +121,13 @@ namespace DivLib.Core
             FillParent(obj);
         }
 
-        private static void FormatInputText(TextMeshProUGUI obj)
+        private void FormatInputText(TextMeshProUGUI obj)
         {
             StyleText(obj);
             obj.margin = new Vector4(5, 0, 5, 0);
         }
 
-        private static void TextAreaParts(Fusion obj)
+        private void TextAreaParts(Fusion obj)
         {
             obj.NewChild(PlaceholderTag, PlaceholderParts);
             obj.NewChild(TextTag, InputTextParts);
@@ -132,7 +135,7 @@ namespace DivLib.Core
             FillParent(obj);
         }
 
-        private static void InputChildParts(Fusion obj)
+        private void InputChildParts(Fusion obj)
         {
             obj.NewChild(TextAreaTag, TextAreaParts);
             
@@ -153,7 +156,7 @@ namespace DivLib.Core
          * Button
          */
 
-        public static void ButtonParts(Fusion obj)
+        public void ButtonParts(Fusion obj)
         {
             obj.NewChild(LabelTag, ButtonLabelParts);
             
@@ -163,7 +166,7 @@ namespace DivLib.Core
             obj.Add<Button>().targetGraphic = image;
         }
 
-        private static void ButtonLabelParts(Fusion obj)
+        private void ButtonLabelParts(Fusion obj)
         {
             var label = obj.Add<TextMeshProUGUI>(StyleText);
             label.text = "Button";
@@ -177,7 +180,7 @@ namespace DivLib.Core
         
         public const string LabelTag = "Label";
         
-        public static void LabelParts(Fusion obj)
+        public void LabelParts(Fusion obj)
         {
             obj.Add<DivText>();
             obj.Add<TextMeshProUGUI>(StyleText).text = "Label";
@@ -187,7 +190,7 @@ namespace DivLib.Core
          * LabelButton
          */
 
-        public static void LabelButtonParts(Fusion obj)
+        public void LabelButtonParts(Fusion obj)
         {
             obj.NewChild(LabelTag, LabelParts);
             obj.Add(LineParts);
