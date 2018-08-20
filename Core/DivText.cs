@@ -1,9 +1,10 @@
-﻿using TMPro;
+﻿using Divvy.Core;
+using TMPro;
 using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public class DivvyText : Element
+    public class DivText : Element
     {
         private TextMeshProUGUI _label;
 

@@ -1,11 +1,11 @@
-﻿using TMPro;
+﻿using Divvy.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
     [RequireComponent(typeof(Image))]
-    public class DivvySprite : Element
+    public class DivSprite : Element
     {
         private Image _image;
 

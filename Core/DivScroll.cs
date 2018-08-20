@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Divvy.Core;
+using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public class DivvyScroll : Div
+    public class DivScroll : Div
     {
         [SerializeField] private Div _content;
         public Dimensions MaxSize;

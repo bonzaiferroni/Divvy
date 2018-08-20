@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class DivvyFade : DivvyAnimatedVisibility
+    public class DivFade : DivAnimatedVisibility
     {
         private CanvasGroup _canvasGroup;
 

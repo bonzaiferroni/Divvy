@@ -1,4 +1,5 @@
-﻿using Divvy.Core;
+﻿using DivLib.Core;
+using Divvy.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +26,7 @@ namespace Divvy.Tests
                     var layoutGo = new GameObject($"Child_{i}_{j}", typeof(RectTransform));
                     StandardizeRect(layoutGo);
                     layoutGo.AddComponent<Element>();
-                    layoutGo.AddComponent<DivvyScale>();
+                    layoutGo.AddComponent<DivScale>();
                     layoutGo.AddComponent<Image>().color = Random.ColorHSV();
                     layoutGo.transform.SetParent(horizontalParentGo.transform);
                 }

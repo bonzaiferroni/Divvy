@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Divvy.Core;
 using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public class DivvyAnimatedPosition : DivvyPosition
+    public class DivAnimatedPosition : DivPosition
     {
         private Vector2 _posRef;
         

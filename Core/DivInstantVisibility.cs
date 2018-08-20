@@ -1,6 +1,8 @@
-﻿namespace Divvy.Core
+﻿using Divvy.Core;
+
+namespace DivLib.Core
 {
-    public abstract class DivvyInstantVisibility : DivvyVisibility
+    public abstract class DivInstantVisibility : DivVisibility
     {
         public override void Show()
         {

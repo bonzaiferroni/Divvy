@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
     [ExecuteInEditMode]
-    public abstract class DivvyVisibility : MonoBehaviour
+    public abstract class DivVisibility : MonoBehaviour
     {
         [SerializeField] private bool _isVisible = true;
         
-        protected bool _initialized;
+        protected bool Initialized;
         
         public event Action<bool> OnVisibilityChange;
 
@@ -32,7 +31,7 @@ namespace Divvy.Core
         public virtual void Init()
         {
             SetVisibility(IsVisible);
-            _initialized = true;
+            Initialized = true;
         }
 
         protected void VisibilityChangeHandler(bool isVisible)

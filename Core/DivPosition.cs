@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public abstract class DivvyPosition
+    public abstract class DivPosition
     {
         public Vector2 Target { get; protected set; }
         public RectTransform Rect { get; private set; }

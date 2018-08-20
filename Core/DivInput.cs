@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
+using Divvy.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
     [RequireComponent(typeof(Image))]
-    public class DivvyInput : Element
+    public class DivInput : Element
     {
         [SerializeField] private bool _interactable = true;
         

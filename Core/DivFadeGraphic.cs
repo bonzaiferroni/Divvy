@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public class DivvyFadeGraphic : DivvyAnimatedVisibility
+    public class DivFadeGraphic : DivAnimatedVisibility
     {
         
         public Graphic Graphic { get; private set; }

@@ -1,11 +1,12 @@
 ﻿using System;
+using Divvy.Core;
 using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public abstract class DivvyAnimatedVisibility : DivvyVisibility
+    public abstract class DivAnimatedVisibility : DivVisibility
     {
-        [SerializeField] private float _speed = DivvyConstants.Speed;
+        [SerializeField] private float _speed = DivConstants.Speed;
         
         private float _targetRef;
 
@@ -18,7 +19,7 @@ namespace Divvy.Core
         public override void Init()
         {
             SetVisibility(IsVisible, true);
-            _initialized = true;
+            Initialized = true;
         }
         
         private void Update()

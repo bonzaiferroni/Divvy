@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DivLib.Core;
+using UnityEngine;
 
 namespace Divvy.Core
 {
@@ -11,10 +12,10 @@ namespace Divvy.Core
 		
 		protected bool Initialized;
 
-		public DivvyVisibility Visibility { get; private set; }
+		public DivVisibility Visibility { get; private set; }
 		public bool IsVisible { get; private set; }
 		public RectTransform Rect { get; private set; }
-		public DivvyPosition Position { get; private set; }
+		public DivPosition Position { get; private set; }
 		
 		public Div Parent { get; set; }
 
@@ -43,7 +44,7 @@ namespace Divvy.Core
 
 		public virtual void Init()
 		{
-			Visibility = GetComponent<DivvyVisibility>();
+			Visibility = GetComponent<DivVisibility>();
 			if (Visibility)
 			{
 				IsVisible = Visibility.IsVisible;
@@ -56,7 +57,7 @@ namespace Divvy.Core
 			}
 
 			Rect = GetComponent<RectTransform>();
-			Position = new DivvyAnimatedPosition();
+			Position = new DivAnimatedPosition();
 			Position.Init(Rect);
 			
 			Rect.pivot = Rect.anchorMin = Rect.anchorMax = new Vector2(0, 1);

@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Divvy.Core;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public class DivvyEnable : DivvyInstantVisibility
+    public class DivEnable : DivInstantVisibility
     {
         [SerializeField] private Graphic _graphic;
 

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
-    public class DivvyScale : DivvyAnimatedVisibility
+    public class DivScale : DivAnimatedVisibility
     {
         protected override void Modify(float amount)
         {

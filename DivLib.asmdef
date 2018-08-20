@@ -1,8 +1,9 @@
 {
-    "name": "Divvy",
+    "name": "DivLib",
     "references": [
         "Unity.TextMeshPro",
-        "Utilities"
+        "Utilities",
+        "FusionLib"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
