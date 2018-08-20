@@ -15,7 +15,7 @@ namespace Divvy.Core
         public bool ExpandChildren;
         
         [SerializeField] private bool _reversed;
-        [SerializeField] private Vector2 _childSize;
+        [SerializeField] private float _lineHeight = -1;
         
         private float _newHeight;
         private float _newWidth;
@@ -36,14 +36,14 @@ namespace Divvy.Core
             }
         }
         
-        public Vector2 ChildSize
+        public float LineHeight
         {
             get
             {
-                if (_childSize == Vector2.zero && Parent != null) return Parent.ChildSize;
-                return _childSize;
+                if (_lineHeight < 0 && Parent != null) return Parent.LineHeight;
+                return _lineHeight;
             }
-            set { _childSize = value; }
+            set { _lineHeight = value; }
         }
 
         // life cycle  

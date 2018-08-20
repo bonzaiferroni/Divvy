@@ -11,7 +11,7 @@ namespace Divvy.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(_label.preferredWidth, Parent.ChildSize.y);
+                Rect.sizeDelta = new Vector2(_label.preferredWidth, Parent.LineHeight);
                 return _label.preferredWidth;
             }
         }
@@ -20,8 +20,8 @@ namespace Divvy.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.ChildSize.y);
-                return Parent.ChildSize.y;
+                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.LineHeight);
+                return Parent.LineHeight;
             }
         }
 

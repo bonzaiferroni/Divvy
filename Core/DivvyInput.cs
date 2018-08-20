@@ -17,12 +17,18 @@ namespace Divvy.Core
         private string _lastValue;
         public event Action<string> OnValueChanged;
 
+        public void Inject(TMP_InputField input, bool interactable)
+        {
+            _input = input;
+            _interactable = interactable;
+        }
+
         public override float Width
         {
             get
             {
                 var width = _input.text.Length > 0 ? _input.textComponent.preferredWidth : _placeHolder.preferredWidth;
-                Rect.sizeDelta = new Vector2(width, Parent.ChildSize.y);
+                Rect.sizeDelta = new Vector2(width, Parent.LineHeight);
                 return width;
             }
         }
@@ -31,8 +37,8 @@ namespace Divvy.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.ChildSize.y);
-                return Parent.ChildSize.y;
+                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.LineHeight);
+                return Parent.LineHeight;
             }
         }
 
@@ -56,11 +62,6 @@ namespace Divvy.Core
                 _interactable = value;
                 UpdateInteractable(value);
             }
-        }
-
-        public void Inject(TMP_InputField inputField)
-        {
-            _input = inputField;
         }
 
         public override void Init()
@@ -102,6 +103,7 @@ namespace Divvy.Core
 
         private void UpdateInteractable(bool interactable)
         {
+            if (!_image) return;
             if (_input.interactable != interactable) _input.interactable = interactable;
             if (_image.enabled != interactable) _image.enabled = interactable;
         }

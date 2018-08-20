@@ -18,7 +18,7 @@ namespace Divvy.Core
                 _image.sprite = value;
                 Parent.ChildrenPositioned = false;
                 if (_image.sprite == null) Width = Height = 0;
-                else Width = Height = Mathf.Max(Parent.ChildSize.x, Parent.ChildSize.y);
+                else Width = Height = Mathf.Max(Parent.LineHeight, Parent.LineHeight);
             }
         }
 
