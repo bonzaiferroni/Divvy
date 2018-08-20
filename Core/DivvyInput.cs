@@ -9,19 +9,13 @@ namespace Divvy.Core
     [RequireComponent(typeof(Image))]
     public class DivvyInput : Element
     {
-        [SerializeField] private TMP_InputField _input;
         [SerializeField] private bool _interactable = true;
         
+        private TMP_InputField _input;
         private TextMeshProUGUI _placeHolder;
         private Image _image;
         private string _lastValue;
         public event Action<string> OnValueChanged;
-
-        public void Inject(TMP_InputField input, bool interactable)
-        {
-            _input = input;
-            _interactable = interactable;
-        }
 
         public override float Width
         {
@@ -66,6 +60,7 @@ namespace Divvy.Core
 
         public override void Init()
         {
+            _input = GetComponentInChildren<TMP_InputField>();
             _image = GetComponent<Image>();
             _placeHolder = _input.placeholder as TextMeshProUGUI;
             _input.onValueChanged.AddListener(_OnValueChanged);
