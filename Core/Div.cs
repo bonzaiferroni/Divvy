@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Divvy.Core;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
     [ExecuteInEditMode]
     public class Div : Element
