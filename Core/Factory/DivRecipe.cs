@@ -49,7 +49,7 @@ namespace DivLib.Core
         {
             tmp.alignment = TextAlignmentOptions.Left;
             tmp.autoSizeTextContainer = false;
-            tmp.color = TextColor;
+            tmp.faceColor = TextColor;
         }
         
         /*
@@ -144,6 +144,7 @@ namespace DivLib.Core
             input.placeholder = obj.Get<TextMeshProUGUI>(PlaceholderTag);
             input.textComponent = obj.Get<TextMeshProUGUI>(TextTag);
             input.textViewport = obj.Get<RectTransform>(TextAreaTag);
+            input.selectionColor = Color.black;
 
             obj.Rect.anchorMin = Vector2.zero;
             obj.Rect.anchorMax = Vector2.up;
