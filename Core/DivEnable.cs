@@ -1,5 +1,4 @@
-﻿using Divvy.Core;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace DivLib.Core
@@ -8,7 +7,11 @@ namespace DivLib.Core
     {
         [SerializeField] private Graphic _graphic;
 
-        public Graphic Graphic => _graphic;
+        public Graphic Graphic
+        {
+            get { return _graphic; }
+            set { _graphic = value; }
+        }
 
         protected override void Modify(bool isVisible)
         {

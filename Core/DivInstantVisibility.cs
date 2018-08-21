@@ -1,6 +1,4 @@
-﻿using Divvy.Core;
-
-namespace DivLib.Core
+﻿namespace DivLib.Core
 {
     public abstract class DivInstantVisibility : DivVisibility
     {

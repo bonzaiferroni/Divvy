@@ -1,5 +1,4 @@
-﻿using Divvy.Core;
-using FusionLib.Core;
+﻿using FusionLib.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +7,12 @@ namespace DivLib.Core
 {
     public class DivRecipe
     {
-        public virtual Color DarkBackgroundColor { get; } = new Color(.2f, .2f, .2f);
-        public virtual Color LightBackgroundColor { get; } = new Color(.5f, .5f, .5f);
+        public virtual Color DarkBackgroundColor { get; } = new Color(.3f, .3f, .3f);
+        public virtual Color LightBackgroundColor { get; } = new Color(.4f, .4f, .4f);
         public virtual Color TextColor { get; } = Color.white;
         public virtual Color ButtonColor { get; } = new Color(.2f, .4f, 1);
         public virtual Color InputColor { get; } = new Color(.2f, .6f, .4f);
+        public virtual Color ScrollHandleColor { get; } = new Color(.8f, .8f, .8f);
 
         public virtual float LineMargin => DivConstants.LineMargin;
         public virtual float LineSpacing => DivConstants.LineSpacing;
@@ -198,6 +198,120 @@ namespace DivLib.Core
             
             var image = obj.Add<Image>(ButtonBackground);
             obj.Add<Button>().targetGraphic = image;
+        }
+        
+        /*
+         * DivScroll
+         */
+
+        public const string ScrollTag = "Scroll";
+        public const string ViewportTag = "Viewport";
+        public const string ContentTag = "Content";
+        public const string HorizontalScrollbarTag = "Horizontal Scrollbar";
+        public const string VerticalScrollbarTag = "Vertical Scrollbar";
+        public const string SlidingAreaTag = "SlidingArea";
+        public const string HandleTag = "Handle";
+
+        public void ScrollParts(Fusion obj)
+        {
+            obj.NewChild(ViewportTag, ViewportParts);
+            // obj.NewChild(HorizontalScrollbarTag, HorizontalScrollbarParts);
+            obj.NewChild(VerticalScrollbarTag, VerticalScrollbarParts);
+
+            obj.Add<Image>(DarkBackground);
+
+            var scrollRect = obj.Add<ScrollRect>();
+            scrollRect.content = obj.Get<RectTransform>(ContentTag);
+            scrollRect.horizontal = false;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
+            scrollRect.viewport = obj.Get<RectTransform>(ViewportTag);
+            scrollRect.verticalScrollbar = obj.Get<Scrollbar>(VerticalScrollbarTag);
+            scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+            scrollRect.verticalScrollbarSpacing = -3;
+
+            var divScroll = obj.Add<DivScroll>();
+            divScroll.Style = LayoutStyle.Vertical;
+            divScroll.Content = obj.Get<Div>(ContentTag);
+            divScroll.ExpandChildren = true;
+        }
+
+        private void ViewportParts(Fusion obj)
+        {
+            obj.NewChild(ContentTag, ContentParts);
+
+            obj.Add<Image>();
+            obj.Add<Mask>();
+
+            FillParent(obj);
+        }
+
+        private void ContentParts(Fusion obj)
+        {
+            var div = obj.Add<Div>();
+            div.ExpandChildren = true;
+            div.Style = LayoutStyle.Vertical;
+        }
+
+        private void HorizontalScrollbarParts(Fusion obj)
+        {
+            obj.NewChild(SlidingAreaTag, SlidingAreaParts);
+
+            var scrollbar = obj.Add<Scrollbar>();
+            scrollbar.handleRect = obj.Get<RectTransform>(HandleTag);
+            scrollbar.targetGraphic = obj.Get<Image>(HandleTag);
+            scrollbar.direction = Scrollbar.Direction.RightToLeft;
+            scrollbar.size = 1;
+            
+            var rect = obj.Rect;
+            rect.pivot = Vector2.one;
+            rect.anchorMin = new Vector2(1, 0);
+            rect.anchorMax = new Vector2(1, 0);
+            rect.sizeDelta = new Vector2(0, 3);
+        }
+
+        private void VerticalScrollbarParts(Fusion obj)
+        {
+            obj.NewChild(SlidingAreaTag, SlidingAreaParts);
+
+            var scrollbar = obj.Add<Scrollbar>();
+            scrollbar.handleRect = obj.Get<RectTransform>(HandleTag);
+            scrollbar.targetGraphic = obj.Get<Image>(HandleTag);
+            scrollbar.direction = Scrollbar.Direction.BottomToTop;
+            scrollbar.size = 1;
+
+            var rect = obj.Rect;
+            rect.pivot = Vector2.one;
+            rect.anchorMin = new Vector2(1, 0);
+            rect.anchorMax = new Vector2(1, 1);
+            rect.sizeDelta = new Vector2(3, 0);
+        }
+
+        private void SlidingAreaParts(Fusion obj)
+        {
+            obj.NewChild(HandleTag, HandleParts);
+
+            obj.Add<RectTransform>();
+
+            var rect = obj.Rect;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.pivot = new Vector2(.5f, .5f);
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+            // rect.sizeDelta = new Vector2(10, 10);
+            // rect.anchoredPosition = new Vector2(10, 10);
+        }
+
+        private void HandleParts(Fusion obj)
+        {
+            obj.Add<Image>().color = ScrollHandleColor;
+
+            var rect = obj.Rect;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.pivot = new Vector2(.5f, .5f);
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
         }
     }
 }

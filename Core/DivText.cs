@@ -1,5 +1,4 @@
-﻿using Divvy.Core;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace DivLib.Core

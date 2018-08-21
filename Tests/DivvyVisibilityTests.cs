@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using DivLib.Core;
-using Divvy.Core;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;

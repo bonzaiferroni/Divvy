@@ -1,4 +1,4 @@
-﻿using Divvy.Core;
+﻿using DivLib.Core;
 using UnityEditor;
 using UnityEngine;
 

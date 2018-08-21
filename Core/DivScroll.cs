@@ -1,5 +1,4 @@
-﻿using Divvy.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DivLib.Core
 {
@@ -8,7 +7,11 @@ namespace DivLib.Core
         [SerializeField] private Div _content;
         public Dimensions MaxSize;
         
-        public Div Content => _content;
+        public Div Content
+        {
+            get { return _content; }
+            set { _content = value; }
+        }
 
         public override void Init()
         {

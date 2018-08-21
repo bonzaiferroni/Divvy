@@ -1,5 +1,4 @@
-﻿using Divvy.Core;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace DivLib.Core

@@ -1,7 +1,6 @@
-﻿using DivLib.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Divvy.Core
+namespace DivLib.Core
 {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
@@ -67,7 +66,7 @@ namespace Divvy.Core
 		private void Update()
 		{
 #if UNITY_EDITOR
-			if (!Application.isPlaying)
+			if (!Application.isPlaying && Parent == null)
 			{
 				Init();
 			}
