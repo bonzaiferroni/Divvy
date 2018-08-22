@@ -89,7 +89,7 @@ namespace DivLib.Core
         
         public void AddChild(Element child, int index = -1, bool instantPositioning = true)
         {
-            if (child.Parent != null) child.Parent.RemoveChild(child);
+            if (child.Parent) child.Parent.RemoveChild(child);
             if (index >= 0)
             {
                 Children.Insert(index, child);
