@@ -52,9 +52,6 @@ namespace DivLib.Core
 
         public void SetVisibility(float target, bool instant = false)
         {
-            if (target == TargetVisibility)
-                return;
-            
             if (float.IsNaN(target)) target = 0;
             target = Mathf.Clamp(target, 0, 1);
 

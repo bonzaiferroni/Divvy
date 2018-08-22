@@ -15,6 +15,7 @@ namespace DivLib.Core
 
         protected override void Modify(float amount)
         {
+            
             _canvasGroup.alpha = amount;
             if (IsVisible)
             {
