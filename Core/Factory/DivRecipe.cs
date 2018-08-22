@@ -81,9 +81,17 @@ namespace DivLib.Core
         public void LineParts(Fusion obj)
         {
             var div = obj.Add<Div>();
-            div.Spacing = LineSpacing;
             div.Style = LayoutStyle.Horizontal;
+            div.Spacing = LineSpacing;
             div.Padding.Left = div.Padding.Right = LineMargin;
+        }
+
+        public void LineMemberParts(Fusion obj)
+        {
+            var div = obj.Add<Div>();
+            div.Style = LayoutStyle.Horizontal;
+            div.Spacing = LineSpacing;
+            div.Padding.Left = div.Padding.Right = LineSpacing;
         }
         
         /*
