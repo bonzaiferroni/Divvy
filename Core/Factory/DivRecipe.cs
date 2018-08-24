@@ -16,6 +16,7 @@ namespace DivLib.Core
 
         public virtual float LineMargin => DivConstants.LineMargin;
         public virtual float LineSpacing => DivConstants.LineSpacing;
+        public virtual float LineHeight => DivConstants.LineHeight;
         
         /*
          * Apply colors
@@ -50,6 +51,8 @@ namespace DivLib.Core
             tmp.alignment = TextAlignmentOptions.Left;
             tmp.autoSizeTextContainer = false;
             tmp.faceColor = TextColor;
+            // TODO: Fix fontsize / line height relationship in client code
+            tmp.fontSize = LineHeight - 14;
         }
         
         /*
