@@ -226,19 +226,21 @@ namespace DivLib.Core
         public void ScrollParts(Fusion obj)
         {
             obj.NewChild(ViewportTag, ViewportParts);
-            // obj.NewChild(HorizontalScrollbarTag, HorizontalScrollbarParts);
+            obj.NewChild(HorizontalScrollbarTag, HorizontalScrollbarParts);
             obj.NewChild(VerticalScrollbarTag, VerticalScrollbarParts);
 
-            obj.Add<Image>(DarkBackground);
+            // obj.Add<Image>(DarkBackground);
 
             var scrollRect = obj.Add<ScrollRect>();
             scrollRect.content = obj.Get<RectTransform>(ContentTag);
-            scrollRect.horizontal = false;
             scrollRect.movementType = ScrollRect.MovementType.Clamped;
             scrollRect.viewport = obj.Get<RectTransform>(ViewportTag);
             scrollRect.verticalScrollbar = obj.Get<Scrollbar>(VerticalScrollbarTag);
             scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
             scrollRect.verticalScrollbarSpacing = -3;
+            scrollRect.horizontalScrollbar = obj.Get<Scrollbar>(HorizontalScrollbarTag);
+            scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+            scrollRect.horizontalScrollbarSpacing = -3;
 
             var divScroll = obj.Add<DivScroll>();
             divScroll.Style = LayoutStyle.Vertical;
@@ -250,7 +252,7 @@ namespace DivLib.Core
         {
             obj.NewChild(ContentTag, ContentParts);
 
-            obj.Add<Image>();
+            obj.Add<Image>(DarkBackground);
             obj.Add<Mask>();
 
             FillParent(obj);
@@ -270,13 +272,13 @@ namespace DivLib.Core
             var scrollbar = obj.Add<Scrollbar>();
             scrollbar.handleRect = obj.Get<RectTransform>(HandleTag);
             scrollbar.targetGraphic = obj.Get<Image>(HandleTag);
-            scrollbar.direction = Scrollbar.Direction.RightToLeft;
+            scrollbar.direction = Scrollbar.Direction.LeftToRight;
             scrollbar.size = 1;
             
             var rect = obj.Rect;
-            rect.pivot = Vector2.one;
-            rect.anchorMin = new Vector2(1, 0);
+            rect.anchorMin = new Vector2(0, 0);
             rect.anchorMax = new Vector2(1, 0);
+            rect.pivot = Vector2.zero;
             rect.sizeDelta = new Vector2(0, 3);
         }
 
@@ -291,9 +293,9 @@ namespace DivLib.Core
             scrollbar.size = 1;
 
             var rect = obj.Rect;
-            rect.pivot = Vector2.one;
             rect.anchorMin = new Vector2(1, 0);
             rect.anchorMax = new Vector2(1, 1);
+            rect.pivot = Vector2.one;
             rect.sizeDelta = new Vector2(3, 0);
         }
 
@@ -309,8 +311,6 @@ namespace DivLib.Core
             rect.pivot = new Vector2(.5f, .5f);
             rect.sizeDelta = Vector2.zero;
             rect.anchoredPosition = Vector2.zero;
-            // rect.sizeDelta = new Vector2(10, 10);
-            // rect.anchoredPosition = new Vector2(10, 10);
         }
 
         private void HandleParts(Fusion obj)

@@ -100,7 +100,7 @@ namespace DivLib.Core
             }
             
             child.Parent = this;
-            if (child.transform != transform) child.transform.SetParent(transform, instantPositioning);
+            if (child.transform != transform) child.transform.SetParent(transform, false);
             if (instantPositioning) _newChildren.Push(child);
             ChildrenPositioned = false;
         }
