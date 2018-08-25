@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FusionLib.Core;
+#if UNITY_EDITOR
+using UnityEditor.Callbacks;
+#endif
 using UnityEngine;
 
 namespace DivLib.Core
@@ -29,8 +32,9 @@ namespace DivLib.Core
             _div = GetComponent<Div>();
             _div.Style = LayoutStyle.Vertical;
         }
-        
-        [UnityEditor.Callbacks.DidReloadScripts]
+
+#if UNITY_EDITOR
+        [DidReloadScripts]
         private static void OnScriptsReloaded()
         {
             // if (!Application.isFocused) return;
@@ -39,6 +43,7 @@ namespace DivLib.Core
                 instance.Reload();
             }
         }
+#endif
 
         [ContextMenu("Reload")]
         public void Reload()
