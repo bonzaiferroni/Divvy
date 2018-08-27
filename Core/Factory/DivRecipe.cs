@@ -187,6 +187,18 @@ namespace DivLib.Core
         }
         
         /*
+         * IconButton
+         */
+
+        public void IconButtonParts(Fusion obj)
+        {
+            var div = obj.Add<Div>();
+            div.MinSize.Set(LineHeight, LineHeight);
+            var image = obj.Add<Image>();
+            obj.Add<Button>().targetGraphic = image;
+        }
+        
+        /*
          * Label
          */
         
