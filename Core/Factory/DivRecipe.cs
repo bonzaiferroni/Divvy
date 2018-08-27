@@ -146,7 +146,7 @@ namespace DivLib.Core
             FillParent(obj);
         }
 
-        private void InputChildParts(Fusion obj)
+        public void InputChildParts(Fusion obj)
         {
             obj.NewChild(TextAreaTag, TextAreaParts);
             
