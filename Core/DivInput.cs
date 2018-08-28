@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace DivLib.Core
 {
-    [RequireComponent(typeof(Image))]
     public class DivInput : Element
     {
         [SerializeField] private bool _interactable = true;
