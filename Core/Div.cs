@@ -113,6 +113,44 @@ namespace DivLib.Core
             Children.Remove(child);
         }
         
+        public Element GetChild(string objectTag)
+        {
+            foreach (var child in Children)
+            {
+                if (child.name == objectTag) return child;
+            }
+            
+            foreach (var child in Children)
+            {
+                var div = child as Div;
+                if (div == null) continue;
+                var grandChild = div.GetChild(objectTag);
+                if (grandChild == null) continue;
+                return grandChild;
+            }
+
+            return null;
+        }
+
+        public T GetChild<T>(string objectTag) where T : Element
+        {
+            foreach (var child in Children)
+            {
+                if (child.name == objectTag && child is T) return child as T;
+            }
+            
+            foreach (var child in Children)
+            {
+                var div = child as Div;
+                if (div == null) continue;
+                var grandChild = div.GetChild<T>(objectTag);
+                if (grandChild == null) continue;
+                return grandChild;
+            }
+
+            return null;
+        }
+        
         // Position Children
 
         private void PositionChildren(bool instant)
