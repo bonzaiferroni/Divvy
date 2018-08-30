@@ -17,7 +17,7 @@
             SetVisibility(!IsVisible);
         }
 
-        public override void SetVisibility(bool isVisible)
+        public override void SetVisibility(bool isVisible, bool instant = false)
         {
             IsVisible = isVisible;
             Modify(isVisible);

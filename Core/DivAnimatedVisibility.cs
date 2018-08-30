@@ -67,13 +67,8 @@ namespace DivLib.Core
             
             VisibilityChangeHandler(IsVisible);
         }
-
-        public override void SetVisibility(bool isVisible)
-        {
-            SetVisibility(isVisible, false);
-        }
         
-        public void SetVisibility(bool show, bool instant)
+        public override void SetVisibility(bool show, bool instant = false)
         {
             var target = show ? 1 : 0;
             SetVisibility(target, instant);

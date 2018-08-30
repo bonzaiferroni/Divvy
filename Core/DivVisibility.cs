@@ -15,7 +15,7 @@ namespace DivLib.Core
         public abstract void Show();
         public abstract void Hide();
         public abstract void Toggle();
-        public abstract void SetVisibility(bool isVisible);
+        public abstract void SetVisibility(bool isVisible, bool instant = false);
         
         public bool IsVisible
         {
