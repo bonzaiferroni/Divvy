@@ -52,7 +52,7 @@ namespace DivLib.Core
             tmp.autoSizeTextContainer = false;
             tmp.faceColor = TextColor;
             // TODO: Fix fontsize / line height relationship in client code
-            tmp.fontSize = LineHeight - 14;
+            tmp.fontSize = LineHeight * .5f;
         }
         
         /*
