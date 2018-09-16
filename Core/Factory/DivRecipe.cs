@@ -207,7 +207,9 @@ namespace DivLib.Core
         public void LabelParts(Fusion obj)
         {
             obj.Add<DivText>();
-            obj.Add<TextMeshProUGUI>(StyleText).text = "Label";
+            var label = obj.Add<TextMeshProUGUI>(StyleText);
+            label.text = "Label";
+            label.enableWordWrapping = false;
         }
         
         /*
