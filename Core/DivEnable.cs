@@ -1,21 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace DivLib.Core
 {
     public class DivEnable : DivInstantVisibility
     {
-        [SerializeField] private Graphic _graphic;
+        [SerializeField] private List<Graphic> _items = new List<Graphic>();
 
-        public Graphic Graphic
+        public void Add(Graphic graphic)
         {
-            get { return _graphic; }
-            set { _graphic = value; }
+            _items.Add(graphic);
         }
 
         protected override void Modify(bool isVisible)
         {
-            Graphic.enabled = isVisible;
+            foreach (var item in _items)
+            {
+                item.enabled = isVisible;
+            }
         }
     }
 }

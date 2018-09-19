@@ -1,4 +1,5 @@
-﻿using FusionLib.Core;
+﻿using System;
+using FusionLib.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
