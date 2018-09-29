@@ -23,11 +23,6 @@ namespace DivLib.Core
             set { _isVisible = value; }
         }
 
-        private void Start()
-        {
-            // if (!_initialized) Init();
-        }
-
         public virtual void Init()
         {
             SetVisibility(IsVisible);

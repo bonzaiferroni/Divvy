@@ -5,7 +5,7 @@ namespace DivLib.Core
     [RequireComponent(typeof(CanvasGroup))]
     public class DivFade : DivAnimatedVisibility
     {
-        private CanvasGroup _canvasGroup;
+        [SerializeField] private CanvasGroup _canvasGroup;
 
         public override void Init()
         {

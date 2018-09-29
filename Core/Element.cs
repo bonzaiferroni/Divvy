@@ -2,15 +2,13 @@
 
 namespace DivLib.Core
 {
-	[ExecuteInEditMode]
+	
 	[RequireComponent(typeof(RectTransform))]
 	public class Element : MonoBehaviour
 	{
 		[SerializeField] private bool _expandSelf;
 		public Spacing Margin;
 		
-		protected bool Initialized;
-
 		public DivVisibility Visibility { get; private set; }
 		public bool IsVisible { get; private set; }
 		public RectTransform Rect { get; private set; }
@@ -36,11 +34,6 @@ namespace DivLib.Core
 			set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
 		}
 
-		private void Start()
-		{
-			if (!Initialized) Init();
-		}
-
 		public virtual void Init()
 		{
 			Visibility = GetComponent<DivVisibility>();
@@ -58,19 +51,6 @@ namespace DivLib.Core
 			Rect = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition();
 			Position.Init(Rect);
-			
-			Initialized = true;
-		}
-
-		private void Update()
-		{
-#if UNITY_EDITOR
-			if (!Application.isPlaying && Parent == null)
-			{
-				Init();
-			}
-#endif
-			if (Parent == null) UpdatePosition(!Application.isPlaying);
 		}
 
 		public virtual void UpdatePosition(bool instant)
