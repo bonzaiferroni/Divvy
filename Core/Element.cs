@@ -59,7 +59,6 @@ namespace DivLib.Core
 			Position = new DivAnimatedPosition();
 			Position.Init(Rect);
 			
-			Rect.pivot = Rect.anchorMin = Rect.anchorMax = new Vector2(0, 1);
 			Initialized = true;
 		}
 
@@ -76,7 +75,7 @@ namespace DivLib.Core
 
 		public virtual void UpdatePosition(bool instant)
 		{
-			Position.TransportSelf(instant);
+			if (Parent != null) Position.TransportSelf(instant);
 		}
 
 		private void OnVisibilityChange(bool isVisible)
@@ -96,6 +95,11 @@ namespace DivLib.Core
 		{
 			// not sure if this is correct
 			Width = width - (Margin.Right + Margin.Left);
+		}
+
+		public void SetPivot(Vector2 childPivot)
+		{
+			Rect.pivot = Rect.anchorMin = Rect.anchorMax = childPivot;
 		}
 	}
 

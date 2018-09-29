@@ -9,13 +9,14 @@ namespace DivLib.Core
     {
         public Spacing Padding;
         public Dimensions MinSize;
+        public Vector2 ChildOrientation;
         public float Spacing;
         public LayoutStyle Style;
         public bool ExpandChildren;
         
         [SerializeField] private bool _reversed;
         [SerializeField] private float _lineHeight = -1;
-        
+
         private float _newHeight;
         private float _newWidth;
         private readonly Stack<Element> _newChildren = new Stack<Element>();
@@ -100,6 +101,7 @@ namespace DivLib.Core
             }
             
             child.Parent = this;
+            child.SetPivot(ChildOrientation);
             if (child.transform != transform) child.transform.SetParent(transform, false);
             if (instantPositioning) _newChildren.Push(child);
             ChildrenPositioned = false;
@@ -182,13 +184,15 @@ namespace DivLib.Core
             var count = 0;
 
             var enumerable = Reversed ? Reverse() : Children;
+
+            var yAnchorFactor = ChildOrientation.y == 0 ? 1 : -1;
             
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
                 heightSum += child.Margin.Top;
                 var xPos = Padding.Left + child.Margin.Left;
-                child.Position.SetTargetPosition(new Vector2(xPos, -heightSum), instant);
+                child.Position.SetTargetPosition(new Vector2(xPos, heightSum * yAnchorFactor), instant);
                 heightSum += child.Height + child.Margin.Bottom;
                 var width = child.Margin.Left + child.Width + child.Margin.Right;
                 if (width > maxWidth) maxWidth = width;
