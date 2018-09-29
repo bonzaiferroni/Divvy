@@ -5,7 +5,7 @@ namespace DivLib.Core
 {
     public class DivText : Element
     {
-        private TextMeshProUGUI _label;
+        [SerializeField] private TextMeshProUGUI _label;
 
         public override float Width
         {
