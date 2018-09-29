@@ -178,22 +178,24 @@ namespace DivLib.Core
         private void PositionVertical(bool instant)
         {
             if (Style != LayoutStyle.Vertical) return;
+
+            var topToBottom = ChildOrientation.y > 0; 
             
-            var heightSum = Padding.Top;
+            var heightSum = topToBottom ? Padding.Top : Padding.Bottom;
             var maxWidth = 0f;
             var count = 0;
 
             var enumerable = Reversed ? Reverse() : Children;
 
-            var yAnchorFactor = ChildOrientation.y == 0 ? 1 : -1;
+            var yOrientation = topToBottom ? -1 : 1;
             
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                heightSum += child.Margin.Top;
+                heightSum += topToBottom ? child.Margin.Top : child.Margin.Bottom;
                 var xPos = Padding.Left + child.Margin.Left;
-                child.Position.SetTargetPosition(new Vector2(xPos, heightSum * yAnchorFactor), instant);
-                heightSum += child.Height + child.Margin.Bottom;
+                child.Position.SetTargetPosition(new Vector2(xPos, heightSum * yOrientation), instant);
+                heightSum += child.Height + (topToBottom ? child.Margin.Bottom : child.Margin.Top);
                 var width = child.Margin.Left + child.Width + child.Margin.Right;
                 if (width > maxWidth) maxWidth = width;
                 count++;
@@ -201,7 +203,7 @@ namespace DivLib.Core
                 if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
             }
 
-            heightSum += Padding.Bottom;
+            heightSum += topToBottom ? Padding.Bottom : Padding.Top;
 
             while (_expand.Count > 0)
             {
@@ -216,19 +218,23 @@ namespace DivLib.Core
         {
             if (Style != LayoutStyle.Horizontal) return;
             
-            var widthSum = Padding.Left;
+            var leftToRight = ChildOrientation.x < 1;
+            
+            var widthSum = leftToRight ? Padding.Left : Padding.Right;
             var maxHeight = 0f;
             var count = 0;
             
             var enumerable = Reversed ? Reverse() : Children;
+            
+            var xOrientation = leftToRight ? 1 : -1;
 
             foreach (var child in enumerable)
             {
                 if (!child.IsVisible) continue;
-                widthSum += child.Margin.Left;
+                widthSum += leftToRight ? child.Margin.Left : child.Margin.Right;
                 var yPos = Padding.Top + child.Margin.Top;
-                child.Position.SetTargetPosition(new Vector2(widthSum, -yPos), instant);
-                widthSum += child.Width + child.Margin.Right;
+                child.Position.SetTargetPosition(new Vector2(widthSum * xOrientation, -yPos), instant);
+                widthSum += child.Width + (leftToRight ? child.Margin.Right : child.Margin.Left);
                 var height = child.Margin.Top + child.Height + child.Margin.Bottom;
                 if (height > maxHeight) maxHeight = height;
                 count++;
@@ -236,7 +242,7 @@ namespace DivLib.Core
                 if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
             }
 
-            widthSum += Padding.Right;
+            widthSum += leftToRight ? Padding.Right : Padding.Left;
             
             while (_expand.Count > 0)
             {
