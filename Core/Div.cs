@@ -9,7 +9,7 @@ namespace DivLib.Core
     {
         public Spacing Padding;
         public Dimensions MinSize;
-        public Vector2 ChildOrientation;
+        public Vector2 ChildOrientation = new Vector2(0, 1);
         public float Spacing;
         public LayoutStyle Style;
         public bool ExpandChildren;
