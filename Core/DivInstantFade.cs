@@ -3,7 +3,7 @@
 namespace DivLib.Core
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class DivFade : DivAnimatedVisibility
+    public class DivInstantFade : DivInstantVisibility
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 
@@ -13,9 +13,9 @@ namespace DivLib.Core
             base.Init();
         }
 
-        protected override void Modify(float amount)
+        protected override void Modify(bool isVisible)
         {
-            _canvasGroup.alpha = amount;
+            _canvasGroup.alpha = isVisible ? 1 : 0;
             if (IsVisible)
             {
                 if (!_canvasGroup.blocksRaycasts) _canvasGroup.blocksRaycasts = true;

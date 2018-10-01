@@ -11,7 +11,7 @@ namespace DivLib.Core
 
         public bool[] ChildVisibility;
         
-        private void Start()
+        private void Awake()
         {
             if (Div == null) Div = GetComponent<Div>();
 
