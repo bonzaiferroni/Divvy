@@ -36,7 +36,7 @@ namespace DivLib.Core
             }
         }
 
-        public override void Init()
+        internal override void Init()
         {
             _image = GetComponent<Image>(); // needs to come before base.Init()
             _image.preserveAspect = true;

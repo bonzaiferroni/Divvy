@@ -48,7 +48,7 @@ namespace DivLib.Core
 
         // life cycle  
 
-        public override void Init()
+        internal override void Init()
         {
             base.Init();
             FindChildren();
@@ -63,7 +63,6 @@ namespace DivLib.Core
                 var childTransform = transform.GetChild(i);
                 var child = childTransform.GetComponent<Element>();
                 if (child == null) continue;
-                child.Init();
                 AddChild(child);
             }
             ChildrenPositioned = false;
@@ -90,6 +89,7 @@ namespace DivLib.Core
         
         public void AddChild(Element child, int index = -1, bool instantPositioning = true)
         {
+            if (!child.Initialized) child.Init();
             if (child.Parent) child.Parent.RemoveChild(child);
             if (index >= 0)
             {

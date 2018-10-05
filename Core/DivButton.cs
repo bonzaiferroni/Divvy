@@ -13,7 +13,7 @@ namespace DivLib.Core
         public Image Image => _button.image;
         public Button Button => _button;
 
-        public override void Init()
+        internal override void Init()
         {
             _image = GetComponent<Image>();
             _button = GetComponent<Button>();

@@ -14,7 +14,7 @@ namespace DivLib.Core
             set { _content = value; }
         }
 
-        public override void Init()
+        internal override void Init()
         {
             base.Init();
             Content.Parent = this;

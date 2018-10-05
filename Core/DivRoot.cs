@@ -11,6 +11,8 @@ namespace DivLib.Core
 
         public bool[] ChildVisibility;
         
+        public bool Initialized { get; private set; }
+        
         private void Awake()
         {
             if (Div == null) Div = GetComponent<Div>();
@@ -36,8 +38,10 @@ namespace DivLib.Core
             }
         }
 
-        private void Initialize()
+        public void Initialize()
         {
+            if (Initialized) return;
+            Initialized = true;
             Div.Init();
             Div.UpdatePosition(true);
 

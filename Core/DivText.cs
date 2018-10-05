@@ -51,7 +51,7 @@ namespace DivLib.Core
             }
         }
 
-        public override void Init()
+        internal override void Init()
         {
             _label = GetComponent<TextMeshProUGUI>(); // needs to come before base.Init()
             base.Init();

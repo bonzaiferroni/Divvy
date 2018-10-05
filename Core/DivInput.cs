@@ -57,7 +57,7 @@ namespace DivLib.Core
             }
         }
 
-        public override void Init()
+        internal override void Init()
         {
             _input = GetComponentInChildren<TMP_InputField>();
             _image = GetComponent<Image>();

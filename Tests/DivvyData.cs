@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Divvy.Tests
+namespace DivLib.Tests
 {
     public class DivvyData
     {
@@ -14,6 +14,7 @@ namespace Divvy.Tests
             RootObject.transform.SetParent(Canvas.transform);
             StandardizeRect(RootObject);
             RootParent = RootObject.AddComponent<Div>();
+            RootObject.AddComponent<DivRoot>().Initialize();
             for (var i = 0; i < subCount; i++)
             {
                 var horizontalParentGo = new GameObject("HorizontalParent_" + i, typeof(RectTransform));
@@ -30,8 +31,6 @@ namespace Divvy.Tests
                     layoutGo.transform.SetParent(horizontalParentGo.transform);
                 }
             }
-
-            RootParent.Init();
         }
 
         private void StandardizeRect(GameObject rootObject)

@@ -15,6 +15,8 @@ namespace DivLib.Core
 		public DivPosition Position { get; private set; }
 		
 		public Div Parent { get; set; }
+		
+		public bool Initialized { get; private set; }
 
 		public bool ExpandSelf
 		{
@@ -34,7 +36,7 @@ namespace DivLib.Core
 			set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
 		}
 
-		public virtual void Init()
+		internal virtual void Init()
 		{
 			Visibility = GetComponent<DivVisibility>();
 			if (Visibility)
@@ -51,6 +53,7 @@ namespace DivLib.Core
 			Rect = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition();
 			Position.Init(Rect);
+			Initialized = true;
 		}
 
 		public virtual void UpdatePosition(bool instant)

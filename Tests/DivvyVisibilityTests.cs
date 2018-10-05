@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DivLib.Core;
+using DivLib.Tests;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
