@@ -15,15 +15,16 @@ namespace DivLib.Core
         
         private void Awake()
         {
-            if (Div == null) Div = GetComponent<Div>();
-
             if (Application.isPlaying)
             {
                 Initialize();
             }
+            else
+            {
+                if (Div == null) Div = GetComponent<Div>();
+            }
         }
         
-
         private void Update()
         {
             if (Div == null) return;
@@ -42,10 +43,11 @@ namespace DivLib.Core
         {
             if (Initialized) return;
             Initialized = true;
+            if (Div == null) Div = GetComponent<Div>();
             Div.Init();
             Div.UpdatePosition(true);
 
-            if (ChildVisibility == null) return;
+            if (ChildVisibility == null || Div.Children.Count != ChildVisibility.Length) return;
 
             for (int i = 0; i < Div.Children.Count; i++)
             {
