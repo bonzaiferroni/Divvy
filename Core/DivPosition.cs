@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DivLib.Core
 {
+    [Serializable]
     public abstract class DivPosition
     {
         public Vector2 Target { get; protected set; }

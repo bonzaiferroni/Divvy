@@ -22,6 +22,7 @@ namespace DivLib.Core
             else
             {
                 if (Div == null) Div = GetComponent<Div>();
+                Initialize();
             }
         }
         

@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DivLib.Core
 {
+    [Serializable]
     public class DivAnimatedPosition : DivPosition
     {
         private Vector2 _posRef;

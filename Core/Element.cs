@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DivLib.Core
 {
@@ -53,12 +54,19 @@ namespace DivLib.Core
 			Rect = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition();
 			Position.Init(Rect);
-			Initialized = true;
+			// Initialized = true;
 		}
 
 		public virtual void UpdatePosition(bool instant)
 		{
-			if (Parent != null) Position.TransportSelf(instant);
+			try
+			{
+				if (Parent != null) Position.TransportSelf(instant);
+			}
+			catch (Exception e)
+			{
+				Debug.Log(e);
+			}
 		}
 
 		private void OnVisibilityChange(bool isVisible)

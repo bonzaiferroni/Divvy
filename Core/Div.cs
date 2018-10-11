@@ -63,6 +63,7 @@ namespace DivLib.Core
                 var childTransform = transform.GetChild(i);
                 var child = childTransform.GetComponent<Element>();
                 if (child == null) continue;
+                child.Init();
                 AddChild(child);
             }
             ChildrenPositioned = false;
