@@ -54,7 +54,7 @@ namespace DivLib.Core
 			Rect = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition();
 			Position.Init(Rect);
-			// Initialized = true;
+			Initialized = true;
 		}
 
 		public virtual void UpdatePosition(bool instant)
