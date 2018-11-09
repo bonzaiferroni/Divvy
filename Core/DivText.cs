@@ -32,7 +32,7 @@ namespace DivLib.Core
             {
                 if (_label.text == value) return;
                 _label.text = value;
-                Parent.ChildrenPositioned = false;
+                if (Parent) Parent.ChildrenPositioned = false;
             }
         }
 
