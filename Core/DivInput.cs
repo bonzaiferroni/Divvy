@@ -9,6 +9,7 @@ namespace DivLib.Core
     public class DivInput : Element
     {
         [SerializeField] private bool _interactable = true;
+        [SerializeField] private bool _overrideLineHeight;
         
         private TMP_InputField _input;
         private TextMeshProUGUI _placeHolder;
@@ -16,25 +17,20 @@ namespace DivLib.Core
         private string _lastValue;
         public event Action<string> OnValueChanged;
 
-        public override float Width
+        private Vector2 RectDelta
         {
             get
             {
                 var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
-                Rect.sizeDelta = new Vector2(element.preferredWidth, element.preferredHeight);
-                return element.preferredWidth;
+                var height = _overrideLineHeight ? element.preferredHeight : Parent.LineHeight;
+                Rect.sizeDelta = new Vector2(element.preferredWidth, height);
+                return Rect.sizeDelta;
             }
         }
 
-        public override float Height
-        {
-            get
-            {
-                var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
-                Rect.sizeDelta = new Vector2(element.preferredWidth, element.preferredHeight);
-                return element.preferredHeight;
-            }
-        }
+        public override float Width => RectDelta.x;
+
+        public override float Height => RectDelta.y;
 
         public string Text
         {

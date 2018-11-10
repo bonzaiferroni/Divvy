@@ -16,6 +16,7 @@ namespace DivLib.Core
         public bool ExpandChildren;
         
         [SerializeField] private bool _reversed;
+        [SerializeField] private float _lineHeight = -1;
 
         private float _newHeight;
         private float _newWidth;
@@ -34,6 +35,16 @@ namespace DivLib.Core
                 _reversed = value;
                 ChildrenPositioned = false;
             }
+        }
+        
+        public float LineHeight
+        {
+            get
+            {
+                if (_lineHeight < 0 && Parent != null) return Parent.LineHeight;
+                return _lineHeight;
+            }
+            set { _lineHeight = value; }
         }
 
         // life cycle  

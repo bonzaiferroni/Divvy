@@ -6,24 +6,21 @@ namespace DivLib.Core
     public class DivText : Element
     {
         [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private bool _overrideLineHeight;
 
-        public override float Width
+        private Vector2 RectDelta
         {
             get
             {
-                Rect.sizeDelta = new Vector2(_label.preferredWidth, _label.preferredHeight);
-                return _label.preferredWidth;
+                var height = _overrideLineHeight ? _label.preferredHeight : Parent.LineHeight;
+                Rect.sizeDelta = new Vector2(_label.preferredWidth, height);
+                return Rect.sizeDelta;
             }
         }
 
-        public override float Height
-        {
-            get
-            {
-                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, _label.preferredHeight);
-                return _label.preferredHeight;
-            }
-        }
+        public override float Width => RectDelta.x;
+
+        public override float Height => RectDelta.y;
 
         public string Text
         {
