@@ -20,9 +20,9 @@ namespace DivLib.Core
         {
             get
             {
-                var width = _input.text.Length > 0 ? _input.textComponent.preferredWidth : _placeHolder.preferredWidth;
-                Rect.sizeDelta = new Vector2(width, Parent.LineHeight);
-                return width;
+                var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
+                Rect.sizeDelta = new Vector2(element.preferredWidth, element.preferredHeight);
+                return element.preferredWidth;
             }
         }
 
@@ -30,8 +30,9 @@ namespace DivLib.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.LineHeight);
-                return Parent.LineHeight;
+                var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
+                Rect.sizeDelta = new Vector2(element.preferredWidth, element.preferredHeight);
+                return element.preferredHeight;
             }
         }
 

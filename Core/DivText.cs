@@ -11,7 +11,7 @@ namespace DivLib.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(_label.preferredWidth, Parent.LineHeight);
+                Rect.sizeDelta = new Vector2(_label.preferredWidth, _label.preferredHeight);
                 return _label.preferredWidth;
             }
         }
@@ -20,8 +20,8 @@ namespace DivLib.Core
         {
             get
             {
-                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, Parent.LineHeight);
-                return Parent.LineHeight;
+                Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, _label.preferredHeight);
+                return _label.preferredHeight;
             }
         }
 

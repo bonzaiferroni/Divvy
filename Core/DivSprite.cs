@@ -11,14 +11,7 @@ namespace DivLib.Core
         public Sprite Sprite
         {
             get { return _image.sprite; }
-            set
-            {
-                if (_image.sprite == value) return;
-                _image.sprite = value;
-                Parent.ChildrenPositioned = false;
-                if (_image.sprite == null) Width = Height = 0;
-                else Width = Height = Mathf.Max(Parent.LineHeight, Parent.LineHeight);
-            }
+            set { _image.sprite = value; }
         }
 
         public float Alpha

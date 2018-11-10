@@ -2,11 +2,14 @@
     "name": "DivLib",
     "references": [
         "Unity.TextMeshPro",
-        "Utilities",
-        "FusionLib"
+        "Utilities"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }
