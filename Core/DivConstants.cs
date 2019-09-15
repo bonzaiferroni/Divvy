@@ -1,4 +1,4 @@
-﻿namespace DivLib.Core
+﻿namespace Bonwerk.Divvy.Core
 {
     public static class DivConstants
     {

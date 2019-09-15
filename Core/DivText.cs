@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     public class DivText : Element
     {

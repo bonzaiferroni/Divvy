@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
 	
 	[RequireComponent(typeof(RectTransform))]

@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     public class DivButton : Div
     {

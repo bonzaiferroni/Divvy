@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     public abstract class DivAnimatedVisibility : DivVisibility
     {
         [SerializeField] private float _speed = DivConstants.Speed;
-        
+
         private float _targetRef;
 
         public bool Transitioning { get; private set; }
@@ -14,20 +14,17 @@ namespace DivLib.Core
         public float TargetVisibility { get; private set; }
 
         public event Action<bool> OnFinishedAnimation;
-        
+
         public override void Init()
         {
             SetVisibility(IsVisible, true);
             Initialized = true;
         }
-        
+
         private void Update()
         {
 #if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                SetVisibility(IsVisible, true);
-            }
+            if (!Application.isPlaying) SetVisibility(IsVisible, true);
 #endif
             ModifyVisibility();
         }
@@ -64,10 +61,10 @@ namespace DivLib.Core
                 CurrentVisibility = target;
                 ModifyVisibility();
             }
-            
+
             VisibilityChangeHandler(IsVisible);
         }
-        
+
         public override void SetVisibility(bool show, bool instant = false)
         {
             var target = show ? 1 : 0;

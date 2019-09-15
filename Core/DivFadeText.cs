@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     [RequireComponent(typeof(DivText))]
     public class DivFadeText : DivAnimatedVisibility

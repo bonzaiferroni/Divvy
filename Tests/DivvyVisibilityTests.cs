@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using DivLib.Core;
+using Bonwerk.Divvy.Core;
 using DivLib.Tests;
 using NUnit.Framework;
 using UnityEngine;

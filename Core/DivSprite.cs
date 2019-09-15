@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     [RequireComponent(typeof(Image))]
     public class DivSprite : Element

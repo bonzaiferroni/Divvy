@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     public class DivEnable : DivInstantVisibility
     {

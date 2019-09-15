@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     public class DivScroll : Div
     {

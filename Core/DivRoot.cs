@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DivLib.Core
+namespace Bonwerk.Divvy.Core
 {
     [ExecuteInEditMode]
     public class DivRoot : MonoBehaviour

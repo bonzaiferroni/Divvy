@@ -1,4 +1,4 @@
-﻿using DivLib.Core;
+﻿using Bonwerk.Divvy.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
