@@ -8,11 +8,13 @@ namespace Bonwerk.Divvy.Core.Editor
     {
         // Add a menu item called "Double Mass" to a Rigidbody's context menu.
         [MenuItem("CONTEXT/Div/Add Background")]
-        private static void DoubleMass(MenuCommand command)
+        private static void AddBackground(MenuCommand command)
         {
             Div div = (Div) command.context;
             if (div.GetComponent<Graphic>()) return;
-            div.gameObject.AddComponent<Image>();
+            var image = div.gameObject.AddComponent<Image>();
+            image.color = Color.black;
+            Undo.RegisterCreatedObjectUndo(image, "Add Background");
         }
     }
 }

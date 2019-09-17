@@ -175,8 +175,18 @@ namespace Bonwerk.Divvy.Core
         {
             if (!IsDirty) return;
 
-            PositionVertical(instant);
-            PositionHorizontal(instant);
+            switch (Style)
+            {
+                case LayoutStyle.Vertical:
+                    PositionVertical(instant);
+                    break;
+                case LayoutStyle.Horizontal:
+                    PositionHorizontal(instant);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             FinishNewChildren();
 
             IsDirty = false;
@@ -190,7 +200,6 @@ namespace Bonwerk.Divvy.Core
             
             var yPosition = topToBottom ? Padding.Top : Padding.Bottom;
             var maxWidth = 0f;
-            var count = 0;
 
             var yOrientation = topToBottom ? -1 : 1;
 
@@ -205,8 +214,7 @@ namespace Bonwerk.Divvy.Core
                 yPosition += child.Height + (topToBottom ? child.Margin.Bottom : child.Margin.Top);
                 var width = child.Margin.Left + child.Width + child.Margin.Right;
                 if (width > maxWidth) maxWidth = width;
-                count++;
-                if (count < Children.Count) yPosition += Spacing;
+                if (i + 1 < Children.Count) yPosition += Spacing;
                 if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 
@@ -229,7 +237,6 @@ namespace Bonwerk.Divvy.Core
             
             var xPosition = leftToRight ? Padding.Left : Padding.Right;
             var maxHeight = 0f;
-            var count = 0;
             
             var xOrientation = leftToRight ? 1 : -1;
 
@@ -244,8 +251,7 @@ namespace Bonwerk.Divvy.Core
                 xPosition += child.Width + (leftToRight ? child.Margin.Right : child.Margin.Left);
                 var height = child.Margin.Top + child.Height + child.Margin.Bottom;
                 if (height > maxHeight) maxHeight = height;
-                count++;
-                if (count < Children.Count) xPosition += Spacing;
+                if (i + 1 < Children.Count) xPosition += Spacing;
                 if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 

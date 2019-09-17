@@ -23,6 +23,19 @@ namespace Bonwerk.Divvy.Core.Editor
             Selection.activeObject = go;
         }
         
+        [MenuItem("GameObject/Divvy/Div", false, 10)]
+        private static void CreateDiv(MenuCommand menuCommand)
+        {
+            // Create a custom game object
+            GameObject go = new GameObject("Div");
+            go.AddComponent<Div>();
+            // Ensure it gets reparented if this was a context click (otherwise does nothing)
+            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
+        
         [MenuItem("GameObject/Divvy/Text", false, 10)]
         private static void CreateText(MenuCommand menuCommand)
         {
