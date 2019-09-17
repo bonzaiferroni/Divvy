@@ -13,6 +13,11 @@ namespace Bonwerk.Divvy.Core
             set => _div = value;
         }
 
+        private void Awake()
+        {
+            Init();
+        }
+
         private void Update()
         {
             if (Application.isPlaying)
@@ -21,8 +26,16 @@ namespace Bonwerk.Divvy.Core
             }
             else
             {
+                Init();
                 UpdateWhileStopped();
             }
+        }
+
+        public void Init()
+        {
+            Div = GetComponent<Div>();
+            if (!Div) return;
+            Div.Init();
         }
 
         private void UpdateWhilePlaying()
@@ -33,9 +46,8 @@ namespace Bonwerk.Divvy.Core
 
         private void UpdateWhileStopped()
         {
-            Div = GetComponent<Div>();
+            
             if (!Div) return;
-            Div.Init();
             Div.UpdatePosition(true);
         }
     }
