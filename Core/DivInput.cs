@@ -23,8 +23,8 @@ namespace Bonwerk.Divvy.Core
             {
                 var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
                 var height = _overrideLineHeight ? element.preferredHeight : Parent.LineHeight;
-                Rect.sizeDelta = new Vector2(element.preferredWidth, height);
-                return Rect.sizeDelta;
+                Transform.sizeDelta = new Vector2(element.preferredWidth, height);
+                return Transform.sizeDelta;
             }
         }
 
@@ -40,7 +40,7 @@ namespace Bonwerk.Divvy.Core
                 if (_input.text == value) return;
                 _lastValue = value;
                 _input.text = value;
-                Parent.ChildrenPositioned = false;
+                Parent.IsDirty = true;
             }
         }
 
@@ -54,8 +54,9 @@ namespace Bonwerk.Divvy.Core
             }
         }
 
-        internal override void Init()
+        protected override void Construct()
         {
+            base.Construct();
             _input = GetComponentInChildren<TMP_InputField>();
             _image = GetComponent<Image>();
             _placeHolder = _input.placeholder as TextMeshProUGUI;
@@ -63,13 +64,12 @@ namespace Bonwerk.Divvy.Core
             _input.onSubmit.AddListener(OnSubmit);
             _input.onDeselect.AddListener(OnSubmit);
             
-            base.Init();
             UpdateInteractable(Interactable);
         }
 
         private void _OnValueChanged(string str)
         {
-            Parent.ChildrenPositioned = false;
+            Parent.IsDirty = true;
         }
 
         private void OnSubmit(string str)

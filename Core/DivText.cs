@@ -13,8 +13,8 @@ namespace Bonwerk.Divvy.Core
             get
             {
                 var height = _overrideLineHeight ? _label.preferredHeight : Parent.LineHeight;
-                Rect.sizeDelta = new Vector2(_label.preferredWidth, height);
-                return Rect.sizeDelta;
+                Transform.sizeDelta = new Vector2(_label.preferredWidth, height);
+                return Transform.sizeDelta;
             }
         }
 
@@ -29,7 +29,7 @@ namespace Bonwerk.Divvy.Core
             {
                 if (_label.text == value) return;
                 _label.text = value;
-                if (Parent) Parent.ChildrenPositioned = false;
+                if (Parent) Parent.IsDirty = true;
             }
         }
 
@@ -48,10 +48,10 @@ namespace Bonwerk.Divvy.Core
             }
         }
 
-        internal override void Init()
+        protected override void Construct()
         {
-            _label = GetComponent<TextMeshProUGUI>(); // needs to come before base.Init()
-            base.Init();
+            base.Construct();
+            _label = GetComponent<TextMeshProUGUI>(); 
         }
     }
 }

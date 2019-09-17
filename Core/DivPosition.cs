@@ -6,6 +6,12 @@ namespace Bonwerk.Divvy.Core
     [Serializable]
     public abstract class DivPosition
     {
+        public DivPosition(RectTransform rect)
+        {
+            Rect = rect;
+            Transported = false;
+        }
+        
         public Vector2 Target { get; protected set; }
         public RectTransform Rect { get; private set; }
         public bool Transported { get; protected set; }
@@ -17,12 +23,6 @@ namespace Bonwerk.Divvy.Core
         }
 
         public abstract void TransportSelf(bool instant);
-        
-        public void Init(RectTransform rect)
-        {
-            Rect = rect;
-            Transported = false;
-        }
         
         public void SetTargetPosition(Vector2 position, bool instant)
         {

@@ -29,11 +29,11 @@ namespace Bonwerk.Divvy.Core
             }
         }
 
-        internal override void Init()
+        protected override void Construct()
         {
-            _image = GetComponent<Image>(); // needs to come before base.Init()
+            base.Construct();
+            _image = GetComponent<Image>();
             _image.preserveAspect = true;
-            base.Init();
         }
     }
 }

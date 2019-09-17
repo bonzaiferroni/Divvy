@@ -8,6 +8,10 @@ namespace Bonwerk.Divvy.Core
     {
         private Vector2 _posRef;
         
+        public DivAnimatedPosition(RectTransform rect) : base(rect)
+        {
+        }
+        
         public override void TransportSelf(bool instant)
         {
             if (Transported) return;

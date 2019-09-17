@@ -5,83 +5,38 @@ namespace Bonwerk.Divvy.Core
     [ExecuteInEditMode]
     public class DivRoot : MonoBehaviour
     {
-        [Header("Root Div")] public Div Div;
+        [Header("Root Div")] [SerializeField] private Div _div;
 
-        public int ChildCount;
-
-        public bool[] ChildVisibility;
-        
-        public bool Initialized { get; private set; }
-        
-        private void Awake()
+        public Div Div
         {
-            if (Application.isPlaying)
-            {
-                Initialize();
-            }
-            else
-            {
-                if (Div == null) Div = GetComponent<Div>();
-                Initialize();
-            }
+            get => _div;
+            set => _div = value;
         }
-        
+
         private void Update()
         {
-            if (Div == null) return;
-
             if (Application.isPlaying)
             {
-                Div.UpdatePosition(false);
+                UpdateWhilePlaying();
             }
             else
             {
-                EditorUpdate();
+                UpdateWhileStopped();
             }
         }
 
-        public void Initialize()
+        private void UpdateWhilePlaying()
         {
-            if (Initialized) return;
-            Initialized = true;
-            if (Div == null) Div = GetComponent<Div>();
-            Div.Init();
-            Div.UpdatePosition(true);
-
-            if (ChildVisibility == null || Div.Children.Count != ChildVisibility.Length) return;
-
-            for (int i = 0; i < Div.Children.Count; i++)
-            {
-                var visible = ChildVisibility[i];
-                if (visible) continue;
-                var child = Div.Children[i];
-                child.Visibility.SetVisibility(false, true);
-            }
+            if (!Div) return;
+            Div.UpdatePosition(false);
         }
 
-        private void EditorUpdate()
+        private void UpdateWhileStopped()
         {
+            Div = GetComponent<Div>();
+            if (!Div) return;
             Div.Init();
             Div.UpdatePosition(true);
-
-            if (Div.Children.Count == ChildCount) return;
-            ChildCount = Div.Children.Count;
-
-            var previous = ChildVisibility;
-
-            ChildVisibility = new bool[ChildCount];
-
-            for (int i = 0; i < ChildCount; i++)
-            {
-                if (previous != null && i < previous.Length)
-                {
-                    ChildVisibility[i] = previous[i];
-                }
-                else
-                {
-                    ChildVisibility[i] = true;
-                }
-            }
         }
     }
 }

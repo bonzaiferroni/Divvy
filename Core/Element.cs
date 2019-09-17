@@ -5,41 +5,52 @@ namespace Bonwerk.Divvy.Core
 {
 	
 	[RequireComponent(typeof(RectTransform))]
-	public class Element : MonoBehaviour
+	public class Element : MonoBehaviour, IElement
 	{
+		[Header("Element")]
 		[SerializeField] private bool _expandSelf;
-		public Spacing Margin;
+		[SerializeField] private Spacing _margin;
 		
-		public DivVisibility Visibility { get; private set; }
 		public bool IsVisible { get; private set; }
-		public RectTransform Rect { get; private set; }
-		public DivPosition Position { get; private set; }
+		public bool Initialized { get; private set; }
 		
 		public Div Parent { get; set; }
-		
-		public bool Initialized { get; private set; }
+		public DivVisibility Visibility { get; private set; }
+		public RectTransform Transform { get; private set; }
+		public DivPosition Position { get; private set; }
 
-		public bool ExpandSelf
+		public string Name => gameObject.name;
+		
+		public Spacing Margin
 		{
-			get { return _expandSelf; }
-			set { _expandSelf = value; }
+			get => _margin;
+			set => _margin = value;
+		}
+		
+		public bool Expand
+		{
+			get => _expandSelf;
+			set => _expandSelf = value;
 		}
 		
 		public virtual float Width
 		{
-			get { return Rect.sizeDelta.x; }
-			set { Rect.sizeDelta = new Vector2(value, Rect.sizeDelta.y); }
+			get => Transform.sizeDelta.x;
+			set => Transform.sizeDelta = new Vector2(value, Transform.sizeDelta.y);
 		}
 
 		public virtual float Height
 		{
-			get { return Rect.sizeDelta.y; }
-			set { Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, value); }
+			get => Transform.sizeDelta.y;
+			set => Transform.sizeDelta = new Vector2(Transform.sizeDelta.x, value);
 		}
 
-		internal virtual void Init()
+		public void Init()
 		{
-			Visibility = GetComponent<DivVisibility>();
+			Initialized = true;
+
+			Construct();
+			
 			if (Visibility)
 			{
 				IsVisible = Visibility.IsVisible;
@@ -50,23 +61,18 @@ namespace Bonwerk.Divvy.Core
 			{
 				IsVisible = true;
 			}
+		}
 
-			Rect = GetComponent<RectTransform>();
-			Position = new DivAnimatedPosition();
-			Position.Init(Rect);
-			Initialized = true;
+		protected virtual void Construct()
+		{
+			Visibility = GetComponent<DivVisibility>();
+			Transform = GetComponent<RectTransform>();
+			Position = new DivAnimatedPosition(Transform);
 		}
 
 		public virtual void UpdatePosition(bool instant)
 		{
-			try
-			{
-				if (Parent != null) Position.TransportSelf(instant);
-			}
-			catch (Exception e)
-			{
-				Debug.Log(e);
-			}
+			if (!Parent) Position.TransportSelf(instant);
 		}
 
 		private void OnVisibilityChange(bool isVisible)
@@ -74,7 +80,7 @@ namespace Bonwerk.Divvy.Core
 			if (isVisible == IsVisible) return;
 			IsVisible = isVisible;
 			if (Parent == null) return;
-			Parent.ChildrenPositioned = false;
+			Parent.IsDirty = true;
 		}
 
 		public virtual void FinishTransport()
@@ -82,15 +88,14 @@ namespace Bonwerk.Divvy.Core
 			Position.FinishTransport();
 		}
 
-		public virtual void ExpandWidth(float width)
+		public virtual void ExpandWidth(float parentWidth)
 		{
-			// not sure if this is correct
-			Width = width - (Margin.Right + Margin.Left);
+			Width = parentWidth - (Margin.Right + Margin.Left);
 		}
 
 		public void SetPivot(Vector2 childPivot)
 		{
-			Rect.pivot = Rect.anchorMin = Rect.anchorMax = childPivot;
+			Transform.pivot = Transform.anchorMin = Transform.anchorMax = childPivot;
 		}
 	}
 

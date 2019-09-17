@@ -13,9 +13,9 @@ namespace Bonwerk.Divvy.Core
             set { _content = value; }
         }
 
-        internal override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             Content.Parent = this;
             Content.Init();
             Children.Add(Content);

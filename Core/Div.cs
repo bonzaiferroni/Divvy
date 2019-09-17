@@ -7,32 +7,47 @@ namespace Bonwerk.Divvy.Core
     [ExecuteInEditMode]
     public class Div : Element
     {
-        public Spacing Padding;
-        public Dimensions MinSize;
-        public Vector2 ChildOrientation = new Vector2(0, 1);
-        public float Spacing;
-        public LayoutStyle Style;
-        public bool ExpandChildren;
+        private readonly Stack<IElement> _newChildren = new Stack<IElement>();
+        private readonly Stack<IElement> _expand = new Stack<IElement>();
         
-        [SerializeField] private bool _reversed;
+        [Header("Div")]
+        [SerializeField] private Spacing _padding;
+        [SerializeField] private Dimensions _minSize;
+        [SerializeField] private bool _reverseOrder;
+        [SerializeField] private bool _expandChildren;
         [SerializeField] private float _lineHeight = -1;
+        [SerializeField] private float _spacing;
+        [SerializeField] private Vector2 _childOrientation = new Vector2(0, 1);
+        [SerializeField] private LayoutStyle _style;
+        
+        public List<IElement> Children { get; } = new List<IElement>();
+        
+        public bool IsDirty { get; set; }
+		
+        public Spacing Padding => _padding;
 
-        private float _newHeight;
-        private float _newWidth;
-        private readonly Stack<Element> _newChildren = new Stack<Element>();
-        private readonly Stack<Element> _expand = new Stack<Element>();
+        public Dimensions MinSize => _minSize;
 
-        public List<Element> Children { get; } = new List<Element>();
-        public bool ChildrenPositioned { get; set; }
+        public Vector2 ChildOrientation => _childOrientation;
 
-        public bool Reversed
+        public float Spacing => _spacing;
+
+        public bool ExpandChildren => _expandChildren;
+
+        public LayoutStyle Style
         {
-            get { return _reversed; }
+            get => _style;
+            set => _style = value;
+        }
+
+        public bool ReverseOrder
+        {
+            get { return _reverseOrder; }
             set
             {
-                if (_reversed == value) return;
-                _reversed = value;
-                ChildrenPositioned = false;
+                if (_reverseOrder == value) return;
+                _reverseOrder = value;
+                IsDirty = true;
             }
         }
         
@@ -48,9 +63,9 @@ namespace Bonwerk.Divvy.Core
 
         // life cycle  
 
-        internal override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             FindChildren();
         }
 
@@ -61,12 +76,12 @@ namespace Bonwerk.Divvy.Core
             for (var i = 0; i < transform.childCount; i++)
             {
                 var childTransform = transform.GetChild(i);
-                var child = childTransform.GetComponent<Element>();
+                var child = childTransform.GetComponent<IElement>();
                 if (child == null) continue;
                 child.Init();
                 AddChild(child);
             }
-            ChildrenPositioned = false;
+            IsDirty = true;
         }
 
         public override void UpdatePosition(bool instant)
@@ -81,14 +96,14 @@ namespace Bonwerk.Divvy.Core
         
         // public
 
-        public void AddAfter(Element child, Element afterChild)
+        public void AddAfter(IElement child, IElement afterChild)
         {
             var index = Children.IndexOf(afterChild);
             if (index < 0) throw new Exception("Didn't find child to insert after");
             AddChild(child, index + 1);
         }
         
-        public void AddChild(Element child, int index = -1, bool instantPositioning = true)
+        public void AddChild(IElement child, int index = -1, bool instantPositioning = true)
         {
             if (!child.Initialized) child.Init();
             if (child.Parent) child.Parent.RemoveChild(child);
@@ -103,24 +118,24 @@ namespace Bonwerk.Divvy.Core
             
             child.Parent = this;
             child.SetPivot(ChildOrientation);
-            if (child.transform != transform) child.transform.SetParent(transform, false);
+            if (child.Transform != transform) child.Transform.SetParent(transform, false);
             if (instantPositioning) _newChildren.Push(child);
-            ChildrenPositioned = false;
+            IsDirty = true;
         }
 
-        public void RemoveChild(Element child)
+        public void RemoveChild(IElement child)
         {
             if (child.Parent != this) throw new Exception("Cannot remove child with a different parent");
             child.Parent = null;
-            ChildrenPositioned = false;
+            IsDirty = true;
             Children.Remove(child);
         }
         
-        public Element GetChild(string objectTag)
+        public IElement GetChild(string objectTag)
         {
             foreach (var child in Children)
             {
-                if (child.name == objectTag) return child;
+                if (child.Name == objectTag) return child;
             }
             
             foreach (var child in Children)
@@ -139,7 +154,7 @@ namespace Bonwerk.Divvy.Core
         {
             foreach (var child in Children)
             {
-                if (child.name == objectTag && child is T) return child as T;
+                if (child.Name == objectTag && child is T) return child as T;
             }
             
             foreach (var child in Children)
@@ -158,22 +173,13 @@ namespace Bonwerk.Divvy.Core
 
         private void PositionChildren(bool instant)
         {
-            if (ChildrenPositioned) return;
+            if (!IsDirty) return;
 
             PositionVertical(instant);
             PositionHorizontal(instant);
             FinishNewChildren();
 
-            ChildrenPositioned = true;
-        }
-
-        public IEnumerable<Element> Reverse()
-        {
-            for (int i = Children.Count - 1; i >= 0; i--)
-            {
-                var child = Children[i];
-                yield return child;
-            }
+            IsDirty = false;
         }
 
         private void PositionVertical(bool instant)
@@ -182,29 +188,29 @@ namespace Bonwerk.Divvy.Core
 
             var topToBottom = ChildOrientation.y > 0; 
             
-            var heightSum = topToBottom ? Padding.Top : Padding.Bottom;
+            var yPosition = topToBottom ? Padding.Top : Padding.Bottom;
             var maxWidth = 0f;
             var count = 0;
 
-            var enumerable = Reversed ? Reverse() : Children;
-
             var yOrientation = topToBottom ? -1 : 1;
-            
-            foreach (var child in enumerable)
+
+            for (var i = 0; i < Children.Count; i++)
             {
+                var index = ReverseOrder ? Children.Count - i - 1 : i;
+                var child = Children[index];
                 if (!child.IsVisible) continue;
-                heightSum += topToBottom ? child.Margin.Top : child.Margin.Bottom;
+                yPosition += topToBottom ? child.Margin.Top : child.Margin.Bottom;
                 var xPos = Padding.Left + child.Margin.Left;
-                child.Position.SetTargetPosition(new Vector2(xPos, heightSum * yOrientation), instant);
-                heightSum += child.Height + (topToBottom ? child.Margin.Bottom : child.Margin.Top);
+                child.Position.SetTargetPosition(new Vector2(xPos, yPosition * yOrientation), instant);
+                yPosition += child.Height + (topToBottom ? child.Margin.Bottom : child.Margin.Top);
                 var width = child.Margin.Left + child.Width + child.Margin.Right;
                 if (width > maxWidth) maxWidth = width;
                 count++;
-                if (count < Children.Count) heightSum += Spacing;
-                if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
+                if (count < Children.Count) yPosition += Spacing;
+                if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 
-            heightSum += topToBottom ? Padding.Bottom : Padding.Top;
+            yPosition += topToBottom ? Padding.Bottom : Padding.Top;
 
             while (_expand.Count > 0)
             {
@@ -212,7 +218,7 @@ namespace Bonwerk.Divvy.Core
                 child.ExpandWidth(maxWidth);
             }
 
-            AdjustSize(maxWidth + Padding.Left + Padding.Right, heightSum);
+            AdjustSize(maxWidth + Padding.Left + Padding.Right, yPosition);
         }
 
         private void PositionHorizontal(bool instant)
@@ -221,29 +227,29 @@ namespace Bonwerk.Divvy.Core
             
             var leftToRight = ChildOrientation.x < 1;
             
-            var widthSum = leftToRight ? Padding.Left : Padding.Right;
+            var xPosition = leftToRight ? Padding.Left : Padding.Right;
             var maxHeight = 0f;
             var count = 0;
             
-            var enumerable = Reversed ? Reverse() : Children;
-            
             var xOrientation = leftToRight ? 1 : -1;
 
-            foreach (var child in enumerable)
+            for (var i = 0; i < Children.Count; i++)
             {
+                var index = ReverseOrder ? Children.Count - i - 1 : i;
+                var child = Children[index];
                 if (!child.IsVisible) continue;
-                widthSum += leftToRight ? child.Margin.Left : child.Margin.Right;
+                xPosition += leftToRight ? child.Margin.Left : child.Margin.Right;
                 var yPos = Padding.Top + child.Margin.Top;
-                child.Position.SetTargetPosition(new Vector2(widthSum * xOrientation, -yPos), instant);
-                widthSum += child.Width + (leftToRight ? child.Margin.Right : child.Margin.Left);
+                child.Position.SetTargetPosition(new Vector2(xPosition * xOrientation, -yPos), instant);
+                xPosition += child.Width + (leftToRight ? child.Margin.Right : child.Margin.Left);
                 var height = child.Margin.Top + child.Height + child.Margin.Bottom;
                 if (height > maxHeight) maxHeight = height;
                 count++;
-                if (count < Children.Count) widthSum += Spacing;
-                if (ExpandChildren || child.ExpandSelf) _expand.Push(child);
+                if (count < Children.Count) xPosition += Spacing;
+                if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 
-            widthSum += leftToRight ? Padding.Right : Padding.Left;
+            xPosition += leftToRight ? Padding.Right : Padding.Left;
             
             while (_expand.Count > 0)
             {
@@ -251,7 +257,7 @@ namespace Bonwerk.Divvy.Core
                 child.Height = maxHeight - (child.Margin.Top + child.Margin.Bottom);
             }
 
-            AdjustSize(widthSum, maxHeight + Padding.Top + Padding.Bottom);
+            AdjustSize(xPosition, maxHeight + Padding.Top + Padding.Bottom);
         }
 
         private void FinishNewChildren()
@@ -279,7 +285,7 @@ namespace Bonwerk.Divvy.Core
             if (width == Width && height == Height) return;
             Width = width;
             Height = height;
-            if (Parent) Parent.ChildrenPositioned = false;
+            if (Parent) Parent.IsDirty = true;
         }
 
         public override void ExpandWidth(float width)
@@ -290,60 +296,6 @@ namespace Bonwerk.Divvy.Core
             {
                 child.ExpandWidth(width - (Padding.Left + Padding.Right));
             }
-        }
-
-        public void SetAsLast()
-        {
-            Parent.Children.Remove(this);
-            Parent.Children.Add(this);
-            Parent.ChildrenPositioned = false;
-        }
-    }
-
-    [Serializable]
-    public struct Spacing
-    {
-        public float Top;
-        public float Right;
-        public float Bottom;
-        public float Left;
-
-        public void Set(float all)
-        {
-            Top = Right = Bottom = Left = all;
-        }
-
-        public void Set(float topBottom, float leftRight)
-        {
-            Top = Bottom = topBottom;
-            Left = Right = leftRight;
-        }
-
-        public void Set(float top, float right, float bottom, float left)
-        {
-            Top = top;
-            Right = right;
-            Bottom = bottom;
-            Left = left;
-        }
-    }
-    
-    [Serializable]
-    public struct Dimensions
-    {
-        public float Width;
-        public float Height;
-
-        public Dimensions(float width, float height)
-        {
-            Width = width;
-            Height = height;
-        }
-
-        public void Set(float width, float height)
-        {
-            Width = width;
-            Height = height;
         }
     }
 }

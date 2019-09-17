@@ -12,11 +12,10 @@ namespace Bonwerk.Divvy.Core
         // public Image Image => _button.image;
         public Button Button => _button;
 
-        internal override void Init()
+        protected override void Construct()
         {
-            // _image = GetComponent<Image>();
+            base.Construct();
             _button = GetComponent<Button>();
-            base.Init();
         }
 
         public void AddListener(UnityAction action)
