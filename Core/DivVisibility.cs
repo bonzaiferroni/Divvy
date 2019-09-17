@@ -8,10 +8,9 @@ namespace Bonwerk.Divvy.Core
     {
         [SerializeField] private bool _isVisible = true;
         
-        protected bool Initialized;
-        
         public event Action<bool> OnVisibilityChange;
 
+        public abstract void Init();
         public abstract void Show();
         public abstract void Hide();
         public abstract void Toggle();
@@ -20,13 +19,7 @@ namespace Bonwerk.Divvy.Core
         public bool IsVisible
         {
             get { return _isVisible; }
-            set { _isVisible = value; }
-        }
-
-        public virtual void Init()
-        {
-            SetVisibility(IsVisible);
-            Initialized = true;
+            protected set { _isVisible = value; }
         }
 
         protected void VisibilityChangeHandler(bool isVisible)

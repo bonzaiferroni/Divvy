@@ -18,14 +18,10 @@ namespace Bonwerk.Divvy.Core
         public override void Init()
         {
             SetVisibility(IsVisible, true);
-            Initialized = true;
         }
 
         private void Update()
         {
-#if UNITY_EDITOR
-            if (!Application.isPlaying) SetVisibility(IsVisible, true);
-#endif
             ModifyVisibility();
         }
 
@@ -52,6 +48,8 @@ namespace Bonwerk.Divvy.Core
             if (float.IsNaN(target)) target = 0;
             target = Mathf.Clamp(target, 0, 1);
 
+            if (target == TargetVisibility) return;
+            
             IsVisible = target > 0;
             TargetVisibility = target;
             Transitioning = true;

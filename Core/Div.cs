@@ -63,9 +63,9 @@ namespace Bonwerk.Divvy.Core
 
         // life cycle  
 
-        protected override void Construct()
+        public override void Init()
         {
-            base.Construct();
+            base.Init();
             FindChildren();
         }
 
@@ -105,7 +105,6 @@ namespace Bonwerk.Divvy.Core
         
         public void AddChild(IElement child, int index = -1, bool instantPositioning = true)
         {
-            if (!child.Initialized) child.Init();
             if (child.Parent) child.Parent.RemoveChild(child);
             if (index >= 0)
             {

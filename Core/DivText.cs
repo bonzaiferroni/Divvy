@@ -48,9 +48,9 @@ namespace Bonwerk.Divvy.Core
             }
         }
 
-        protected override void Construct()
+        public override void Init()
         {
-            base.Construct();
+            base.Init();
             _label = GetComponent<TextMeshProUGUI>(); 
         }
     }

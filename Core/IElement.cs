@@ -4,7 +4,6 @@ namespace Bonwerk.Divvy.Core
 {
     public interface IElement
     {
-        bool Initialized { get; }
         bool IsVisible { get; }
         Div Parent { get; set; }
         RectTransform Transform { get; }

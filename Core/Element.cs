@@ -10,9 +10,8 @@ namespace Bonwerk.Divvy.Core
 		[Header("Element")]
 		[SerializeField] private bool _expandSelf;
 		[SerializeField] private Spacing _margin;
-		
-		public bool IsVisible { get; private set; }
-		public bool Initialized { get; private set; }
+
+		public bool IsVisible => !Visibility || Visibility.IsVisible;
 		
 		public Div Parent { get; set; }
 		public DivVisibility Visibility { get; private set; }
@@ -45,29 +44,17 @@ namespace Bonwerk.Divvy.Core
 			set => Transform.sizeDelta = new Vector2(Transform.sizeDelta.x, value);
 		}
 
-		public void Init()
-		{
-			Initialized = true;
-
-			Construct();
-			
-			if (Visibility)
-			{
-				IsVisible = Visibility.IsVisible;
-				Visibility.OnVisibilityChange += OnVisibilityChange;
-				Visibility.Init();
-			}
-			else
-			{
-				IsVisible = true;
-			}
-		}
-
-		protected virtual void Construct()
+		public virtual void Init()
 		{
 			Visibility = GetComponent<DivVisibility>();
 			Transform = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition(Transform);
+			
+			if (Visibility)
+			{
+				Visibility.OnVisibilityChange += OnVisibilityChange;
+				Visibility.Init();
+			}
 		}
 
 		public virtual void UpdatePosition(bool instant)
@@ -77,8 +64,6 @@ namespace Bonwerk.Divvy.Core
 
 		private void OnVisibilityChange(bool isVisible)
 		{
-			if (isVisible == IsVisible) return;
-			IsVisible = isVisible;
 			if (Parent == null) return;
 			Parent.IsDirty = true;
 		}

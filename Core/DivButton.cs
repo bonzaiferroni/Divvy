@@ -12,9 +12,9 @@ namespace Bonwerk.Divvy.Core
         // public Image Image => _button.image;
         public Button Button => _button;
 
-        protected override void Construct()
+        public override void Init()
         {
-            base.Construct();
+            base.Init();
             _button = GetComponent<Button>();
         }
 
