@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Bonwerk.Divvy.Data;
+using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
     public class DivScroll : Div
     {

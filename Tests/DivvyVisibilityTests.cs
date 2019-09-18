@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Bonwerk.Divvy.Core;
+using Bonwerk.Divvy.Visibility;
 using DivLib.Tests;
 using NUnit.Framework;
 using UnityEngine;

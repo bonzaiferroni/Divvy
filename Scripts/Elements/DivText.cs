@@ -1,7 +1,8 @@
-﻿using TMPro;
+﻿using Bonwerk.Divvy.Core;
+using TMPro;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
     public class DivText : Element
     {

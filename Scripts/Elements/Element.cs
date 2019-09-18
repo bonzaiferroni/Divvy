@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Bonwerk.Divvy.Core;
+using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Positioning;
+using Bonwerk.Divvy.Visibility;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
 	
 	[RequireComponent(typeof(RectTransform))]

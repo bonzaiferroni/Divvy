@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Visibility
 {
     public class DivFadeGraphic : DivAnimatedVisibility
     {

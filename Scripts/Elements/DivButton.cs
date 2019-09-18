@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
     public class DivButton : Div
     {

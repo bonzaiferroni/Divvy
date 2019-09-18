@@ -1,6 +1,6 @@
 using System;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Data
 {
     [Serializable]
     public struct Spacing

@@ -1,7 +1,9 @@
 ﻿using System;
+using Bonwerk.Divvy.Core;
+using Bonwerk.Divvy.Data;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Visibility
 {
     public abstract class DivAnimatedVisibility : DivVisibility
     {

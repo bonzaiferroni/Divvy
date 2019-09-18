@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
+using Bonwerk.Divvy.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
     public class DivInput : Element
     {

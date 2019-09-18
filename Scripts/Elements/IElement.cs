@@ -1,6 +1,9 @@
+using Bonwerk.Divvy.Core;
+using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Positioning;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
     public interface IElement
     {

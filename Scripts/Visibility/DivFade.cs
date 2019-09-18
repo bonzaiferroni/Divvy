@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Visibility
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class DivFade : DivAnimatedVisibility

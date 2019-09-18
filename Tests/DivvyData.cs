@@ -1,4 +1,6 @@
 ﻿using Bonwerk.Divvy.Core;
+using Bonwerk.Divvy.Elements;
+using Bonwerk.Divvy.Visibility;
 using UnityEngine;
 using UnityEngine.UI;
 

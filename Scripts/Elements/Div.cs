@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bonwerk.Divvy.Core;
+using Bonwerk.Divvy.Data;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Elements
 {
     [ExecuteInEditMode]
     public class Div : Element

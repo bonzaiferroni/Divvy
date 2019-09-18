@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Bonwerk.Divvy.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Visibility
 {
     public class DivEnable : DivInstantVisibility
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Positioning
 {
     [Serializable]
     public abstract class DivPosition

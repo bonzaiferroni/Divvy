@@ -1,4 +1,4 @@
-﻿namespace Bonwerk.Divvy.Core
+﻿namespace Bonwerk.Divvy.Data
 {
     public static class DivConstants
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy.Visibility
 {
     public class DivScale : DivAnimatedVisibility
     {
