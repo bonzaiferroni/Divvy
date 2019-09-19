@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Visibility
 {
-    [RequireComponent(typeof(DivText))]
+    [RequireComponent(typeof(TextElement))]
     public class DivFadeText : DivAnimatedVisibility
     {
-        public DivText Label { get; private set; }
+        public TextElement Label { get; private set; }
         
         public override void Init()
         {
-            Label = GetComponent<DivText>(); // needs to come before base.Init() because Label is referenced
+            Label = GetComponent<TextElement>(); // needs to come before base.Init() because Label is referenced
             base.Init();
         }
 

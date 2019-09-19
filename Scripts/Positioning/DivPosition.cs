@@ -9,7 +9,6 @@ namespace Bonwerk.Divvy.Positioning
         public DivPosition(RectTransform rect)
         {
             Rect = rect;
-            Transported = false;
         }
         
         public Vector2 Target { get; protected set; }

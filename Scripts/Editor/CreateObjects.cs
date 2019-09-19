@@ -15,7 +15,7 @@ namespace Bonwerk.Divvy.Editor
         {
             // Create a custom game object
             GameObject go = new GameObject("DivRoot");
-            go.AddComponent<Div>().LineHeight = 30;
+            go.AddComponent<Div>();
             go.AddComponent<DivRoot>();
             // Ensure it gets reparented if this was a context click (otherwise does nothing)
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
@@ -50,10 +50,9 @@ namespace Bonwerk.Divvy.Editor
             
             // Create a custom game object
             GameObject go = new GameObject("Text");
-            go.AddComponent<DivText>();
+            go.AddComponent<TextElement>();
             var text = go.AddComponent<TextMeshProUGUI>();
             text.text = "Text";
-            text.fontSize = div.LineHeight;
             // Ensure it gets reparented if this was a context click (otherwise does nothing)
             GameObjectUtility.SetParentAndAlign(go, parent);
             // Register the creation in the undo system
@@ -76,10 +75,9 @@ namespace Bonwerk.Divvy.Editor
             GameObject go = new GameObject("Header");
             TagHelper.AddTag("Header");
             go.tag = "Header";
-            go.AddComponent<DivText>();
+            go.AddComponent<TextElement>();
             var text = go.AddComponent<TextMeshProUGUI>();
             text.text = "Header";
-            text.fontSize = div.LineHeight;
             // Ensure it gets reparented if this was a context click (otherwise does nothing)
             GameObjectUtility.SetParentAndAlign(go, parent);
             // Register the creation in the undo system

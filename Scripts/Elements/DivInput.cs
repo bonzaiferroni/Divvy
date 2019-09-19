@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Bonwerk.Divvy.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,13 +17,17 @@ namespace Bonwerk.Divvy.Elements
         private Image _image;
         private string _lastValue;
         public event Action<string> OnValueChanged;
+        
+        public override bool Expand { get; }
+        public override Spacing Margin { get; }
+        public override Spacing Padding { get; }
 
         private Vector2 RectDelta
         {
             get
             {
                 var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
-                var height = _overrideLineHeight ? element.preferredHeight : Parent.LineHeight;
+                var height = element.preferredHeight;
                 Transform.sizeDelta = new Vector2(element.preferredWidth, height);
                 return Transform.sizeDelta;
             }

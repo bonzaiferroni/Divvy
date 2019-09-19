@@ -7,13 +7,11 @@ namespace Bonwerk.Divvy.Styling
     {
         [Header("Element")]
         [SerializeField] private Spacing _margin;
-        [SerializeField] private float _height;
-        [SerializeField] private float _width;
+        [SerializeField] private Spacing _padding;
         [SerializeField] private bool _expand;
 
         public Spacing Margin => _margin;
-        public float Height => _height;
-        public float Width => _width;
+        public Spacing Padding => _padding;
         public bool Expand => _expand;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Bonwerk.Divvy.Data;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
@@ -7,6 +8,10 @@ namespace Bonwerk.Divvy.Elements
     public class DivSprite : Element
     {
         private Image _image;
+        
+        public override bool Expand { get; }
+        public override Spacing Margin { get; }
+        public override Spacing Padding { get; }
 
         public Sprite Sprite
         {

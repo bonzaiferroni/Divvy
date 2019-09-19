@@ -21,7 +21,7 @@ namespace DivLib.Tests
             {
                 var horizontalParentGo = new GameObject("HorizontalParent_" + i, typeof(RectTransform));
                 StandardizeRect(horizontalParentGo);
-                horizontalParentGo.AddComponent<Div>().Style = LayoutStyle.Horizontal;
+                horizontalParentGo.AddComponent<Div>();
                 horizontalParentGo.transform.SetParent(RootObject.transform);
                 for (var j = 0; j < subCount; j++)
                 {

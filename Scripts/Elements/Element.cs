@@ -10,10 +10,6 @@ namespace Bonwerk.Divvy.Elements
 	[RequireComponent(typeof(RectTransform))]
 	public abstract class Element : MonoBehaviour, IElement
 	{
-		[Header("Element")]
-		[SerializeField] private bool _expandSelf;
-		[SerializeField] private Spacing _margin;
-
 		public bool IsVisible => !Visibility || Visibility.IsVisible;
 		
 		public Div Parent { get; set; }
@@ -21,32 +17,24 @@ namespace Bonwerk.Divvy.Elements
 		public DivVisibility Visibility { get; private set; }
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
+		
+		public abstract Spacing Margin { get; }
+		public abstract Spacing Padding { get; }
+		public abstract bool Expand { get; }
 
 		public string Name => gameObject.name;
 		public string Tag => gameObject.tag;
-		
-		public Spacing Margin
-		{
-			get => _margin;
-			set => _margin = value;
-		}
-		
-		public bool Expand
-		{
-			get => _expandSelf;
-			set => _expandSelf = value;
-		}
 
 		public virtual float Width
 		{
 			get => Transform.sizeDelta.x;
-			set => Transform.sizeDelta = new Vector2(value, Transform.sizeDelta.y);
+			set => Transform.sizeDelta = new Vector2(value, Height);
 		}
 
 		public virtual float Height
 		{
 			get => Transform.sizeDelta.y;
-			set => Transform.sizeDelta = new Vector2(Transform.sizeDelta.x, value);
+			set => Transform.sizeDelta = new Vector2(Width, value);
 		}
 
 		public virtual void Init()
@@ -83,13 +71,19 @@ namespace Bonwerk.Divvy.Elements
 			Width = parentWidth - (Margin.Right + Margin.Left);
 		}
 
-		public void SetPivot(Vector2 childPivot)
+		public virtual void ExpandHeight(float parentHeight)
 		{
-			Transform.pivot = Transform.anchorMin = Transform.anchorMax = childPivot;
+			Height = parentHeight - (Margin.Top + Margin.Bottom);
+		}
+
+		public void SetPivot(Vector2 pivot)
+		{
+			if (Transform.pivot == pivot) return;
+			Transform.pivot = Transform.anchorMin = Transform.anchorMax = pivot;
 		}
 	}
 
-	public enum LayoutStyle
+	public enum LayoutType
 	{
 		Vertical,
 		Horizontal,

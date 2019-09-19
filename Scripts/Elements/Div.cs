@@ -10,40 +10,33 @@ namespace Bonwerk.Divvy.Elements
     [ExecuteInEditMode]
     public class Div : Element
     {
+        [SerializeField] private DivStyle _style;
+        [SerializeField] private bool _reverseOrder;
+        
         private readonly Stack<IElement> _newChildren = new Stack<IElement>();
         private readonly Stack<IElement> _expand = new Stack<IElement>();
-        
-        [Header("Div")]
-        [SerializeField] private Spacing _padding;
-        [SerializeField] private Dimensions _minSize;
-        [SerializeField] private bool _reverseOrder;
-        [SerializeField] private bool _expandChildren;
-        [SerializeField] private float _lineHeight = -1;
-        [SerializeField] private float _spacing;
-        [SerializeField] private Vector2 _childOrientation = new Vector2(0, 1);
-        [SerializeField] private LayoutStyle _style;
         
         public List<IElement> Children { get; } = new List<IElement>();
         
         public bool IsDirty { get; set; }
 
         public Image BackgroundImage { get; private set; }
-		
-        public Spacing Padding => _padding;
 
-        public Dimensions MinSize => _minSize;
+        public override Spacing Margin => _style.Margin;
 
-        public Vector2 ChildOrientation => _childOrientation;
+        public override Spacing Padding => _style.Padding;
+        
+        public override bool Expand => _style.Expand;
 
-        public float Spacing => _spacing;
+        public Dimensions MinSize => _style.MinSize;
 
-        public bool ExpandChildren => _expandChildren;
+        public Vector2 ChildOrientation => _style.ChildOrientation;
 
-        public LayoutStyle Style
-        {
-            get => _style;
-            set => _style = value;
-        }
+        public float Spacing => _style.Spacing;
+
+        public bool ExpandChildren => _style.ExpandChildren;
+
+        public LayoutType Layout => _style.Layout;
 
         public bool ReverseOrder
         {
@@ -54,16 +47,6 @@ namespace Bonwerk.Divvy.Elements
                 _reverseOrder = value;
                 IsDirty = true;
             }
-        }
-        
-        public float LineHeight
-        {
-            get
-            {
-                if (_lineHeight < 0 && Parent != null) return Parent.LineHeight;
-                return _lineHeight;
-            }
-            set { _lineHeight = value; }
         }
 
         // life cycle  
@@ -122,7 +105,6 @@ namespace Bonwerk.Divvy.Elements
             }
             
             child.Parent = this;
-            child.SetPivot(ChildOrientation);
             if (child.Transform != transform) child.Transform.SetParent(transform, false);
             if (instantPositioning) _newChildren.Push(child);
             IsDirty = true;
@@ -180,12 +162,12 @@ namespace Bonwerk.Divvy.Elements
         {
             if (!IsDirty) return;
 
-            switch (Style)
+            switch (Layout)
             {
-                case LayoutStyle.Vertical:
+                case LayoutType.Vertical:
                     PositionVertical(instant);
                     break;
-                case LayoutStyle.Horizontal:
+                case LayoutType.Horizontal:
                     PositionHorizontal(instant);
                     break;
                 default:
@@ -199,31 +181,27 @@ namespace Bonwerk.Divvy.Elements
 
         private void PositionVertical(bool instant)
         {
-            if (Style != LayoutStyle.Vertical) return;
+            if (Layout != LayoutType.Vertical) return;
 
-            var topToBottom = ChildOrientation.y > 0; 
-            
-            var yPosition = topToBottom ? Padding.Top : Padding.Bottom;
+            var yPosition = Padding.Top;
             var maxWidth = 0f;
-
-            var yOrientation = topToBottom ? -1 : 1;
 
             for (var i = 0; i < Children.Count; i++)
             {
                 var index = ReverseOrder ? Children.Count - i - 1 : i;
                 var child = Children[index];
                 if (!child.IsVisible) continue;
-                yPosition += topToBottom ? child.Margin.Top : child.Margin.Bottom;
+                yPosition += child.Margin.Top;
                 var xPos = Padding.Left + child.Margin.Left;
-                child.Position.SetTargetPosition(new Vector2(xPos, yPosition * yOrientation), instant);
-                yPosition += child.Height + (topToBottom ? child.Margin.Bottom : child.Margin.Top);
+                child.Position.SetTargetPosition(new Vector2(xPos, yPosition), instant);
+                yPosition += child.Height + child.Margin.Bottom;
                 var width = child.Margin.Left + child.Width + child.Margin.Right;
                 if (width > maxWidth) maxWidth = width;
                 if (i + 1 < Children.Count) yPosition += Spacing;
                 if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 
-            yPosition += topToBottom ? Padding.Bottom : Padding.Top;
+            yPosition += Padding.Bottom;
 
             while (_expand.Count > 0)
             {
@@ -236,36 +214,33 @@ namespace Bonwerk.Divvy.Elements
 
         private void PositionHorizontal(bool instant)
         {
-            if (Style != LayoutStyle.Horizontal) return;
-            
-            var leftToRight = ChildOrientation.x < 1;
-            
-            var xPosition = leftToRight ? Padding.Left : Padding.Right;
+            if (Layout != LayoutType.Horizontal) return;
+
+            var xPosition = Padding.Left;
             var maxHeight = 0f;
             
-            var xOrientation = leftToRight ? 1 : -1;
-
             for (var i = 0; i < Children.Count; i++)
             {
                 var index = ReverseOrder ? Children.Count - i - 1 : i;
                 var child = Children[index];
                 if (!child.IsVisible) continue;
-                xPosition += leftToRight ? child.Margin.Left : child.Margin.Right;
+                child.SetPivot(ChildOrientation);
+                xPosition += child.Margin.Left;
                 var yPos = Padding.Top + child.Margin.Top;
-                child.Position.SetTargetPosition(new Vector2(xPosition * xOrientation, -yPos), instant);
-                xPosition += child.Width + (leftToRight ? child.Margin.Right : child.Margin.Left);
+                child.Position.SetTargetPosition(new Vector2(xPosition, -yPos), instant);
+                xPosition += child.Width + child.Margin.Right;
                 var height = child.Margin.Top + child.Height + child.Margin.Bottom;
                 if (height > maxHeight) maxHeight = height;
                 if (i + 1 < Children.Count) xPosition += Spacing;
                 if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 
-            xPosition += leftToRight ? Padding.Right : Padding.Left;
+            xPosition += Padding.Right;
             
             while (_expand.Count > 0)
             {
                 var child = _expand.Pop();
-                child.Height = maxHeight - (child.Margin.Top + child.Margin.Bottom);
+                child.ExpandHeight(maxHeight);
             }
 
             AdjustSize(xPosition, maxHeight + Padding.Top + Padding.Bottom);
@@ -302,7 +277,7 @@ namespace Bonwerk.Divvy.Elements
         public override void ExpandWidth(float width)
         {
             base.ExpandWidth(width);
-            if (!ExpandChildren || Style != LayoutStyle.Vertical) return;
+            if (!ExpandChildren || Layout != LayoutType.Vertical) return;
             foreach (var child in Children)
             {
                 child.ExpandWidth(width - (Padding.Left + Padding.Right));

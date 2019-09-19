@@ -1,27 +1,18 @@
-﻿using Bonwerk.Divvy.Styling;
+﻿using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class DivText : Element
+    public class TextElement : Element
     {
         [SerializeField] private TextMeshProUGUI _label;
-        [SerializeField] private bool _overrideLineHeight;
+        [SerializeField] private TextStyle _style;
 
-        private Vector2 RectDelta
-        {
-            get
-            {
-                var height = _overrideLineHeight ? _label.preferredHeight : Parent.LineHeight;
-                Transform.sizeDelta = new Vector2(_label.preferredWidth, height);
-                return Transform.sizeDelta;
-            }
-        }
-
-        public override float Width => RectDelta.x;
-
-        public override float Height => RectDelta.y;
+        public override bool Expand => _style.Expand;
+        public override Spacing Margin => _style.Margin;
+        public override Spacing Padding => _style.Padding;
 
         public string Text
         {
