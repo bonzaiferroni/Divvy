@@ -1,5 +1,4 @@
-﻿using Bonwerk.Divvy.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Bonwerk.Divvy.Visibility
 {

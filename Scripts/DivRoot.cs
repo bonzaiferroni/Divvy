@@ -1,7 +1,7 @@
 ﻿using Bonwerk.Divvy.Elements;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core
+namespace Bonwerk.Divvy
 {
     [ExecuteInEditMode]
     public class DivRoot : MonoBehaviour
@@ -47,7 +47,6 @@ namespace Bonwerk.Divvy.Core
 
         private void UpdateWhileStopped()
         {
-            
             if (!Div) return;
             Div.UpdatePosition(true);
         }

@@ -1,4 +1,4 @@
-﻿using Bonwerk.Divvy.Core;
+﻿using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
 
@@ -25,7 +25,7 @@ namespace Bonwerk.Divvy.Elements
 
         public string Text
         {
-            get { return _label.text; }
+            get => _label.text;
             set
             {
                 if (_label.text == value) return;
@@ -36,17 +36,23 @@ namespace Bonwerk.Divvy.Elements
 
         public float Alpha
         {
-            get { return _label.color.a; }
-            set { _label.color = new Color(_label.color.r, _label.color.g, _label.color.b, value); }
+            get => _label.color.a;
+            set => _label.color = new Color(_label.color.r, _label.color.g, _label.color.b, value);
         }
 
         public bool RaycastTarget
         {
-            get { return _label.raycastTarget; }
+            get => _label.raycastTarget;
             set
             {
                 if (_label.raycastTarget != value) _label.raycastTarget = value;
             }
+        }
+
+        public Color Foreground
+        {
+            get => _label.color;
+            set => _label.color = value;
         }
 
         public override void Init()

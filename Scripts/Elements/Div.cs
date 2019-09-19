@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bonwerk.Divvy.Core;
 using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Styling;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
@@ -25,6 +26,8 @@ namespace Bonwerk.Divvy.Elements
         public List<IElement> Children { get; } = new List<IElement>();
         
         public bool IsDirty { get; set; }
+
+        public Image BackgroundImage { get; private set; }
 		
         public Spacing Padding => _padding;
 
@@ -69,9 +72,10 @@ namespace Bonwerk.Divvy.Elements
         {
             base.Init();
             FindChildren();
+            BackgroundImage = GetComponent<Image>();
         }
 
-        public void FindChildren()
+        private void FindChildren()
         {
             Children.Clear();
             _newChildren.Clear();

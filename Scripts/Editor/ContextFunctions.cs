@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Core.Editor
+namespace Bonwerk.Divvy.Editor
 {
     public static class ContextFunctions
     {

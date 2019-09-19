@@ -1,5 +1,4 @@
-﻿using Bonwerk.Divvy.Core;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements

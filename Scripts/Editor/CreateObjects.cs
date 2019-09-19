@@ -3,7 +3,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Core.Editor
+namespace Bonwerk.Divvy.Editor
 {
     public static class CreateObjects
     {
@@ -52,7 +52,33 @@ namespace Bonwerk.Divvy.Core.Editor
             GameObject go = new GameObject("Text");
             go.AddComponent<DivText>();
             var text = go.AddComponent<TextMeshProUGUI>();
-            text.text = "DivText";
+            text.text = "Text";
+            text.fontSize = div.LineHeight;
+            // Ensure it gets reparented if this was a context click (otherwise does nothing)
+            GameObjectUtility.SetParentAndAlign(go, parent);
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
+        
+        [MenuItem("GameObject/Divvy/Header", false, 10)]
+        private static void CreateHeader(MenuCommand menuCommand)
+        {
+            var parent = menuCommand.context as GameObject;
+            var div = parent.GetComponent<Div>();
+            if (!div)
+            {
+                Debug.Log("Element must have parent");
+                return;
+            }
+            
+            // Create a custom game object
+            GameObject go = new GameObject("Header");
+            TagHelper.AddTag("Header");
+            go.tag = "Header";
+            go.AddComponent<DivText>();
+            var text = go.AddComponent<TextMeshProUGUI>();
+            text.text = "Header";
             text.fontSize = div.LineHeight;
             // Ensure it gets reparented if this was a context click (otherwise does nothing)
             GameObjectUtility.SetParentAndAlign(go, parent);

@@ -1,6 +1,6 @@
-﻿using Bonwerk.Divvy.Core;
-using Bonwerk.Divvy.Data;
+﻿using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Positioning;
+using Bonwerk.Divvy.Styling;
 using Bonwerk.Divvy.Visibility;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Bonwerk.Divvy.Elements
 {
 	
 	[RequireComponent(typeof(RectTransform))]
-	public class Element : MonoBehaviour, IElement
+	public abstract class Element : MonoBehaviour, IElement
 	{
 		[Header("Element")]
 		[SerializeField] private bool _expandSelf;
@@ -17,11 +17,13 @@ namespace Bonwerk.Divvy.Elements
 		public bool IsVisible => !Visibility || Visibility.IsVisible;
 		
 		public Div Parent { get; set; }
+		
 		public DivVisibility Visibility { get; private set; }
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
 
 		public string Name => gameObject.name;
+		public string Tag => gameObject.tag;
 		
 		public Spacing Margin
 		{
@@ -34,7 +36,7 @@ namespace Bonwerk.Divvy.Elements
 			get => _expandSelf;
 			set => _expandSelf = value;
 		}
-		
+
 		public virtual float Width
 		{
 			get => Transform.sizeDelta.x;

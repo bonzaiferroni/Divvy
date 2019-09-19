@@ -1,5 +1,4 @@
 ﻿using System;
-using Bonwerk.Divvy.Core;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Positioning

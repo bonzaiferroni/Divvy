@@ -1,6 +1,4 @@
-﻿using Bonwerk.Divvy.Core;
-
-namespace Bonwerk.Divvy.Visibility
+﻿namespace Bonwerk.Divvy.Visibility
 {
     public abstract class DivInstantVisibility : DivVisibility
     {

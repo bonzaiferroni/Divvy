@@ -1,6 +1,6 @@
-using Bonwerk.Divvy.Core;
 using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Positioning;
+using Bonwerk.Divvy.Styling;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
@@ -8,11 +8,14 @@ namespace Bonwerk.Divvy.Elements
     public interface IElement
     {
         bool IsVisible { get; }
+        string Name { get; }
+        string Tag { get; }
         Div Parent { get; set; }
         RectTransform Transform { get; }
-        string Name { get; }
-        Spacing Margin { get; }
         DivPosition Position { get; }
+        
+        // style
+        Spacing Margin { get; }
         float Height { get; set; }
         float Width { get; set; }
         bool Expand { get; }
