@@ -7,11 +7,15 @@ namespace Bonwerk.Divvy.Elements
     [RequireComponent(typeof(Image))]
     public class DivSprite : Element
     {
+        [SerializeField] private Vector2 _contentSize;
+        
         private Image _image;
         
         public override bool Expand { get; }
         public override Spacing Margin { get; }
         public override Spacing Padding { get; }
+
+        public override Vector2 ContentSize => _contentSize;
 
         public Sprite Sprite
         {

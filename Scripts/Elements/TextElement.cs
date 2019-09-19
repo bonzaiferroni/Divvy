@@ -14,6 +14,8 @@ namespace Bonwerk.Divvy.Elements
         public override Spacing Margin => _style.Margin;
         public override Spacing Padding => _style.Padding;
 
+        public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
+        
         public string Text
         {
             get => _label.text;

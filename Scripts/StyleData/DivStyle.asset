@@ -17,15 +17,13 @@ MonoBehaviour:
     Right: 0
     Bottom: 0
     Left: 0
-  _expand: 0
   _padding:
     Top: 0
     Right: 0
     Bottom: 0
     Left: 0
-  _minSize:
-    Width: 0
-    Height: 0
+  _expand: 0
+  _minSize: {x: 0, y: 0}
   _expandChildren: 0
   _spacing: 0
   _childOrientation: {x: 0, y: 1}

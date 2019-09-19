@@ -22,20 +22,14 @@ namespace Bonwerk.Divvy.Elements
         public override Spacing Margin { get; }
         public override Spacing Padding { get; }
 
-        private Vector2 RectDelta
+        public override Vector2 ContentSize
         {
             get
             {
                 var element = _input.text.Length > 0 ? _input.textComponent : _placeHolder;
-                var height = element.preferredHeight;
-                Transform.sizeDelta = new Vector2(element.preferredWidth, height);
-                return Transform.sizeDelta;
+                return new Vector2(element.preferredWidth, element.preferredHeight);
             }
         }
-
-        public override float Width => RectDelta.x;
-
-        public override float Height => RectDelta.y;
 
         public string Text
         {

@@ -42,13 +42,13 @@ namespace Bonwerk.Divvy
         private void UpdateWhilePlaying()
         {
             if (!Div) return;
-            Div.UpdatePosition(false);
+            Div.Refresh(false);
         }
 
         private void UpdateWhileStopped()
         {
             if (!Div) return;
-            Div.UpdatePosition(true);
+            Div.Refresh(true);
         }
     }
 }

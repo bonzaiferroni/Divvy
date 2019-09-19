@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _margin:
     Top: 0
+    Right: 5
+    Bottom: 0
+    Left: 0
+  _padding:
+    Top: 0
     Right: 0
     Bottom: 0
     Left: 0

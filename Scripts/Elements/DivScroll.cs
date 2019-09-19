@@ -21,25 +21,5 @@ namespace Bonwerk.Divvy.Elements
             Content.Init();
             Children.Add(Content);
         }
-
-        public override float Width
-        {
-            get { return base.Width; }
-            set
-            {
-                if (MaxSize.Width > 0) base.Width = Mathf.Min(MaxSize.Width, value);
-                else base.Width = value;
-            }
-        }
-        
-        public override float Height
-        {
-            get { return base.Height; }
-            set
-            {
-                if (MaxSize.Height > 0) base.Height = Mathf.Min(MaxSize.Height, value);
-                else base.Height = value;
-            }
-        }
     }
 }

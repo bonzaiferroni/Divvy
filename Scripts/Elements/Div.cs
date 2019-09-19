@@ -12,23 +12,27 @@ namespace Bonwerk.Divvy.Elements
     {
         [SerializeField] private DivStyle _style;
         [SerializeField] private bool _reverseOrder;
-        
+
+        private Vector2 _contentSize;
+
         private readonly Stack<IElement> _newChildren = new Stack<IElement>();
         private readonly Stack<IElement> _expand = new Stack<IElement>();
-        
+
         public List<IElement> Children { get; } = new List<IElement>();
-        
-        public bool IsDirty { get; set; }
+
+        public bool IsDirty { get; set; } = true;
 
         public Image BackgroundImage { get; private set; }
+
+        public override Vector2 ContentSize => _contentSize;
 
         public override Spacing Margin => _style.Margin;
 
         public override Spacing Padding => _style.Padding;
-        
+
         public override bool Expand => _style.Expand;
 
-        public Dimensions MinSize => _style.MinSize;
+        public Vector2 MinSize => _style.MinSize;
 
         public Vector2 ChildOrientation => _style.ChildOrientation;
 
@@ -70,19 +74,24 @@ namespace Bonwerk.Divvy.Elements
                 child.Init();
                 AddChild(child);
             }
+
             IsDirty = true;
         }
 
-        public override void UpdatePosition(bool instant)
+        public override void Refresh(bool instant)
         {
+            if (!IsDirty) return;
+            IsDirty = false;
+
             foreach (var child in Children)
             {
-                child.UpdatePosition(instant);
+                child.Refresh(instant);
             }
-            base.UpdatePosition(instant);
+
             PositionChildren(instant);
+            base.Refresh(instant);
         }
-        
+
         // public
 
         public void AddAfter(IElement child, IElement afterChild)
@@ -91,7 +100,7 @@ namespace Bonwerk.Divvy.Elements
             if (index < 0) throw new Exception("Didn't find child to insert after");
             AddChild(child, index + 1);
         }
-        
+
         public void AddChild(IElement child, int index = -1, bool instantPositioning = true)
         {
             if (child.Parent) child.Parent.RemoveChild(child);
@@ -103,7 +112,7 @@ namespace Bonwerk.Divvy.Elements
             {
                 Children.Add(child);
             }
-            
+
             child.Parent = this;
             if (child.Transform != transform) child.Transform.SetParent(transform, false);
             if (instantPositioning) _newChildren.Push(child);
@@ -117,14 +126,14 @@ namespace Bonwerk.Divvy.Elements
             IsDirty = true;
             Children.Remove(child);
         }
-        
+
         public IElement GetChild(string objectTag)
         {
             foreach (var child in Children)
             {
                 if (child.Name == objectTag) return child;
             }
-            
+
             foreach (var child in Children)
             {
                 var div = child as Div;
@@ -143,7 +152,7 @@ namespace Bonwerk.Divvy.Elements
             {
                 if (child.Name == objectTag && child is T) return child as T;
             }
-            
+
             foreach (var child in Children)
             {
                 var div = child as Div;
@@ -155,95 +164,53 @@ namespace Bonwerk.Divvy.Elements
 
             return null;
         }
-        
+
         // Position Children
 
         private void PositionChildren(bool instant)
         {
-            if (!IsDirty) return;
-
-            switch (Layout)
-            {
-                case LayoutType.Vertical:
-                    PositionVertical(instant);
-                    break;
-                case LayoutType.Horizontal:
-                    PositionHorizontal(instant);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
+            SetPositions(instant);
             FinishNewChildren();
-
-            IsDirty = false;
         }
 
-        private void PositionVertical(bool instant)
+        private void SetPositions(bool instant)
         {
-            if (Layout != LayoutType.Vertical) return;
+            var direction = Layout == LayoutType.Horizontal ? Vector2.right : Vector2.down;
+            var childOrientation = Layout == LayoutType.Horizontal
+                ? new Vector2(0, ChildOrientation.y)
+                : new Vector2(ChildOrientation.x, 1);
 
-            var yPosition = Padding.Top;
-            var maxWidth = 0f;
+            var paddingX = (1 - childOrientation.x) * Padding.Left + childOrientation.x * -Padding.Right;
+            var paddingY = (1 - childOrientation.y) * Padding.Bottom + childOrientation.y * -Padding.Top;
 
-            for (var i = 0; i < Children.Count; i++)
+            var paddingPosition = new Vector2(paddingX, paddingY);
+            var position = paddingPosition;
+            var maxSize = Vector2.zero;
+
+            for (int i = 0; i < Children.Count; i++)
             {
                 var index = ReverseOrder ? Children.Count - i - 1 : i;
                 var child = Children[index];
                 if (!child.IsVisible) continue;
-                yPosition += child.Margin.Top;
-                var xPos = Padding.Left + child.Margin.Left;
-                child.Position.SetTargetPosition(new Vector2(xPos, yPosition), instant);
-                yPosition += child.Height + child.Margin.Bottom;
-                var width = child.Margin.Left + child.Width + child.Margin.Right;
-                if (width > maxWidth) maxWidth = width;
-                if (i + 1 < Children.Count) yPosition += Spacing;
+                child.SetPivot(childOrientation);
+                child.SetPosition(position, instant);
+                position += child.Size * direction;
+                maxSize = new Vector2(Mathf.Max(maxSize.x, child.Size.x), Mathf.Max(maxSize.y, child.Size.y));
+                if (i + 1 < Children.Count) position += direction * Spacing;
                 if (ExpandChildren || child.Expand) _expand.Push(child);
             }
 
-            yPosition += Padding.Bottom;
+            var contentSize = position - paddingPosition;
 
             while (_expand.Count > 0)
             {
                 var child = _expand.Pop();
-                child.ExpandWidth(maxWidth);
+                child.ExpandSize(maxSize);
             }
 
-            AdjustSize(maxWidth + Padding.Left + Padding.Right, yPosition);
-        }
-
-        private void PositionHorizontal(bool instant)
-        {
-            if (Layout != LayoutType.Horizontal) return;
-
-            var xPosition = Padding.Left;
-            var maxHeight = 0f;
-            
-            for (var i = 0; i < Children.Count; i++)
-            {
-                var index = ReverseOrder ? Children.Count - i - 1 : i;
-                var child = Children[index];
-                if (!child.IsVisible) continue;
-                child.SetPivot(ChildOrientation);
-                xPosition += child.Margin.Left;
-                var yPos = Padding.Top + child.Margin.Top;
-                child.Position.SetTargetPosition(new Vector2(xPosition, -yPos), instant);
-                xPosition += child.Width + child.Margin.Right;
-                var height = child.Margin.Top + child.Height + child.Margin.Bottom;
-                if (height > maxHeight) maxHeight = height;
-                if (i + 1 < Children.Count) xPosition += Spacing;
-                if (ExpandChildren || child.Expand) _expand.Push(child);
-            }
-
-            xPosition += Padding.Right;
-            
-            while (_expand.Count > 0)
-            {
-                var child = _expand.Pop();
-                child.ExpandHeight(maxHeight);
-            }
-
-            AdjustSize(xPosition, maxHeight + Padding.Top + Padding.Bottom);
+            var contentWidth = Mathf.Max(Mathf.Abs(contentSize.x), maxSize.x, MinSize.x);
+            var contentHeight = Mathf.Max(Mathf.Abs(contentSize.y), maxSize.y, MinSize.y); 
+            AdjustSize(new Vector2(contentWidth, contentHeight));
         }
 
         private void FinishNewChildren()
@@ -261,27 +228,15 @@ namespace Bonwerk.Divvy.Elements
             {
                 child.FinishTransport();
             }
+
             base.FinishTransport();
         }
 
-        private void AdjustSize(float width, float height)
+        private void AdjustSize(Vector2 newSize)
         {
-            width = Mathf.Max(width, MinSize.Width);
-            height = Mathf.Max(height, MinSize.Height);
-            if (width == Width && height == Height) return;
-            Width = width;
-            Height = height;
+            if (newSize == _contentSize) return;
+            _contentSize = newSize;
             if (Parent) Parent.IsDirty = true;
-        }
-
-        public override void ExpandWidth(float width)
-        {
-            base.ExpandWidth(width);
-            if (!ExpandChildren || Layout != LayoutType.Vertical) return;
-            foreach (var child in Children)
-            {
-                child.ExpandWidth(width - (Padding.Left + Padding.Right));
-            }
         }
     }
 }

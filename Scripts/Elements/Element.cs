@@ -17,24 +17,25 @@ namespace Bonwerk.Divvy.Elements
 		public DivVisibility Visibility { get; private set; }
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
-		
+
 		public abstract Spacing Margin { get; }
 		public abstract Spacing Padding { get; }
 		public abstract bool Expand { get; }
+		public abstract Vector2 ContentSize { get; }
 
 		public string Name => gameObject.name;
 		public string Tag => gameObject.tag;
 
-		public virtual float Width
+		public Vector2 Size => PaddedSize + new Vector2(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
+		
+		public Vector2 PaddedSize
 		{
-			get => Transform.sizeDelta.x;
-			set => Transform.sizeDelta = new Vector2(value, Height);
-		}
-
-		public virtual float Height
-		{
-			get => Transform.sizeDelta.y;
-			set => Transform.sizeDelta = new Vector2(Width, value);
+			get => Transform.sizeDelta;
+			protected set
+			{
+				if (value == Transform.sizeDelta) return;
+				Transform.sizeDelta = value;
+			}
 		}
 
 		public virtual void Init()
@@ -50,9 +51,9 @@ namespace Bonwerk.Divvy.Elements
 			}
 		}
 
-		public virtual void UpdatePosition(bool instant)
+		public virtual void Refresh(bool instant)
 		{
-			if (!Parent) Position.TransportSelf(instant);
+			PaddedSize = ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
 		}
 
 		private void OnVisibilityChange(bool isVisible)
@@ -66,20 +67,23 @@ namespace Bonwerk.Divvy.Elements
 			Position.FinishTransport();
 		}
 
-		public virtual void ExpandWidth(float parentWidth)
+		public void SetPosition(Vector2 position, bool instant)
 		{
-			Width = parentWidth - (Margin.Right + Margin.Left);
-		}
-
-		public virtual void ExpandHeight(float parentHeight)
-		{
-			Height = parentHeight - (Margin.Top + Margin.Bottom);
+			var pivot = Transform.pivot;
+			var marginX = (1 - pivot.x) * Margin.Left + pivot.x * -Margin.Right;
+			var marginY = (1 - pivot.y) * Margin.Bottom + pivot.y * -Margin.Top;
+			position += new Vector2(marginX, marginY);
+			Position.SetTargetPosition(position, instant);
 		}
 
 		public void SetPivot(Vector2 pivot)
 		{
-			if (Transform.pivot == pivot) return;
 			Transform.pivot = Transform.anchorMin = Transform.anchorMax = pivot;
+		}
+
+		public virtual void ExpandSize(Vector2 size)
+		{
+			PaddedSize = size - new Vector2(Margin.Right + Margin.Left, Margin.Top + Margin.Bottom);
 		}
 	}
 
@@ -87,6 +91,5 @@ namespace Bonwerk.Divvy.Elements
 	{
 		Vertical,
 		Horizontal,
-		Grid,
 	}
 }

@@ -1,6 +1,3 @@
-using Bonwerk.Divvy.Data;
-using Bonwerk.Divvy.Positioning;
-using Bonwerk.Divvy.Styling;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
@@ -12,20 +9,19 @@ namespace Bonwerk.Divvy.Elements
         string Tag { get; }
         Div Parent { get; set; }
         RectTransform Transform { get; }
-        DivPosition Position { get; }
         
         // style
-        Spacing Margin { get; }
-        Spacing Padding { get; }
-        float Height { get; }
-        float Width { get; }
+        Vector2 Size { get; }
         bool Expand { get; }
         
         void Init();
-        void UpdatePosition(bool instant);
+
+        void Refresh(bool instant);
+        
         void SetPivot(Vector2 orientation);
-        void ExpandWidth(float parentWidth);
-        void ExpandHeight(float maxHeight);
+        void SetPosition(Vector2 position, bool instant);
+        
         void FinishTransport();
+        void ExpandSize(Vector2 maxSize);
     }
 }
