@@ -1,4 +1,5 @@
 ﻿using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Styling;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,7 @@ namespace Bonwerk.Divvy.Elements
         
         private Image _image;
         
-        public override bool Expand { get; }
-        public override Spacing Margin { get; }
-        public override Spacing Padding { get; }
+        public override ElementStyle ElementStyle { get; }
 
         public override Vector2 ContentSize => _contentSize;
 

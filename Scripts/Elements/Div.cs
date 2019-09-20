@@ -23,20 +23,11 @@ namespace Bonwerk.Divvy.Elements
 
         public override Vector2 ContentSize => _contentSize;
 
-        public override Spacing Margin => _style.Margin;
-
-        public override Spacing Padding => _style.Padding;
-
-        public override bool Expand => _style.Expand;
-
+        public override ElementStyle ElementStyle => _style;
         public Vector2 MinSize => _style.MinSize;
-
         public Vector2 ChildOrientation => _style.ChildOrientation;
-
         public float Spacing => _style.Spacing;
-
         public bool ExpandChildren => _style.ExpandChildren;
-
         public LayoutType Layout => _style.Layout;
 
         public bool ReverseOrder
@@ -57,6 +48,7 @@ namespace Bonwerk.Divvy.Elements
             base.Init();
             FindChildren();
             BackgroundImage = GetComponent<Image>();
+            if (BackgroundImage) BackgroundImage.color = _style.BackgroundColor;
             IsDirty = true;
         }
 

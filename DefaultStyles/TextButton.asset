@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e54e6937cf404433abb9c96a6be50fde, type: 3}
-  m_Name: Div
+  m_Script: {fileID: 11500000, guid: 3480f73537de4500a26a22a931a0eca8, type: 3}
+  m_Name: TextButton
   m_EditorClassIdentifier: 
   _margin:
     Top: 0
@@ -23,9 +23,6 @@ MonoBehaviour:
     Bottom: 0
     Left: 0
   _expand: 0
-  _minSize: {x: 0, y: 0}
-  _expandChildren: 0
-  _spacing: 0
-  _childOrientation: {x: 0, y: 1}
-  _layout: 0
-  _backgroundColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 1}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  _fontSize: 24
+  _fontColor: {r: 1, g: 1, b: 1, a: 1}

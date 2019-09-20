@@ -18,14 +18,14 @@ namespace Bonwerk.Divvy.Elements
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
 
-		public abstract Spacing Margin { get; }
-		public abstract Spacing Padding { get; }
-		public abstract bool Expand { get; }
 		public abstract Vector2 ContentSize { get; }
+		public abstract ElementStyle ElementStyle { get; }
+		public bool Expand => ElementStyle.Expand;
+		public Spacing Margin => ElementStyle.Margin;
+		public Spacing Padding => ElementStyle.Padding;
 
 		public string Name => gameObject.name;
 		public string Tag => gameObject.tag;
-
 		public Vector2 Size => PaddedSize + new Vector2(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
 		
 		public Vector2 PaddedSize

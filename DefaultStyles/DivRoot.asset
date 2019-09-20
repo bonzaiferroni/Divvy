@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e54e6937cf404433abb9c96a6be50fde, type: 3}
-  m_Name: Div
+  m_Name: DivRoot
   m_EditorClassIdentifier: 
   _margin:
     Top: 0
@@ -18,14 +18,14 @@ MonoBehaviour:
     Bottom: 0
     Left: 0
   _padding:
-    Top: 0
-    Right: 0
-    Bottom: 0
-    Left: 0
+    Top: 5
+    Right: 5
+    Bottom: 5
+    Left: 5
   _expand: 0
   _minSize: {x: 0, y: 0}
   _expandChildren: 0
   _spacing: 0
   _childOrientation: {x: 0, y: 1}
   _layout: 0
-  _backgroundColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 1}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 0.9490196}

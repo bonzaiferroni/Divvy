@@ -24,3 +24,4 @@ MonoBehaviour:
     Left: 0
   _expand: 0
   _fontSize: 24
+  _fontColor: {r: 1, g: 1, b: 1, a: 1}

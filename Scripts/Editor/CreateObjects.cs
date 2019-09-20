@@ -7,79 +7,73 @@ namespace Bonwerk.Divvy.Editor
 {
     public static class CreateObjects
     {
+        private static GameObject Create(string name)
+        {
+            // Create a custom game object
+            var go = Object.Instantiate(Resources.Load<GameObject>($"Prefabs/{name}"));
+            go.name = name;
+            return go;
+        }
+
+        private static void Create(string name, MenuCommand menuCommand)
+        {
+            var parent = menuCommand.context as GameObject;
+            if (!HasDivParent(parent)) return;
+            var go = Create(name);
+            Integrate(go, parent);
+        }
+        
+        private static bool HasDivParent(GameObject parent)
+        {
+            if (!parent.GetComponent<Div>())
+            {
+                Debug.LogWarning("Element must have parent");
+                return false;
+            }
+            return true;
+        }
+
+        private static void Integrate(GameObject go, GameObject parent)
+        {
+            // Ensure it gets reparented if this was a context click (otherwise does nothing)
+            GameObjectUtility.SetParentAndAlign(go, parent);
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
+        
         // Add a menu item to create custom GameObjects.
         // Priority 1 ensures it is grouped with the other menu items of the same kind
         // and propagated to the hierarchy dropdown and hierarchy context menus.
         [MenuItem("GameObject/Divvy/DivRoot", false, 1)]
-        private static void CreateDivRoot(MenuCommand menuCommand)
+        private static void DivRoot(MenuCommand menuCommand)
         {
-            // Create a custom game object
-            var go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/DivRoot"));
-            go.name = "DivRoot";
-            // Ensure it gets reparented if this was a context click (otherwise does nothing)
-            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
-            // Register the creation in the undo system
-            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
-            Selection.activeObject = go;
+            var go = Create("DivRoot");
+            Integrate(go, menuCommand.context as GameObject);
         }
         
         [MenuItem("GameObject/Divvy/Div", false, 1)]
-        private static void CreateDiv(MenuCommand menuCommand)
+        private static void Div(MenuCommand menuCommand)
         {
-            var parent = menuCommand.context as GameObject;
-            if (!parent.GetComponent<Div>())
-            {
-                Debug.Log("Element must have parent");
-                return;
-            }
-            // Create a custom game object
-            var go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Div"));
-            go.name = "Div";
-            // Ensure it gets reparented if this was a context click (otherwise does nothing)
-            GameObjectUtility.SetParentAndAlign(go, parent);
-            // Register the creation in the undo system
-            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
-            Selection.activeObject = go;
+            Create("Div", menuCommand);
         }
         
         [MenuItem("GameObject/Divvy/Text", false, 1)]
-        private static void CreateText(MenuCommand menuCommand)
+        private static void Text(MenuCommand menuCommand)
         {
-            var parent = menuCommand.context as GameObject;
-            if (!parent.GetComponent<Div>())
-            {
-                Debug.Log("Element must have parent");
-                return;
-            }
-            
-            // Create a custom game object
-            var go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Text"));
-            go.name = "Text";
-            // Ensure it gets reparented if this was a context click (otherwise does nothing)
-            GameObjectUtility.SetParentAndAlign(go, parent);
-            // Register the creation in the undo system
-            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
-            Selection.activeObject = go;
+            Create("Text", menuCommand);
         }
         
         [MenuItem("GameObject/Divvy/Header", false, 1)]
-        private static void CreateHeader(MenuCommand menuCommand)
+        private static void Header(MenuCommand menuCommand)
         {
-            var parent = menuCommand.context as GameObject;
-            if (!parent.GetComponent<Div>())
-            {
-                Debug.Log("Element must have parent");
-                return;
-            }
-            
-            // Create a custom game object
-            var go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Header"));
-            go.name = "Header";
-            // Ensure it gets reparented if this was a context click (otherwise does nothing)
-            GameObjectUtility.SetParentAndAlign(go, parent);
-            // Register the creation in the undo system
-            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
-            Selection.activeObject = go;
+            Create("Header", menuCommand);
+        }
+        
+        [MenuItem("GameObject/Divvy/TextButton", false, 1)]
+        private static void TextButton(MenuCommand menuCommand)
+        {
+            Create("TextButton", menuCommand);
         }
     }
 }

@@ -23,12 +23,11 @@ namespace Bonwerk.Divvy
         {
             if (Application.isPlaying)
             {
-                UpdateWhilePlaying();
+                Refresh();
             }
             else
             {
                 Init();
-                UpdateWhileStopped();
             }
         }
 
@@ -37,18 +36,13 @@ namespace Bonwerk.Divvy
             Div = GetComponent<Div>();
             if (!Div) return;
             Div.Init();
+            Div.Refresh(true);
         }
 
-        private void UpdateWhilePlaying()
+        private void Refresh()
         {
             if (!Div) return;
             Div.Refresh(false);
-        }
-
-        private void UpdateWhileStopped()
-        {
-            if (!Div) return;
-            Div.Refresh(true);
         }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2475305075635884928}
   - component: {fileID: 2475305075635884934}
   - component: {fileID: 2475305075635884929}
+  - component: {fileID: 3149595994695266753}
   m_Layer: 5
   m_Name: DivRoot
   m_TagString: Untagged
@@ -71,5 +72,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c4b24a6ed149b4bde9d150a581a165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _style: {fileID: 11400000, guid: ea5bff7c697a75748981b4c234ef4523, type: 2}
+  _style: {fileID: 11400000, guid: fc31d8c09ecd14b40a0c87c75b94e713, type: 2}
   _reverseOrder: 0
+--- !u!114 &3149595994695266753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475305075635884932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +19,7 @@ namespace Bonwerk.Divvy.Elements
         private string _lastValue;
         public event Action<string> OnValueChanged;
         
-        public override bool Expand { get; }
-        public override Spacing Margin { get; }
-        public override Spacing Padding { get; }
+        public override ElementStyle ElementStyle { get; }
 
         public override Vector2 ContentSize
         {
