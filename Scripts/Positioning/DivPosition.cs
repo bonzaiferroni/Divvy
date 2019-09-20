@@ -21,11 +21,11 @@ namespace Bonwerk.Divvy.Positioning
             protected set { Rect.anchoredPosition = value; }
         }
 
-        public abstract void TransportSelf(bool instant);
+        public abstract void Refresh(bool instant);
         
         public void SetTargetPosition(Vector2 position, bool instant)
         {
-            if (position == Target) return;
+            if (!instant && position == Target) return;
             Target = position;
 				
             if (!instant)
@@ -34,9 +34,7 @@ namespace Bonwerk.Divvy.Positioning
             }
             else
             {
-                // quick transport
-                Current = Target;
-                Transported = true;
+                FinishTransport();
             }
         }
 

@@ -44,6 +44,7 @@ namespace Bonwerk.Divvy.Elements
 			Transform = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition(Transform);
 			
+			
 			if (Visibility)
 			{
 				Visibility.OnVisibilityChange += OnVisibilityChange;
@@ -52,6 +53,11 @@ namespace Bonwerk.Divvy.Elements
 		}
 
 		public virtual void Refresh(bool instant)
+		{
+			Position.Refresh(instant);
+		}
+
+		public virtual void SetSize(bool instant)
 		{
 			PaddedSize = ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
 		}

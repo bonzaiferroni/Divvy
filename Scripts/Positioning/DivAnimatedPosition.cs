@@ -12,7 +12,7 @@ namespace Bonwerk.Divvy.Positioning
         {
         }
         
-        public override void TransportSelf(bool instant)
+        public override void Refresh(bool instant)
         {
             if (Transported) return;
 

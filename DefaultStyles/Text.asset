@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f8c0b1a4d1a4778a7b2067dd7bf08b4, type: 3}
-  m_Name: TextStyle
+  m_Name: Text
   m_EditorClassIdentifier: 
   _margin:
     Top: 0
-    Right: 5
+    Right: 0
     Bottom: 0
     Left: 0
   _padding:
@@ -23,4 +23,4 @@ MonoBehaviour:
     Bottom: 0
     Left: 0
   _expand: 0
-  _fontSize: 0
+  _fontSize: 24

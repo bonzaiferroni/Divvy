@@ -51,7 +51,8 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            _label = GetComponent<TextMeshProUGUI>(); 
+            _label = GetComponent<TextMeshProUGUI>();
+            _label.fontSize = _style.FontSize;
         }
     }
 }
