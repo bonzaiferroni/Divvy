@@ -6,5 +6,8 @@ namespace Bonwerk.Divvy.Styling
     {
         [SerializeField] private Color _backgroundColor = Color.black;
         public Color BackgroundColor => _backgroundColor;
+
+        [SerializeField] private bool _targetBackground;
+        public bool TargetBackground => _targetBackground;
     }
 }

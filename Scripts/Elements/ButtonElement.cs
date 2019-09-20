@@ -18,6 +18,12 @@ namespace Bonwerk.Divvy.Elements
             base.Init();
             Image = GetComponent<Image>();
             Button = GetComponent<Button>();
+
+            if (Image)
+            {
+                Image.color = ButtonStyle.BackgroundColor;
+                if (ButtonStyle.TargetBackground) Button.targetGraphic = Image;
+            }
         }
 
         public void AddListener(UnityAction action)

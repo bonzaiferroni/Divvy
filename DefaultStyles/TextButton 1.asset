@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3480f73537de4500a26a22a931a0eca8, type: 3}
-  m_Name: TextButton
+  m_Name: TextButton 1
   m_EditorClassIdentifier: 
   _margin:
     Top: 0
@@ -18,10 +18,10 @@ MonoBehaviour:
     Bottom: 0
     Left: 0
   _padding:
-    Top: 5
-    Right: 5
-    Bottom: 5
-    Left: 5
+    Top: 0
+    Right: 0
+    Bottom: 0
+    Left: 0
   _expand: 0
   _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   _fontSize: 24

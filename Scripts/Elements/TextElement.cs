@@ -49,14 +49,16 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            _label = GetComponent<TextMeshProUGUI>();
+            
+            // label
             _label.fontSize = _style.FontSize;
             _label.color = _style.FontColor;
+            _label.margin = new Vector4(_style.Padding.Left, _style.Padding.Top, _style.Padding.Right, _style.Padding.Bottom);
+            _label.SetLayoutDirty();
         }
         
         public override void SetSize(bool instant)
         {
-            _label.margin = new Vector4(_style.Padding.Left, _style.Padding.Top, _style.Padding.Right, _style.Padding.Bottom);
             PaddedSize = ContentSize;
         }
     }
