@@ -75,5 +75,11 @@ namespace Bonwerk.Divvy.Editor
         {
             Create("TextButton", menuCommand);
         }
+        
+        [MenuItem("GameObject/Divvy/SpriteButton", false, 1)]
+        private static void SpriteButton(MenuCommand menuCommand)
+        {
+            Create("SpriteButton", menuCommand);
+        }
     }
 }

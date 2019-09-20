@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Styling
 {
-    [CreateAssetMenu(fileName = "Div", menuName = "Divvy/DivStyle", order = 1)]
+    [CreateAssetMenu(fileName = "Div", menuName = "Divvy/Div Style", order = 1)]
     public class DivStyle : ElementStyle
     {
         [Header("Div")]
