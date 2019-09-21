@@ -48,7 +48,11 @@ namespace Bonwerk.Divvy.Elements
             base.Init();
             FindChildren();
             BackgroundImage = GetComponent<Image>();
-            if (BackgroundImage) BackgroundImage.color = _style.BackgroundColor;
+            if (BackgroundImage)
+            {
+                BackgroundImage.color = _style.BackgroundColor;
+                BackgroundImage.sprite = _style.BackgroundSprite;
+            }
             IsDirty = true;
         }
 
@@ -157,7 +161,14 @@ namespace Bonwerk.Divvy.Elements
             foreach (var child in Children)
             {
                 if (!(ExpandChildren || child.Expand)) continue;
-                child.ExpandSize(maxSize);
+                if (Layout == LayoutType.Horizontal)
+                {
+                    child.ExpandSize(new Vector2(child.Size.x, maxSize.y));
+                }
+                else
+                {
+                    child.ExpandSize(new Vector2(maxSize.x, child.Size.y));
+                }
             }
 
             var contentSize = position - paddingPosition;

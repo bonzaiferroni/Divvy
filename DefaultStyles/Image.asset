@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea0c0269c86455492a1ab6f90b550ca, type: 3}
-  m_Name: SpriteButton
+  m_Script: {fileID: 11500000, guid: 7492b5fa08fe433fbb946dc753de8ac3, type: 3}
+  m_Name: Image
   m_EditorClassIdentifier: 
   _margin:
     Top: 0
@@ -23,9 +23,8 @@ MonoBehaviour:
     Bottom: 0
     Left: 0
   _expand: 0
-  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  _backgroundSprite: {fileID: 0}
-  _targetBackground: 0
   _spriteColor: {r: 1, g: 1, b: 1, a: 1}
-  _sprite: {fileID: 21300000, guid: 915ebbc329f272d4ba7b829f64863155, type: 3}
-  _size: {x: 32, y: 32}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  _sprite: {fileID: 21300000, guid: f7df848796f84c447b381e6d593b3116, type: 3}
+  _backgroundSprite: {fileID: 0}
+  _size: {x: 128, y: 128}

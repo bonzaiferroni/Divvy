@@ -1,3 +1,4 @@
+using Bonwerk.Divvy.Helpers;
 using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Bonwerk.Divvy.Elements
         public override ButtonStyle ButtonStyle => _style;
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
+        
+        public RectTransform ContentTransform { get; private set; }
 
         public override void Init()
         {
@@ -20,13 +23,14 @@ namespace Bonwerk.Divvy.Elements
             // label
             _label.fontSize = _style.FontSize;
             _label.color = _style.FontColor;
-            _label.margin = new Vector4(_style.Padding.Left, _style.Padding.Top, _style.Padding.Right, _style.Padding.Bottom);
-            _label.SetLayoutDirty();
+
+            ContentTransform = _label.GetComponent<RectTransform>();
         }
 
         public override void SetSize(bool instant)
         {
-            PaddedSize = ContentSize;
+            base.SetSize(instant);
+            ContentTransform.SetPadding(_style.Padding);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ButtonElement : Element
     {
-        public Image Image { get; private set; }
+        public Image BackgroundImage { get; private set; }
         public Button Button { get; private set; }
         
         public abstract ButtonStyle ButtonStyle { get; }
@@ -16,13 +16,14 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            Image = GetComponent<Image>();
+            BackgroundImage = GetComponent<Image>();
             Button = GetComponent<Button>();
 
-            if (Image)
+            if (BackgroundImage)
             {
-                Image.color = ButtonStyle.BackgroundColor;
-                if (ButtonStyle.TargetBackground) Button.targetGraphic = Image;
+                BackgroundImage.color = ButtonStyle.BackgroundColor;
+                BackgroundImage.sprite = ButtonStyle.BackgroundSprite;
+                if (ButtonStyle.TargetBackground) Button.targetGraphic = BackgroundImage;
             }
         }
 

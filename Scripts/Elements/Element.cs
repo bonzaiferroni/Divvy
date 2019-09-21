@@ -44,7 +44,6 @@ namespace Bonwerk.Divvy.Elements
 			Transform = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition(Transform);
 			
-			
 			if (Visibility)
 			{
 				Visibility.OnVisibilityChange += OnVisibilityChange;

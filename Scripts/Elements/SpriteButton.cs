@@ -1,3 +1,4 @@
+using Bonwerk.Divvy.Helpers;
 using Bonwerk.Divvy.Styling;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ namespace Bonwerk.Divvy.Elements
 
         public override Vector2 ContentSize => _style.Size;
 
-        private RectTransform ImageTransform { get; set; }
+        private RectTransform ContentTransform { get; set; }
         
         public override void Init()
         {
@@ -22,14 +23,13 @@ namespace Bonwerk.Divvy.Elements
             _image.color = _style.SpriteColor;
             _image.sprite = _style.Sprite;
 
-            ImageTransform = _image.GetComponent<RectTransform>();
+            ContentTransform = _image.GetComponent<RectTransform>();
         }
 
         public override void SetSize(bool instant)
         {
             base.SetSize(instant);
-            ImageTransform.sizeDelta = _style.Size;
-            ImageTransform.anchoredPosition = new Vector2(Padding.Left, -Padding.Top);
+            ContentTransform.SetPadding(_style.Padding);
         }
     }
 }
