@@ -15,7 +15,7 @@ namespace Bonwerk.Divvy.Elements
 		
 		public DivElement Parent { get; set; }
 		
-		public DivVisibility Visibility { get; private set; }
+		public ElementVisibility Visibility { get; private set; }
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
 		public bool StyleDirty { get; protected set; }
@@ -45,7 +45,7 @@ namespace Bonwerk.Divvy.Elements
 		// called once at DivRoot.Awake() or instantiation
 		public virtual void Init()
 		{
-			Visibility = GetComponent<DivVisibility>();
+			Visibility = GetComponent<ElementVisibility>();
 			Transform = GetComponent<RectTransform>();
 			Position = new DivAnimatedPosition(Transform);
 			

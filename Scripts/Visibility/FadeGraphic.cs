@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Visibility
 {
-    public class DivFadeGraphic : DivAnimatedVisibility
+    public class FadeGraphic : AnimatedVisibility
     {
         
         public Graphic Graphic { get; private set; }
@@ -16,7 +16,8 @@ namespace Bonwerk.Divvy.Visibility
 
         protected override void Modify(float amount)
         {
-            Graphic.color = new Color(Graphic.color.r, Graphic.color.g, Graphic.color.b, amount);
+            var color = Graphic.color;
+            Graphic.color = new Color(color.r, color.g, color.b, amount);;
         }
     }
 }

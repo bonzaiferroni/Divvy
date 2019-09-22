@@ -2,7 +2,7 @@
 
 namespace Bonwerk.Divvy.Visibility
 {
-    public class DivScale : DivAnimatedVisibility
+    public class ElementScale : AnimatedVisibility
     {
         protected override void Modify(float amount)
         {

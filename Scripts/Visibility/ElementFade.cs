@@ -3,7 +3,7 @@
 namespace Bonwerk.Divvy.Visibility
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class DivFade : DivAnimatedVisibility
+    public class ElementFade : AnimatedVisibility
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 

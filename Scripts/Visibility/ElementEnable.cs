@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Visibility
 {
-    public class DivEnable : DivInstantVisibility
+    public class ElementEnable : InstantVisibility
     {
         [SerializeField] private List<Graphic> _items = new List<Graphic>();
 

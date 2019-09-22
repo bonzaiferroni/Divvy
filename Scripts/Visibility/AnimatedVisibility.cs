@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Visibility
 {
-    public abstract class DivAnimatedVisibility : DivVisibility
+    public abstract class AnimatedVisibility : ElementVisibility
     {
         [SerializeField] private float _speed = DivConstants.Speed;
 

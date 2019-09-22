@@ -28,7 +28,7 @@ namespace DivLib.Tests
                     var layoutGo = new GameObject($"Child_{i}_{j}", typeof(RectTransform));
                     StandardizeRect(layoutGo);
                     layoutGo.AddComponent<Element>();
-                    layoutGo.AddComponent<DivScale>();
+                    layoutGo.AddComponent<ElementScale>();
                     layoutGo.AddComponent<Image>().color = Random.ColorHSV();
                     layoutGo.transform.SetParent(horizontalParentGo.transform);
                 }

@@ -1,6 +1,6 @@
 ﻿namespace Bonwerk.Divvy.Visibility
 {
-    public abstract class DivInstantVisibility : DivVisibility
+    public abstract class InstantVisibility : ElementVisibility
     {
         public override void Init()
         {

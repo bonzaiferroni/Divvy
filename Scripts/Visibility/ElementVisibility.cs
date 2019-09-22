@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Visibility
 {
     [ExecuteInEditMode]
-    public abstract class DivVisibility : MonoBehaviour
+    public abstract class ElementVisibility : MonoBehaviour
     {
         [SerializeField] private bool _isVisible = true;
         
