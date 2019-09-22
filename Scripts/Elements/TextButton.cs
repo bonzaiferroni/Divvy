@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextButton : ButtonElement, IFontElement, IContentTransform
+    public class TextButton : ButtonElement, IFontElement, IContentElement
     {
         [SerializeField] private TextButtonStyle _style;
         [SerializeField] private TextMeshProUGUI _label;

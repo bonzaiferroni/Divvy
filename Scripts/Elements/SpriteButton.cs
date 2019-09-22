@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class SpriteButton : ButtonElement, IContentTransform
+    public class SpriteButton : ButtonElement, IContentElement
     {
         [SerializeField] private SpriteButtonStyle _style;
         [SerializeField] private Image _image;

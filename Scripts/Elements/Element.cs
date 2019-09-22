@@ -13,7 +13,7 @@ namespace Bonwerk.Divvy.Elements
 	{
 		public bool IsVisible => !Visibility || Visibility.IsVisible;
 		
-		public Div Parent { get; set; }
+		public DivElement Parent { get; set; }
 		
 		public DivVisibility Visibility { get; private set; }
 		public RectTransform Transform { get; private set; }
@@ -70,7 +70,7 @@ namespace Bonwerk.Divvy.Elements
 		{
 			PaddedSize = ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
 			
-			if (this is IContentTransform e)
+			if (this is IContentElement e)
 			{
 				e.Content.SetPadding(Padding);
 			}

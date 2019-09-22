@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class DivScroll : Div
+    public class DivScroll : DivElement
     {
-        [SerializeField] private Div _content;
+        [SerializeField] private DivElement _content;
         public Dimensions MaxSize;
         
-        public Div Content
+        public DivElement Content
         {
             get { return _content; }
             set { _content = value; }

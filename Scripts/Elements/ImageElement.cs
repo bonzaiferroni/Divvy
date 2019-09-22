@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class ImageElement : BackgroundElement, IContentTransform
+    public class ImageElement : BackgroundElement, IContentElement
     {
         [SerializeField] private ImageStyle _style;
         [SerializeField] private Image _image;

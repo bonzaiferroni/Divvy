@@ -25,7 +25,7 @@ namespace Bonwerk.Divvy.Editor
         
         private static bool HasDivParent(GameObject parent)
         {
-            if (!parent.GetComponent<Div>())
+            if (!parent.GetComponent<DivElement>())
             {
                 Debug.LogWarning("Element must have parent");
                 return false;

@@ -4,7 +4,7 @@ namespace Bonwerk.Divvy.Helpers
 {
     public static class DivHelper
     {
-        public static IElement GetChild(this Div div, string objectTag)
+        public static IElement GetChild(this DivElement div, string objectTag)
         {
             foreach (var child in div.Children)
             {
@@ -13,7 +13,7 @@ namespace Bonwerk.Divvy.Helpers
 
             foreach (var child in div.Children)
             {
-                var childDiv = child as Div;
+                var childDiv = child as DivElement;
                 if (childDiv == null) continue;
                 var grandChild = childDiv.GetChild(objectTag);
                 if (grandChild == null) continue;
@@ -23,7 +23,7 @@ namespace Bonwerk.Divvy.Helpers
             return null;
         }
 
-        public static T GetChild<T>(this Div div, string objectTag) where T : class, IElement
+        public static T GetChild<T>(this DivElement div, string objectTag) where T : class, IElement
         {
             foreach (var child in div.Children)
             {
@@ -32,7 +32,7 @@ namespace Bonwerk.Divvy.Helpers
 
             foreach (var child in div.Children)
             {
-                var childDiv = child as Div;
+                var childDiv = child as DivElement;
                 if (childDiv == null) continue;
                 var grandChild = childDiv.GetChild<T>(objectTag);
                 if (grandChild == null) continue;

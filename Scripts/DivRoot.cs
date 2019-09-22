@@ -6,9 +6,9 @@ namespace Bonwerk.Divvy
     [ExecuteInEditMode]
     public class DivRoot : MonoBehaviour
     {
-        [Header("Root Div")] [SerializeField] private Div _div;
+        [Header("Root Div")] [SerializeField] private DivElement _div;
 
-        public Div Div
+        public DivElement Div
         {
             get => _div;
             set => _div = value;
@@ -33,7 +33,7 @@ namespace Bonwerk.Divvy
 
         public void Init()
         {
-            Div = GetComponent<Div>();
+            Div = GetComponent<DivElement>();
             if (!Div) return;
             Div.Init();
             Div.Refresh(true);

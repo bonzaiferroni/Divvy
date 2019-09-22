@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextElement : BackgroundElement, IFontElement, IContentTransform
+    public class TextElement : BackgroundElement, IFontElement, IContentElement
     {
         [SerializeField] private TextStyle _style;
         [SerializeField] private TextMeshProUGUI _label;

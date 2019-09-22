@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Bonwerk.Divvy.Elements
 {
     [ExecuteInEditMode]
-    public class Div : BackgroundElement
+    public class DivElement : BackgroundElement
     {
         [SerializeField] private DivStyle _style;
         [SerializeField] private bool _reverseOrder;

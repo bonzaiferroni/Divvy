@@ -15,13 +15,13 @@ namespace DivLib.Tests
             RootObject = new GameObject("VerticalParent", typeof(RectTransform));
             RootObject.transform.SetParent(Canvas.transform);
             StandardizeRect(RootObject);
-            RootParent = RootObject.AddComponent<Div>();
+            RootParent = RootObject.AddComponent<DivElement>();
             RootObject.AddComponent<DivRoot>();
             for (var i = 0; i < subCount; i++)
             {
                 var horizontalParentGo = new GameObject("HorizontalParent_" + i, typeof(RectTransform));
                 StandardizeRect(horizontalParentGo);
-                horizontalParentGo.AddComponent<Div>();
+                horizontalParentGo.AddComponent<DivElement>();
                 horizontalParentGo.transform.SetParent(RootObject.transform);
                 for (var j = 0; j < subCount; j++)
                 {
@@ -43,7 +43,7 @@ namespace DivLib.Tests
             rect.pivot = new Vector2(0, 1);
         }
 
-        public Div RootParent { get; }
+        public DivElement RootParent { get; }
         public GameObject RootObject { get; }
         public GameObject Canvas { get; }
     }

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class InputElement : BackgroundElement, IContentTransform
+    public class InputElement : BackgroundElement, IContentElement
     {
         [SerializeField] private InputStyle _style;
         [SerializeField] private RectTransform _content;
