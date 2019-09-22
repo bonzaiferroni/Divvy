@@ -1,4 +1,5 @@
 ﻿using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Helpers;
 using Bonwerk.Divvy.Positioning;
 using Bonwerk.Divvy.Styling;
 using Bonwerk.Divvy.Visibility;
@@ -17,9 +18,11 @@ namespace Bonwerk.Divvy.Elements
 		public DivVisibility Visibility { get; private set; }
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
+		public bool StyleDirty { get; protected set; }
 
 		public abstract Vector2 ContentSize { get; }
 		public abstract ElementStyle ElementStyle { get; }
+		
 		public bool Expand => ElementStyle.Expand;
 		public Spacing Margin => ElementStyle.Margin;
 		public Spacing Padding => ElementStyle.Padding;
@@ -28,6 +31,7 @@ namespace Bonwerk.Divvy.Elements
 		public string Tag => gameObject.tag;
 		public Vector2 Size => PaddedSize + new Vector2(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
 		
+		// use this to change transform size;
 		public Vector2 PaddedSize
 		{
 			get => Transform.sizeDelta;
@@ -38,6 +42,7 @@ namespace Bonwerk.Divvy.Elements
 			}
 		}
 
+		// called once at DivRoot.Awake() or instantiation
 		public virtual void Init()
 		{
 			Visibility = GetComponent<DivVisibility>();
@@ -49,22 +54,41 @@ namespace Bonwerk.Divvy.Elements
 				Visibility.OnVisibilityChange += OnVisibilityChange;
 				Visibility.Init();
 			}
+
+			StyleDirty = true;
 		}
 
+		// called every frame
 		public virtual void Refresh(bool instant)
 		{
-			Position.Refresh(instant);
+			if (StyleDirty) ApplyStyle(instant);
+			if (!Position.Transported) Position.Refresh(instant);
 		}
 
+		// called when Parent.LayoutDirty == true
 		public virtual void SetSize(bool instant)
 		{
 			PaddedSize = ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
+			
+			if (this is IContentTransform e)
+			{
+				e.Content.SetPadding(Padding);
+			}
+		}
+
+		// called when StyleDirty == true
+		protected virtual void ApplyStyle(bool instant)
+		{
+			StyleDirty = false;
+			ApplyStyles.Background(this, ElementStyle);
+			ApplyStyles.Font(this, ElementStyle);
+			ApplyStyles.Selectable(this, ElementStyle);
 		}
 
 		private void OnVisibilityChange(bool isVisible)
 		{
-			if (Parent == null) return;
-			Parent.IsDirty = true;
+			if (!Parent) return;
+			Parent.LayoutDirty = true;
 		}
 
 		public virtual void FinishTransport()

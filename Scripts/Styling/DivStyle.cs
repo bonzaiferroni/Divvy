@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Styling
 {
     [CreateAssetMenu(fileName = "Div", menuName = "Divvy/Div Style", order = 1)]
-    public class DivStyle : ElementStyle
+    public class DivStyle : BackgroundStyle
     {
         [Header("Div")] [SerializeField] private Vector2 _minSize;
         public Vector2 MinSize => _minSize;
@@ -21,11 +21,5 @@ namespace Bonwerk.Divvy.Styling
 
         [SerializeField] private LayoutType _layout;
         public LayoutType Layout => _layout;
-
-        [SerializeField] private Color _backgroundColor = Color.black;
-        public Color BackgroundColor => _backgroundColor;
-
-        [SerializeField] private Sprite _backgroundSprite;
-        public Sprite BackgroundSprite => _backgroundSprite;
     }
 }

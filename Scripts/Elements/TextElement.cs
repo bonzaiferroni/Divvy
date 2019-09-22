@@ -1,18 +1,23 @@
-﻿using Bonwerk.Divvy.Data;
+﻿using System;
+using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Helpers;
 using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextElement : Element
+    public class TextElement : BackgroundElement, IFontElement, IContentTransform
     {
-        [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private TextStyle _style;
+        [SerializeField] private TextMeshProUGUI _label;
+        public TextMeshProUGUI Label => _label;
 
         public override ElementStyle ElementStyle => _style;
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
+        
+        public RectTransform Content { get; private set; }
         
         public string Text
         {
@@ -21,7 +26,7 @@ namespace Bonwerk.Divvy.Elements
             {
                 if (_label.text == value) return;
                 _label.text = value;
-                if (Parent) Parent.IsDirty = true;
+                if (Parent) Parent.LayoutDirty = true;
             }
         }
 
@@ -49,17 +54,7 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            
-            // label
-            _label.fontSize = _style.FontSize;
-            _label.color = _style.FontColor;
-            _label.margin = new Vector4(_style.Padding.Left, _style.Padding.Top, _style.Padding.Right, _style.Padding.Bottom);
-            _label.SetLayoutDirty();
-        }
-        
-        public override void SetSize(bool instant)
-        {
-            PaddedSize = ContentSize;
+            Content = Label.GetComponent<RectTransform>();
         }
     }
 }

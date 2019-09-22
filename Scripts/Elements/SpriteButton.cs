@@ -5,31 +5,28 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class SpriteButton : ButtonElement
+    public class SpriteButton : ButtonElement, IContentTransform
     {
+        [SerializeField] private SpriteButtonStyle _style;
         [SerializeField] private Image _image;
         
-        [SerializeField] private SpriteButtonStyle _style;
-        public override ButtonStyle ButtonStyle => _style;
+        public override ElementStyle ElementStyle => _style;
 
         public override Vector2 ContentSize => _style.Size;
 
-        private RectTransform ContentTransform { get; set; }
+        public RectTransform Content { get; private set; }
         
         public override void Init()
         {
             base.Init();
-
-            _image.color = _style.SpriteColor;
-            _image.sprite = _style.Sprite;
-
-            ContentTransform = _image.GetComponent<RectTransform>();
+            Content = _image.GetComponent<RectTransform>();
         }
 
-        public override void SetSize(bool instant)
+        protected override void ApplyStyle(bool instant)
         {
-            base.SetSize(instant);
-            ContentTransform.SetPadding(_style.Padding);
+            base.ApplyStyle(instant);
+            _image.color = _style.SpriteColor;
+            _image.sprite = _style.Sprite;
         }
     }
 }

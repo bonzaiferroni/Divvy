@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Bonwerk.Divvy.Elements
 {
     [ExecuteInEditMode]
-    public class Div : Element
+    public class Div : BackgroundElement
     {
         [SerializeField] private DivStyle _style;
         [SerializeField] private bool _reverseOrder;
@@ -17,9 +17,7 @@ namespace Bonwerk.Divvy.Elements
 
         public List<IElement> Children { get; } = new List<IElement>();
 
-        public bool IsDirty { get; set; }
-
-        public Image BackgroundImage { get; private set; }
+        public bool LayoutDirty { get; set; }
 
         public override Vector2 ContentSize => _contentSize;
 
@@ -37,7 +35,7 @@ namespace Bonwerk.Divvy.Elements
             {
                 if (_reverseOrder == value) return;
                 _reverseOrder = value;
-                IsDirty = true;
+                LayoutDirty = true;
             }
         }
 
@@ -47,13 +45,7 @@ namespace Bonwerk.Divvy.Elements
         {
             base.Init();
             FindChildren();
-            BackgroundImage = GetComponent<Image>();
-            if (BackgroundImage)
-            {
-                BackgroundImage.color = _style.BackgroundColor;
-                BackgroundImage.sprite = _style.BackgroundSprite;
-            }
-            IsDirty = true;
+            LayoutDirty = true;
         }
 
         private void FindChildren()
@@ -68,7 +60,7 @@ namespace Bonwerk.Divvy.Elements
                 AddChild(child);
             }
 
-            IsDirty = true;
+            LayoutDirty = true;
         }
 
         public override void Refresh(bool instant)
@@ -79,7 +71,7 @@ namespace Bonwerk.Divvy.Elements
                 child.Refresh(instant);
             }
             
-            SetSize(instant);
+            if (LayoutDirty) SetSize(instant);
         }
 
         // public
@@ -105,14 +97,14 @@ namespace Bonwerk.Divvy.Elements
 
             child.Parent = this;
             if (child.Transform != transform) child.Transform.SetParent(transform, false);
-            IsDirty = true;
+            LayoutDirty = true;
         }
 
         public void RemoveChild(IElement child)
         {
             if (child.Parent != this) throw new Exception("Cannot remove child with a different parent");
             child.Parent = null;
-            IsDirty = true;
+            LayoutDirty = true;
             Children.Remove(child);
         }
 
@@ -120,8 +112,8 @@ namespace Bonwerk.Divvy.Elements
 
         public override void SetSize(bool instant)
         {
-            if (!IsDirty) return;
-            IsDirty = false;
+            if (!LayoutDirty) return;
+            LayoutDirty = false;
             
             foreach (var child in Children)
             {
@@ -191,7 +183,7 @@ namespace Bonwerk.Divvy.Elements
         {
             if (newSize == _contentSize) return;
             _contentSize = newSize;
-            if (Parent) Parent.IsDirty = true;
+            if (Parent) Parent.LayoutDirty = true;
         }
     }
 }
