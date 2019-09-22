@@ -6,9 +6,15 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ButtonElement : BackgroundElement, ISelectableElement
     {
-        [SerializeField] private Button _button;
-        public Button Button => _button;
-        public Selectable Selectable => _button;
+        public Button Button { get; private set; }
+        
+        public Selectable Selectable => Button;
+
+        public override void Init()
+        {
+            base.Init();
+            Button = GetComponent<Button>();
+        }
 
         public void AddListener(UnityAction action)
         {
