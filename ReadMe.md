@@ -28,5 +28,5 @@
 |[ISelectableElement](Scripts/Elements/Interfaces.cs)|IElement|
 |[IContentElement](Scripts/Elements/Interfaces.cs)|IElement|
 
-![Diagram](http://yuml.me/acd80eeb.png)
-[Edit](http://yuml.me/edit/acd80eeb)
+![Diagram](http://yuml.me/7274ec0d.png)
+[Edit](http://yuml.me/edit/7274ec0d)
