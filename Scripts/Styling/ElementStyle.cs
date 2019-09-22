@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Styling
 {
-    public abstract class ElementStyle : ScriptableObject
+    public abstract class ElementStyle : ScriptableObject, IElementStyle
     {
         [Header("Element")]
         [SerializeField] private Spacing _margin;

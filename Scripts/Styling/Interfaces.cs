@@ -1,20 +1,28 @@
+using Bonwerk.Divvy.Data;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Styling
 {
-    public interface IBackgroundStyle
+    public interface IElementStyle
+    {
+        Spacing Margin { get; }
+        Spacing Padding { get; }
+        bool Expand { get; }
+    }
+    
+    public interface IBackgroundStyle : IElementStyle
     {
         Color BackgroundColor { get; }
         Sprite BackgroundSprite { get; }
     }
     
-    public interface IFontStyle
+    public interface IFontStyle : IElementStyle
     {
         float FontSize { get; }
         Color FontColor { get; }
     }
 
-    public interface ISelectableStyle
+    public interface ISelectableStyle : IElementStyle
     {
         bool AnimateBackground { get; }
     }
