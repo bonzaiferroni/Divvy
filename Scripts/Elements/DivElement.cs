@@ -64,12 +64,12 @@ namespace Bonwerk.Divvy.Elements
 
         public override void Refresh(bool instant)
         {
-            base.Refresh(instant);
             if (LayoutDirty) SetSize(instant);
             foreach (var child in Children)
             {
                 child.Refresh(instant);
             }
+            base.Refresh(instant);
         }
 
         // public
@@ -153,11 +153,11 @@ namespace Bonwerk.Divvy.Elements
                 if (!(ExpandChildren || child.Expand)) continue;
                 if (Layout == LayoutType.Horizontal)
                 {
-                    child.ExpandSize(new Vector2(child.Size.x, maxSize.y));
+                    child.ExpandSize(new Vector2(child.Size.x, maxSize.y), instant);
                 }
                 else
                 {
-                    child.ExpandSize(new Vector2(maxSize.x, child.Size.y));
+                    child.ExpandSize(new Vector2(maxSize.x, child.Size.y), instant);
                 }
             }
 

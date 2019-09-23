@@ -18,10 +18,15 @@ namespace Bonwerk.Divvy.Elements
         [SerializeField] private float _animationTime = .2f;
         public float AnimationTime => _animationTime;
 
+        [SerializeField] private bool _easeAnimation;
+        public bool EaseAnimation => _easeAnimation;
+
         [SerializeField] private bool _expand;
         public bool Expand => _expand;
 
         [SerializeField] private bool _isVisibleAtStart = true;
         public bool IsVisibleAtStart => _isVisibleAtStart;
+        
+        
     }
 }

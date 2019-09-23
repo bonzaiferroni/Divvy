@@ -4,12 +4,15 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ElementSizer
     {
-        public ElementSizer(RectTransform transform)
+        public ElementSizer(RectTransform transform, float animationTime)
         {
             Transform = transform;
             Target = Current;
+            AnimationTime = animationTime;
         }
-        
+
+        public float AnimationTime { get; set; }
+        public bool EaseAnimation { get; set; }
         public Vector2 Target { get; protected set; }
         public bool Resizing { get; protected set; }
         

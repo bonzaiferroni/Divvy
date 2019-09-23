@@ -5,7 +5,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public class FadeRevealer : ElementRevealer
     {
-        public FadeRevealer(float time, Graphic[] graphics) : base(time)
+        public FadeRevealer(Graphic[] graphics, float animationTime, bool easeAnimation) : base(animationTime,
+            easeAnimation)
         {
             Graphics = graphics;
             InitialValues = new float[graphics.Length];
@@ -28,7 +29,7 @@ namespace Bonwerk.Divvy.Elements
                 var graphic = Graphics[i];
                 var initialValue = InitialValues[i];
                 var color = graphic.color;
-                graphic.color = new Color(color.r, color.g, color.b, amount * initialValue);;
+                graphic.color = new Color(color.r, color.g, color.b, amount * initialValue);
                 if (graphic.raycastTarget != IsVisible) graphic.raycastTarget = IsVisible;
             }
         }

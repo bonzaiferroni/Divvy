@@ -6,12 +6,15 @@ namespace Bonwerk.Divvy.Elements
     [Serializable]
     public abstract class ElementPositioner
     {
-        public ElementPositioner(RectTransform transform)
+        public ElementPositioner(RectTransform transform, float animationTime)
         {
             Transform = transform;
             Target = Current;
+            AnimationTime = animationTime;
         }
-        
+
+        public float AnimationTime { get; set; }
+        public bool EaseAnimation { get; set; }
         public Vector2 Target { get; protected set; }
         public bool Transporting { get; protected set; }
         

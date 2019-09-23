@@ -5,12 +5,14 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ElementRevealer
     {
-        protected ElementRevealer(float time)
+        protected ElementRevealer(float animationTime, bool easeAnimation)
         {
-            Time = time;
+            AnimationTime = animationTime;
+            EaseAnimation = easeAnimation;
         }
         
-        public float Time { get; set; }
+        public float AnimationTime { get; set; }
+        public bool EaseAnimation { get; set; }
         public bool Transitioning { get; private set; }
         public bool IsVisible { get; private set; } = true;
         public float CurrentVisibility { get; private set; } = 1;
@@ -27,17 +29,34 @@ namespace Bonwerk.Divvy.Elements
 
         public void Refresh(bool instant)
         {
-            if (instant || InstantType || Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f)
+            var delta = TargetVisibility - CurrentVisibility;
+            if (instant || InstantType || AnimationTime <= 0 || Mathf.Abs(delta) < .001f)
             {
                 CurrentVisibility = TargetVisibility;
                 Modify(CurrentVisibility);
                 Transitioning = false;
                 OnFinishedAnimation?.Invoke(IsVisible);
+                return;
+            }
+
+            if (EaseAnimation)
+            {
+                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, AnimationTime);
+                Modify(CurrentVisibility);
             }
             else
             {
-                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, Time);
-                Modify(CurrentVisibility);
+                var nextDistance = Time.deltaTime / AnimationTime;
+                var currentDistance = Mathf.Abs(delta);
+                if (nextDistance >= currentDistance)
+                {
+                    Refresh(true);
+                }
+                else
+                {
+                    CurrentVisibility += nextDistance * (delta / currentDistance);
+                    Modify(CurrentVisibility);
+                }
             }
         }
 

@@ -22,6 +22,6 @@ namespace Bonwerk.Divvy.Elements
         void SetPosition(Vector2 position, bool instant);
         
         void FinishTransport();
-        void ExpandSize(Vector2 maxSize);
+        void ExpandSize(Vector2 maxSize, bool instant);
     }
 }

@@ -4,7 +4,7 @@ namespace Bonwerk.Divvy.Elements
 {
     public class InstantRevealer : ElementRevealer
     {
-        public InstantRevealer(ElementPositioner position) : base(0)
+        public InstantRevealer(ElementPositioner position, bool easeAnimation) : base(0, easeAnimation)
         {
             Position = position;
         }

@@ -6,19 +6,35 @@ namespace Bonwerk.Divvy.Elements
     {
         private Vector2 _velocity;
         
-        public DirectSizer(RectTransform transform) : base(transform)
+        public DirectSizer(RectTransform transform, float animationTime) : base(transform, animationTime)
         {
         }
 
         public override void Refresh(bool instant)
         {
-            if (!instant && (Current - Target).sqrMagnitude > .001f)
+            var delta = Target - Current;
+            var squaredMagnitude = delta.sqrMagnitude;
+            if (instant || AnimationTime <= 0 || squaredMagnitude < .001f)
             {
-                Current = Vector2.SmoothDamp(Current, Target, ref _velocity, .2f);
-                return;
+                FinishResize();
             }
 
-            FinishResize();
+            if (EaseAnimation)
+            {
+                Current = Vector2.SmoothDamp(Current, Target, ref _velocity, AnimationTime);
+            }
+            else
+            {
+                var nextDistance = Time.deltaTime / AnimationTime * 30;
+                if (nextDistance * nextDistance >= squaredMagnitude)
+                {
+                    FinishResize();
+                }
+                else
+                {
+                    Current += delta.normalized * nextDistance;
+                }
+            }
         }
         
         public override void FinishResize()

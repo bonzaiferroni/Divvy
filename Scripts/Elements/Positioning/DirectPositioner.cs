@@ -8,19 +8,35 @@ namespace Bonwerk.Divvy.Elements
     {
         private Vector2 _velocity;
         
-        public DirectPositioner(RectTransform transform) : base(transform)
+        public DirectPositioner(RectTransform transform, float animationTime) : base(transform, animationTime)
         {
         }
         
         public override void Refresh(bool instant)
         {
-            if (!instant && (Current - Target).sqrMagnitude > .001f)
+            var delta = Target - Current;
+            var squaredMagnitude = delta.sqrMagnitude;
+            if (instant || AnimationTime <= 0 || squaredMagnitude < .001f)
             {
-                Current = Vector2.SmoothDamp(Current, Target, ref _velocity, .2f);
-                return;
+                FinishTransport();
             }
 
-            FinishTransport();
+            if (EaseAnimation)
+            {
+                Current = Vector2.SmoothDamp(Current, Target, ref _velocity, AnimationTime);
+            }
+            else
+            {
+                var nextDistance = Time.deltaTime / AnimationTime * 30;
+                if (nextDistance * nextDistance >= squaredMagnitude)
+                {
+                    FinishTransport();
+                }
+                else
+                {
+                    Current += delta.normalized * nextDistance;
+                }
+            }
         }
 
         public override void FinishTransport()
