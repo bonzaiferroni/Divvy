@@ -1,3 +1,4 @@
+using Bonwerk.Divvy.Data;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
@@ -25,7 +26,7 @@ namespace Bonwerk.Divvy.Elements
             }
             else
             {
-                var nextDistance = Time.deltaTime / AnimationTime * 30;
+                var nextDistance = Time.deltaTime / AnimationTime * DivvyConstants.UnitsPerSecond;
                 if (nextDistance * nextDistance >= squaredMagnitude)
                 {
                     FinishResize();
