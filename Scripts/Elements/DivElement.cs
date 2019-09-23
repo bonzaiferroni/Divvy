@@ -141,7 +141,7 @@ namespace Bonwerk.Divvy.Elements
                 var index = ReverseOrder ? Children.Count - i - 1 : i;
                 var child = Children[index];
                 if (!child.IsVisible) continue;
-                child.SetPivot(childOrientation);
+                child.SetAnchor(childOrientation);
                 child.SetPosition(position, instant);
                 position += child.Size * direction;
                 maxSize = new Vector2(Mathf.Max(maxSize.x, child.Size.x), Mathf.Max(maxSize.y, child.Size.y));

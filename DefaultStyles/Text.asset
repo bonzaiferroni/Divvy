@@ -22,7 +22,7 @@ MonoBehaviour:
     Right: 0
     Bottom: 0
     Left: 0
-  _revealType: 0
+  _revealType: 2
   _animationTime: 0.2
   _expand: 0
   _isVisibleAtStart: 1

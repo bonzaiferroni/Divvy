@@ -18,7 +18,7 @@ namespace Bonwerk.Divvy.Elements
 
         void Refresh(bool instant);
         void SetSize(bool instant);
-        void SetPivot(Vector2 orientation);
+        void SetAnchor(Vector2 orientation);
         void SetPosition(Vector2 position, bool instant);
         
         void FinishTransport();

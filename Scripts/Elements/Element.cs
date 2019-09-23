@@ -30,7 +30,8 @@ namespace Bonwerk.Divvy.Elements
 
 		public string Name => gameObject.name;
 		public string Tag => gameObject.tag;
-		public Vector2 Size => Sizer.Target + new Vector2(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
+		public Vector2 Size => PaddedSize + new Vector2(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
+		public Vector2 PaddedSize => Sizer.Target;
 
 		// called once at DivRoot.Awake() or instantiation
 		public virtual void Init()
@@ -79,8 +80,10 @@ namespace Bonwerk.Divvy.Elements
 		public void SetPosition(Vector2 position, bool instant)
 		{
 			var pivot = Transform.pivot;
-			var marginX = (1 - pivot.x) * Margin.Left + pivot.x * -Margin.Right;
-			var marginY = (1 - pivot.y) * Margin.Bottom + pivot.y * -Margin.Top;
+			position += new Vector2(pivot.x * PaddedSize.x, (1 - pivot.y) * -PaddedSize.y);
+			var anchor = Transform.anchorMin;
+			var marginX = (1 - anchor.x) * Margin.Left + anchor.x * -Margin.Right;
+			var marginY = (1 - anchor.y) * Margin.Bottom + anchor.y * -Margin.Top;
 			position += new Vector2(marginX, marginY);
 			Positioner.SetTargetPosition(position, instant);
 		}
@@ -100,9 +103,10 @@ namespace Bonwerk.Divvy.Elements
 			Sizer.SetTargetSize(size, instant);
 		}
 
-		public void SetPivot(Vector2 pivot)
+		public void SetAnchor(Vector2 anchor)
 		{
-			Transform.pivot = Transform.anchorMin = Transform.anchorMax = pivot;
+			if (anchor == Transform.anchorMin && anchor == Transform.anchorMax) return;
+			Transform.anchorMin = Transform.anchorMax = anchor;
 		}
 
 		public virtual void ExpandSize(Vector2 size)
