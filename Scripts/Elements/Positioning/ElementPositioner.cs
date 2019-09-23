@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Elements
 {
     [Serializable]
-    public abstract class DivPosition
+    public abstract class ElementPositioner
     {
-        public DivPosition(RectTransform transform)
+        public ElementPositioner(RectTransform transform)
         {
             Transform = transform;
             Target = Current;

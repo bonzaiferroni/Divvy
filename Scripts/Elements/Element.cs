@@ -17,7 +17,7 @@ namespace Bonwerk.Divvy.Elements
 		
 		public ElementRevealer Revealer { get; private set; }
 		public RectTransform Transform { get; private set; }
-		public DivPosition Position { get; private set; }
+		public ElementPositioner Position { get; private set; }
 		public bool StyleDirty { get; protected set; }
 
 		public abstract Vector2 ContentSize { get; }
@@ -46,7 +46,7 @@ namespace Bonwerk.Divvy.Elements
 		public virtual void Init()
 		{
 			Transform = GetComponent<RectTransform>();
-			Position = new DivAnimatedPosition(Transform);
+			Position = new DirectPositioner(Transform);
 			Revealer = CreateRevealer();
 
 			Revealer.OnVisibilityChange += OnVisibilityChange;

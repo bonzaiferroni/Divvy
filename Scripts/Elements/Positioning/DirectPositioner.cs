@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Elements
 {
     [Serializable]
-    public class DivAnimatedPosition : DivPosition
+    public class DirectPositioner : ElementPositioner
     {
         private Vector2 _posRef;
         
-        public DivAnimatedPosition(RectTransform transform) : base(transform)
+        public DirectPositioner(RectTransform transform) : base(transform)
         {
         }
         

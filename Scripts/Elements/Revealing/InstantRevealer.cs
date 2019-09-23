@@ -4,12 +4,12 @@ namespace Bonwerk.Divvy.Elements
 {
     public class InstantRevealer : ElementRevealer
     {
-        public InstantRevealer(DivPosition position) : base(0)
+        public InstantRevealer(ElementPositioner position) : base(0)
         {
             Position = position;
         }
         
-        private DivPosition Position { get; }
+        private ElementPositioner Position { get; }
 
         private bool InPosition { get; set; } = true;
         
