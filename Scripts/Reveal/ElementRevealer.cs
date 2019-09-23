@@ -17,8 +17,8 @@ namespace Bonwerk.Divvy.Reveal
         public float Time { get; set; }
         public bool Transitioning { get; private set; }
         public bool IsVisible { get; private set; } = true;
-        public float CurrentVisibility { get; private set; }
-        public float TargetVisibility { get; private set; }
+        public float CurrentVisibility { get; private set; } = 1;
+        public float TargetVisibility { get; private set; } = 1;
         
         public event Action<bool> OnVisibilityChange;
         public event Action<bool> OnFinishedAnimation;

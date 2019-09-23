@@ -22,6 +22,11 @@ MonoBehaviour:
     Right: 0
     Bottom: 0
     Left: 0
+  _revealType: 0
+  _animationTime: 0.2
   _expand: 0
+  _isVisibleAtStart: 1
+  _backgroundSprite: {fileID: 0}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   _fontSize: 24
   _fontColor: {r: 1, g: 1, b: 1, a: 1}

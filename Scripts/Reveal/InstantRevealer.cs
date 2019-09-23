@@ -10,8 +10,8 @@ namespace Bonwerk.Divvy.Reveal
         }
         
         private RectTransform Transform { get; }
-        
-        private bool InPosition { get; set; }
+
+        private bool InPosition { get; set; } = true;
         
         public override bool InstantType => true;
 

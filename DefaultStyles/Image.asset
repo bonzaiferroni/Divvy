@@ -22,9 +22,12 @@ MonoBehaviour:
     Right: 0
     Bottom: 0
     Left: 0
+  _revealType: 0
+  _animationTime: 0.2
   _expand: 0
-  _spriteColor: {r: 1, g: 1, b: 1, a: 1}
-  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  _sprite: {fileID: 21300000, guid: f7df848796f84c447b381e6d593b3116, type: 3}
+  _isVisibleAtStart: 1
   _backgroundSprite: {fileID: 0}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  _spriteColor: {r: 1, g: 1, b: 1, a: 1}
+  _sprite: {fileID: 21300000, guid: f7df848796f84c447b381e6d593b3116, type: 3}
   _size: {x: 128, y: 128}

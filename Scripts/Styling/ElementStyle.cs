@@ -20,5 +20,8 @@ namespace Bonwerk.Divvy.Styling
 
         [SerializeField] private bool _expand;
         public bool Expand => _expand;
+
+        [SerializeField] private bool _isVisibleAtStart = true;
+        public bool IsVisibleAtStart => _isVisibleAtStart;
     }
 }

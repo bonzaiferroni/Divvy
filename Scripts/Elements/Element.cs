@@ -54,6 +54,7 @@ namespace Bonwerk.Divvy.Elements
 
 			Revealer.OnVisibilityChange += OnVisibilityChange;
 
+			Revealer.SetVisibility(ElementStyle.IsVisibleAtStart, true);
 			StyleDirty = true;
 		}
 
