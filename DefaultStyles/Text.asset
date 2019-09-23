@@ -23,7 +23,7 @@ MonoBehaviour:
     Bottom: 0
     Left: 0
   _revealType: 0
-  _animationTime: 0
+  _animationTime: 0.2
   _expand: 0
   _isVisibleAtStart: 1
   _backgroundSprite: {fileID: 0}

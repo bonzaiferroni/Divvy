@@ -1,17 +1,15 @@
-﻿using System;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    [Serializable]
-    public class DirectPositioner : ElementPositioner
+    public class DirectSizer : ElementSizer
     {
         private Vector2 _velocity;
         
-        public DirectPositioner(RectTransform transform) : base(transform)
+        public DirectSizer(RectTransform transform) : base(transform)
         {
         }
-        
+
         public override void Refresh(bool instant)
         {
             if (!instant && (Current - Target).sqrMagnitude > .001f)
@@ -20,12 +18,12 @@ namespace Bonwerk.Divvy.Elements
                 return;
             }
 
-            FinishTransport();
+            FinishResize();
         }
-
-        public override void FinishTransport()
+        
+        public override void FinishResize()
         {
-            base.FinishTransport();
+            base.FinishResize();
             _velocity = Vector2.zero;
         }
     }

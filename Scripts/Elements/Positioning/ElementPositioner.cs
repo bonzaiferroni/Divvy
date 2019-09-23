@@ -19,8 +19,8 @@ namespace Bonwerk.Divvy.Elements
         
         public Vector2 Current
         {
-            get { return Transform.anchoredPosition; }
-            protected set { Transform.anchoredPosition = value; }
+            get => Transform.anchoredPosition;
+            protected set => Transform.anchoredPosition = value;
         }
 
         public abstract void Refresh(bool instant);
