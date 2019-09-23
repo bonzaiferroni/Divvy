@@ -1,6 +1,6 @@
 ﻿using Bonwerk.Divvy;
 using Bonwerk.Divvy.Elements;
-using Bonwerk.Divvy.Visibility;
+using Bonwerk.Divvy.Reveal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +28,6 @@ namespace DivLib.Tests
                     var layoutGo = new GameObject($"Child_{i}_{j}", typeof(RectTransform));
                     StandardizeRect(layoutGo);
                     layoutGo.AddComponent<Element>();
-                    layoutGo.AddComponent<ElementScale>();
                     layoutGo.AddComponent<Image>().color = Random.ColorHSV();
                     layoutGo.transform.SetParent(horizontalParentGo.transform);
                 }

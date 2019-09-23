@@ -1,9 +1,12 @@
-﻿using Bonwerk.Divvy.Data;
+﻿using System;
+using System.Collections.Generic;
+using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Helpers;
 using Bonwerk.Divvy.Positioning;
 using Bonwerk.Divvy.Styling;
-using Bonwerk.Divvy.Visibility;
+using Bonwerk.Divvy.Reveal;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
@@ -11,11 +14,11 @@ namespace Bonwerk.Divvy.Elements
 	[RequireComponent(typeof(RectTransform))]
 	public abstract class Element : MonoBehaviour, IElement
 	{
-		public bool IsVisible => !Visibility || Visibility.IsVisible;
+		public bool IsVisible => Revealer.IsVisible;
 		
 		public DivElement Parent { get; set; }
 		
-		public ElementVisibility Visibility { get; private set; }
+		public ElementRevealer Revealer { get; private set; }
 		public RectTransform Transform { get; private set; }
 		public DivPosition Position { get; private set; }
 		public bool StyleDirty { get; protected set; }
@@ -45,15 +48,11 @@ namespace Bonwerk.Divvy.Elements
 		// called once at DivRoot.Awake() or instantiation
 		public virtual void Init()
 		{
-			Visibility = GetComponent<ElementVisibility>();
 			Transform = GetComponent<RectTransform>();
+			Revealer = CreateRevealer();
 			Position = new DivAnimatedPosition(Transform);
-			
-			if (Visibility)
-			{
-				Visibility.OnVisibilityChange += OnVisibilityChange;
-				Visibility.Init();
-			}
+
+			Revealer.OnVisibilityChange += OnVisibilityChange;
 
 			StyleDirty = true;
 		}
@@ -62,7 +61,8 @@ namespace Bonwerk.Divvy.Elements
 		public virtual void Refresh(bool instant)
 		{
 			if (StyleDirty) ApplyStyle(instant);
-			if (!Position.Transported) Position.Refresh(instant);
+			if (IsVisible && Position.Transporting) Position.Refresh(instant);
+			if (Revealer.Transitioning) Revealer.Refresh(instant);
 		}
 
 		// called when Parent.LayoutDirty == true
@@ -113,6 +113,24 @@ namespace Bonwerk.Divvy.Elements
 		public virtual void ExpandSize(Vector2 size)
 		{
 			PaddedSize = size - new Vector2(Margin.Right + Margin.Left, Margin.Top + Margin.Bottom);
+		}
+
+		private ElementRevealer CreateRevealer()
+		{
+			switch (ElementStyle.RevealType)
+			{
+				case RevealType.Instant:
+					return new InstantRevealer(Transform);
+				case RevealType.Fade:
+					if (this is DivElement) throw new Exception("FadeRevealer cannot be used on DivElement"); 
+					return new FadeRevealer(ElementStyle.AnimationTime, GetComponentsInChildren<Graphic>());
+				case RevealType.Scale:
+					return new ScaleRevealer(ElementStyle.AnimationTime, transform);
+				case RevealType.Canvas:
+					return new CanvasRevealer(ElementStyle.AnimationTime, GetComponent<CanvasGroup>());
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 

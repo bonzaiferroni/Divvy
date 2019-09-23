@@ -1,36 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bonwerk.Divvy.Data;
+using Bonwerk.Divvy.Elements;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Visibility
+namespace Bonwerk.Divvy.Reveal
 {
-    public abstract class AnimatedVisibility : ElementVisibility
+    public abstract class ElementRevealer
     {
-        [SerializeField] private float _speed = DivConstants.Speed;
-
-        private float _targetRef;
-
+        protected ElementRevealer(float time)
+        {
+            Time = time;
+        }
+        
+        public float Time { get; set; }
         public bool Transitioning { get; private set; }
+        public bool IsVisible { get; private set; } = true;
         public float CurrentVisibility { get; private set; }
         public float TargetVisibility { get; private set; }
-
+        
+        public event Action<bool> OnVisibilityChange;
         public event Action<bool> OnFinishedAnimation;
+        
+        public abstract bool InstantType { get; }
+        
+        protected abstract void Modify(float amount);
+        
+        private float _targetRef;
 
-        public override void Init()
+        public void Refresh(bool instant)
         {
-            SetVisibility(IsVisible, true);
-        }
-
-        private void Update()
-        {
-            ModifyVisibility();
-        }
-
-        private void ModifyVisibility()
-        {
-            if (!Transitioning) return;
-
-            if (Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f)
+            if (instant || InstantType || Mathf.Abs(CurrentVisibility - TargetVisibility) < .001f)
             {
                 CurrentVisibility = TargetVisibility;
                 Modify(CurrentVisibility);
@@ -39,7 +40,7 @@ namespace Bonwerk.Divvy.Visibility
             }
             else
             {
-                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, _speed);
+                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, Time);
                 Modify(CurrentVisibility);
             }
         }
@@ -55,51 +56,32 @@ namespace Bonwerk.Divvy.Visibility
             TargetVisibility = target;
             Transitioning = true;
 
+            OnVisibilityChange?.Invoke(IsVisible);
             if (instant)
             {
-                CurrentVisibility = target;
-                ModifyVisibility();
+                Refresh(true);
             }
-
-            VisibilityChangeHandler(IsVisible);
         }
 
-        public override void SetVisibility(bool show, bool instant = false)
+        public void SetVisibility(bool show, bool instant = false)
         {
             var target = show ? 1 : 0;
             SetVisibility(target, instant);
         }
 
-        public override void Show()
-        {
-            Show(false);
-        }
-
-        public void Show(bool instant)
+        public void Show(bool instant = false)
         {
             SetVisibility(1, instant);
         }
 
-        public override void Hide()
-        {
-            Hide(false);
-        }
-
-        public void Hide(bool instant)
+        public void Hide(bool instant = false)
         {
             SetVisibility(0, instant);
         }
 
-        public override void Toggle()
-        {
-            Toggle(false);
-        }
-
-        public void Toggle(bool instant)
+        public void Toggle(bool instant = false)
         {
             SetVisibility(!IsVisible, instant);
         }
-
-        protected abstract void Modify(float amount);
     }
 }

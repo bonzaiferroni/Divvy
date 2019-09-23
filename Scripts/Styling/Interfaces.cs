@@ -7,6 +7,7 @@ namespace Bonwerk.Divvy.Styling
     {
         Spacing Margin { get; }
         Spacing Padding { get; }
+        RevealType RevealType { get; }
         bool Expand { get; }
     }
     

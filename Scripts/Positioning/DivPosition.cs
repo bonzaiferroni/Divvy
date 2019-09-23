@@ -6,19 +6,20 @@ namespace Bonwerk.Divvy.Positioning
     [Serializable]
     public abstract class DivPosition
     {
-        public DivPosition(RectTransform rect)
+        public DivPosition(RectTransform transform)
         {
-            Rect = rect;
+            Transform = transform;
         }
         
         public Vector2 Target { get; protected set; }
-        public RectTransform Rect { get; private set; }
-        public bool Transported { get; protected set; }
+        public bool Transporting { get; protected set; }
+        
+        protected RectTransform Transform { get; }
         
         public Vector2 Current
         {
-            get { return Rect.anchoredPosition; }
-            protected set { Rect.anchoredPosition = value; }
+            get { return Transform.anchoredPosition; }
+            protected set { Transform.anchoredPosition = value; }
         }
 
         public abstract void Refresh(bool instant);
@@ -30,7 +31,7 @@ namespace Bonwerk.Divvy.Positioning
 				
             if (!instant)
             {
-                Transported = false;
+                Transporting = false;
             }
             else
             {
@@ -41,7 +42,7 @@ namespace Bonwerk.Divvy.Positioning
         public virtual void FinishTransport()
         {
             Current = Target;
-            Transported = true;
+            Transporting = false;
         }
     }
 }
