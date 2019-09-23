@@ -66,12 +66,11 @@ namespace Bonwerk.Divvy.Elements
         public override void Refresh(bool instant)
         {
             base.Refresh(instant);
+            if (LayoutDirty) SetSize(instant);
             foreach (var child in Children)
             {
                 child.Refresh(instant);
             }
-            
-            if (LayoutDirty) SetSize(instant);
         }
 
         // public

@@ -49,8 +49,8 @@ namespace Bonwerk.Divvy.Elements
 		public virtual void Init()
 		{
 			Transform = GetComponent<RectTransform>();
-			Revealer = CreateRevealer();
 			Position = new DivAnimatedPosition(Transform);
+			Revealer = CreateRevealer();
 
 			Revealer.OnVisibilityChange += OnVisibilityChange;
 
@@ -121,7 +121,7 @@ namespace Bonwerk.Divvy.Elements
 			switch (ElementStyle.RevealType)
 			{
 				case RevealType.Instant:
-					return new InstantRevealer(Transform);
+					return new InstantRevealer(Position);
 				case RevealType.Fade:
 					if (this is DivElement) throw new Exception("FadeRevealer cannot be used on DivElement"); 
 					return new FadeRevealer(ElementStyle.AnimationTime, GetComponentsInChildren<Graphic>());

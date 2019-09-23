@@ -57,10 +57,6 @@ namespace Bonwerk.Divvy.Reveal
             Transitioning = true;
 
             OnVisibilityChange?.Invoke(IsVisible);
-            if (instant)
-            {
-                Refresh(true);
-            }
         }
 
         public void SetVisibility(bool show, bool instant = false)

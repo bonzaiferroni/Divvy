@@ -1,15 +1,16 @@
+using Bonwerk.Divvy.Positioning;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Reveal
 {
     public class InstantRevealer : ElementRevealer
     {
-        public InstantRevealer(RectTransform transform) : base(0)
+        public InstantRevealer(DivPosition position) : base(0)
         {
-            Transform = transform;
+            Position = position;
         }
         
-        private RectTransform Transform { get; }
+        private DivPosition Position { get; }
 
         private bool InPosition { get; set; } = true;
         
@@ -19,11 +20,12 @@ namespace Bonwerk.Divvy.Reveal
         {
             if (InPosition && !IsVisible)
             {
-                Transform.anchoredPosition *= Vector3.up * 10000;
+                Position.SetTargetPosition(Vector3.up * 10000, true);
                 InPosition = false;
             }
             else if (!InPosition && IsVisible)
             {
+                Position.FinishTransport();
                 InPosition = true;
             }
         }

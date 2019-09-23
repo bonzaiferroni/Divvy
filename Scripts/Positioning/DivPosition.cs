@@ -9,6 +9,7 @@ namespace Bonwerk.Divvy.Positioning
         public DivPosition(RectTransform transform)
         {
             Transform = transform;
+            Target = Current;
         }
         
         public Vector2 Target { get; protected set; }
@@ -26,12 +27,12 @@ namespace Bonwerk.Divvy.Positioning
         
         public void SetTargetPosition(Vector2 position, bool instant)
         {
-            if (!instant && position == Target) return;
+            if (position == Target) return;
             Target = position;
 				
             if (!instant)
             {
-                Transporting = false;
+                Transporting = true;
             }
             else
             {
