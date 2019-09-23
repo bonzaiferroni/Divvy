@@ -1,7 +1,6 @@
-using Bonwerk.Divvy.Positioning;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Reveal
+namespace Bonwerk.Divvy.Elements
 {
     public class InstantRevealer : ElementRevealer
     {

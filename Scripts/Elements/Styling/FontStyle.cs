@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Styling
+namespace Bonwerk.Divvy.Elements
 {
     public abstract class FontStyle : BackgroundStyle, IFontStyle
     {

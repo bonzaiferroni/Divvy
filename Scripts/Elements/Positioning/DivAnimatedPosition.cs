@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Positioning
+namespace Bonwerk.Divvy.Elements
 {
     [Serializable]
     public class DivAnimatedPosition : DivPosition

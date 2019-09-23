@@ -1,6 +1,5 @@
 ﻿using Bonwerk.Divvy;
 using Bonwerk.Divvy.Elements;
-using Bonwerk.Divvy.Reveal;
 using UnityEngine;
 using UnityEngine.UI;
 

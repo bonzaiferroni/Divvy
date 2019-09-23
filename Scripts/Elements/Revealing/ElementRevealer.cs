@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using Bonwerk.Divvy.Data;
-using Bonwerk.Divvy.Elements;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Reveal
+namespace Bonwerk.Divvy.Elements
 {
     public abstract class ElementRevealer
     {

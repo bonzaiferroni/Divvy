@@ -1,8 +1,4 @@
-using Bonwerk.Divvy.Elements;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Bonwerk.Divvy.Styling
+namespace Bonwerk.Divvy.Elements
 {
     public static class ApplyStyles
     {

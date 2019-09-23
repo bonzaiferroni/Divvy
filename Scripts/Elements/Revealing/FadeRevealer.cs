@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Bonwerk.Divvy.Reveal
+namespace Bonwerk.Divvy.Elements
 {
     public class FadeRevealer : ElementRevealer
     {

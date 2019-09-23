@@ -1,8 +1,6 @@
-using Bonwerk.Divvy.Data;
-using Bonwerk.Divvy.Elements;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Styling
+namespace Bonwerk.Divvy.Elements
 {
     [CreateAssetMenu(fileName = "Div", menuName = "Divvy/Div Style", order = 1)]
     public class DivStyle : BackgroundStyle

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bonwerk.Divvy.Reveal
+namespace Bonwerk.Divvy.Elements
 {
     public class CanvasRevealer : ElementRevealer
     {

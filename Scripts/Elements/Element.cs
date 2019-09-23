@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Helpers;
-using Bonwerk.Divvy.Positioning;
-using Bonwerk.Divvy.Styling;
-using Bonwerk.Divvy.Reveal;
 using UnityEngine;
 using UnityEngine.UI;
 

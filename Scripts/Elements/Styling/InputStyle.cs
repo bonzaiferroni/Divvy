@@ -1,6 +1,7 @@
 using UnityEngine;
+using FontStyle = Bonwerk.Divvy.Elements.FontStyle;
 
-namespace Bonwerk.Divvy.Styling
+namespace Bonwerk.Divvy.Elements
 {
     [CreateAssetMenu(fileName = "Input", menuName = "Divvy/Input Style", order = 1)]
     public class InputStyle : FontStyle

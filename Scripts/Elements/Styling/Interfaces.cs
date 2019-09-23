@@ -1,7 +1,7 @@
 using Bonwerk.Divvy.Data;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Styling
+namespace Bonwerk.Divvy.Elements
 {
     public interface IElementStyle
     {

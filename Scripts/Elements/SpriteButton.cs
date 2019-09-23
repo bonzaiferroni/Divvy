@@ -1,5 +1,4 @@
 using Bonwerk.Divvy.Helpers;
-using Bonwerk.Divvy.Styling;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Helpers;
-using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
 

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Linq;
 using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Helpers;
-using Bonwerk.Divvy.Styling;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

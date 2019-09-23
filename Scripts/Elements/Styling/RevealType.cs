@@ -1,4 +1,4 @@
-namespace Bonwerk.Divvy.Styling
+namespace Bonwerk.Divvy.Elements
 {
     public enum RevealType
     {
