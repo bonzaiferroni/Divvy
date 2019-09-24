@@ -7,7 +7,7 @@ namespace Bonwerk.Divvy.Elements
         bool IsVisible { get; }
         string Name { get; }
         string Tag { get; }
-        DivElement Parent { get; set; }
+        IParentElement Parent { get; set; }
         RectTransform Transform { get; }
         
         // style

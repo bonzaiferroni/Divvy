@@ -1,3 +1,5 @@
+using UnityEngine.UI;
+
 namespace Bonwerk.Divvy.Elements
 {
     public static class ApplyStyles
@@ -27,6 +29,12 @@ namespace Bonwerk.Divvy.Elements
             {
                 if (style.AnimateBackground) element.Selectable.targetGraphic = background;
             }
+        }
+
+        public static void Image(Image image, ImageProperties style)
+        {
+            image.color = style.Color;
+            image.sprite = style.Sprite;
         }
     }
 }

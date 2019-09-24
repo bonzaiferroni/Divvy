@@ -25,7 +25,7 @@ namespace Bonwerk.Divvy.Elements
             {
                 if (_label.text == value) return;
                 _label.text = value;
-                if (Parent) Parent.LayoutDirty = true;
+                Parent?.SetLayoutDirty();
             }
         }
 

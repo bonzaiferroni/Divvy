@@ -35,7 +35,7 @@ namespace Bonwerk.Divvy.Elements
                 if (Input.text == value) return;
                 LastValue = value;
                 Input.text = value;
-                Parent.LayoutDirty = true;
+                Parent.SetLayoutDirty();
             }
         }
 
@@ -73,7 +73,7 @@ namespace Bonwerk.Divvy.Elements
 
         private void _OnValueChanged(string str)
         {
-            Parent.LayoutDirty = true;
+            Parent.SetLayoutDirty();
         }
 
         private void OnSubmit(string str)

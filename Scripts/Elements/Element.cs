@@ -12,7 +12,7 @@ namespace Bonwerk.Divvy.Elements
     {
         public bool IsVisible => Revealer.IsVisible;
 
-        public DivElement Parent { get; set; }
+        public IParentElement Parent { get; set; }
 
         public RectTransform Transform { get; private set; }
         public ElementRevealer Revealer { get; private set; }
@@ -66,8 +66,7 @@ namespace Bonwerk.Divvy.Elements
 
         private void OnVisibilityChange(bool isVisible)
         {
-            if (!Parent) return;
-            Parent.LayoutDirty = true;
+            Parent?.SetLayoutDirty();
         }
 
         public virtual void FinishTransport()

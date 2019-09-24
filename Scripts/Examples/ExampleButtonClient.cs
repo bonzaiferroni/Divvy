@@ -8,6 +8,7 @@ namespace Bonwerk.Divvy.Examples
     {
         public ButtonElement Button;
         public Element Target;
+        public Bar Foo;
 
         private void Start()
         {
@@ -19,5 +20,19 @@ namespace Bonwerk.Divvy.Examples
         {
             Target.Revealer.Toggle();
         }
+    }
+
+    [Serializable]
+    public class Foo
+    {
+        [Header("Sizing")]
+        public Vector2 Size;
+    }
+
+    [Serializable]
+    public class Bar : Foo
+    {
+        [Header("Position")] 
+        public Vector2 Position;
     }
 }

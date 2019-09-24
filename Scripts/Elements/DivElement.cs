@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Bonwerk.Divvy.Elements
 {
     [ExecuteInEditMode]
-    public class DivElement : BackgroundElement
+    public class DivElement : BackgroundElement, IParentElement
     {
         [SerializeField] private DivStyle _style;
         [SerializeField] private bool _reverseOrder;
@@ -16,7 +16,7 @@ namespace Bonwerk.Divvy.Elements
 
         public List<IElement> Children { get; } = new List<IElement>();
 
-        public bool LayoutDirty { get; set; }
+        public bool LayoutDirty { get; private set; }
 
         public override Vector2 ContentSize => _contentSize;
 
@@ -34,7 +34,7 @@ namespace Bonwerk.Divvy.Elements
             {
                 if (_reverseOrder == value) return;
                 _reverseOrder = value;
-                LayoutDirty = true;
+                SetLayoutDirty();
             }
         }
 
@@ -44,7 +44,7 @@ namespace Bonwerk.Divvy.Elements
         {
             base.Init();
             FindChildren();
-            LayoutDirty = true;
+            SetLayoutDirty();
         }
 
         private void FindChildren()
@@ -83,7 +83,7 @@ namespace Bonwerk.Divvy.Elements
 
         public void AddChild(IElement child, int index = -1, bool instantPositioning = true)
         {
-            if (child.Parent) child.Parent.RemoveChild(child);
+            child.Parent?.RemoveChild(child);
             if (index >= 0)
             {
                 Children.Insert(index, child);
@@ -95,7 +95,7 @@ namespace Bonwerk.Divvy.Elements
 
             child.Parent = this;
             if (child.Transform != transform) child.Transform.SetParent(transform, false);
-            LayoutDirty = true;
+            SetLayoutDirty();
         }
 
         public void RemoveChild(IElement child)
@@ -104,6 +104,11 @@ namespace Bonwerk.Divvy.Elements
             child.Parent = null;
             LayoutDirty = true;
             Children.Remove(child);
+        }
+
+        public void SetLayoutDirty()
+        {
+            LayoutDirty = true;
         }
 
         // Position Children
@@ -181,7 +186,7 @@ namespace Bonwerk.Divvy.Elements
         {
             if (newSize == _contentSize) return;
             _contentSize = newSize;
-            if (Parent) Parent.LayoutDirty = true;
+            Parent?.SetLayoutDirty();
         }
     }
 }
