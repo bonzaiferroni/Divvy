@@ -36,7 +36,14 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
+            ScrollRect.movementType = _style.Movement;
             ApplyStyles.Image(ScrollBackground, _style.ScrollBackground);
+            ApplyStyles.Image(ScrollRect.horizontalScrollbar.GetComponent<Image>(), _style.ScrollBar);
+            ApplyStyles.Image(ScrollRect.horizontalScrollbar.handleRect.GetComponent<Image>(), _style.ScrollHandle);
+            ApplyStyles.Image(ScrollRect.verticalScrollbar.GetComponent<Image>(), _style.ScrollBar);
+            ApplyStyles.Image(ScrollRect.verticalScrollbar.handleRect.GetComponent<Image>(), _style.ScrollHandle);
+            ScrollRect.horizontalScrollbar.GetComponent<RectTransform>().sizeDelta = new Vector2(0, _style.HandleWidth);
+            ScrollRect.verticalScrollbar.GetComponent<RectTransform>().sizeDelta = new Vector2(_style.HandleWidth, 0);
         }
 
         public void SetLayoutDirty()

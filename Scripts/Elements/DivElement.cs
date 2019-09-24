@@ -100,7 +100,7 @@ namespace Bonwerk.Divvy.Elements
 
         public void RemoveChild(IElement child)
         {
-            if (child.Parent != this) throw new Exception("Cannot remove child with a different parent");
+            if (!ReferenceEquals(child.Parent, this)) throw new Exception("Cannot remove child with a different parent");
             child.Parent = null;
             LayoutDirty = true;
             Children.Remove(child);

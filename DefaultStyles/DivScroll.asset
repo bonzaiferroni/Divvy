@@ -30,6 +30,14 @@ MonoBehaviour:
   _backgroundSprite: {fileID: 0}
   _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   _contentSize: {x: 200, y: 100}
+  _movement: 1
   _scrollBackground:
     _color: {r: 1, g: 1, b: 1, a: 0.4}
-    _sprite: {fileID: 0}
+    _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _scrollBar:
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _scrollHandle:
+    _color: {r: 1, g: 1, b: 1, a: 1}
+    _sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  _handleWidth: 20
