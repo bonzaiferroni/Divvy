@@ -6,26 +6,25 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ButtonElement : BackgroundElement
     {
-        public Button Button { get; private set; }
-        
-        public abstract ButtonStyle ButtonStyle { get; }
-        public override BackgroundStyle BackgroundStyle => ButtonStyle;
+        [HideInInspector] [SerializeField] private Button _button;
+        [Header("Button")] [SerializeField] private SelectableProperties _selectableStyle;
+        public SelectableProperties SelectableStyle => _selectableStyle;
 
         public override void Init()
         {
             base.Init();
-            Button = GetComponent<Button>();
+            if (!_button) _button = GetComponent<Button>();
         }
 
         public void AddListener(UnityAction action)
         {
-            Button.onClick.AddListener(action);
+            _button.onClick.AddListener(action);
         }
 
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Selectable(Button, Background, ButtonStyle.Selectable);
+            ApplyStyles.Selectable(_button, _background, SelectableStyle);
         }
     }
 }

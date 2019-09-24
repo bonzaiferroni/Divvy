@@ -58,8 +58,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba897d556e994db7b4fb13546496ee71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _style: {fileID: 11400000, guid: 2703307f9adcd2842aa9e45c9a322bed, type: 2}
+  _header:
+    _margin:
+      Top: 0
+      Right: 0
+      Bottom: 0
+      Left: 0
+    _padding:
+      Top: 0
+      Right: 0
+      Bottom: 0
+      Left: 0
+    _revealType: 0
+    _animationTime: 0.2
+    _easeAnimation: 0
+    _expand: 0
+    _isVisibleAtStart: 1
+  _backgroundStyle:
+    _color: {r: 0, g: 0, b: 0, a: 0.9019608}
+    _sprite: {fileID: 0}
   _label: {fileID: 273911600656819719}
+  _style:
+    _size: 36
+    _color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3684548859903066630
 GameObject:
   m_ObjectHideFlags: 0

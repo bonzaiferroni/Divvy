@@ -48,5 +48,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c4b24a6ed149b4bde9d150a581a165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _style: {fileID: 11400000, guid: ea5bff7c697a75748981b4c234ef4523, type: 2}
+  _header:
+    _margin:
+      Top: 0
+      Right: 0
+      Bottom: 0
+      Left: 0
+    _padding:
+      Top: 0
+      Right: 0
+      Bottom: 0
+      Left: 0
+    _revealType: 0
+    _animationTime: 0.2
+    _easeAnimation: 0
+    _expand: 0
+    _isVisibleAtStart: 1
+  _backgroundStyle:
+    _color: {r: 0, g: 0, b: 0, a: 0.9019608}
+    _sprite: {fileID: 0}
+  _style:
+    _minSize: {x: 0, y: 0}
+    _expandChildren: 0
+    _spacing: 0
+    _childOrientation: {x: 0, y: 1}
+    _layout: 0
   _reverseOrder: 0

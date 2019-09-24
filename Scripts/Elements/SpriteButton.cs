@@ -4,28 +4,25 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class SpriteButton : ButtonElement, IContentElement
+    public class SpriteButton : ButtonElement
     {
-        [SerializeField] private SpriteButtonStyle _style;
-        public override ButtonStyle ButtonStyle => _style;
-        
-        [SerializeField] private Image _image;
-
-        public override Vector2 ContentSize => _style.Size;
-
-        public RectTransform Content { get; private set; }
+        [Header("SpriteButton")]
+        [HideInInspector][SerializeField] private Image _image;
+        [SerializeField] private ImageStyle _style;
+        [SerializeField] private Vector2 _contentSize = new Vector2(32, 32);
+        public override Vector2 ContentSize => _contentSize;
         
         public override void Init()
         {
             base.Init();
-            Content = _image.GetComponent<RectTransform>();
+            if (!_image) _image = transform.GetChild(0).GetComponent<Image>();
+            if (!_contentRect) _contentRect = _image.GetComponent<RectTransform>();
         }
 
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            _image.color = _style.SpriteColor;
-            _image.sprite = _style.Sprite;
+            ApplyStyles.Image(_image, _style);
         }
     }
 }

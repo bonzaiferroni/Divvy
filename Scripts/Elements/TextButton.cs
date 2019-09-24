@@ -4,28 +4,26 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextButton : ButtonElement, IContentElement
+    public class TextButton : ButtonElement
     {
-        [SerializeField] private TextButtonStyle _style;
-        public override ButtonStyle ButtonStyle => _style;
-        
-        [SerializeField] private TextMeshProUGUI _label;
-        public TextMeshProUGUI Label => _label;
+        [Header("TextButton")]
+        [HideInInspector] [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private FontStyle _fontStyle;
+        public FontStyle FontStyle => _fontStyle;
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
-        
-        public RectTransform Content { get; private set; }
 
         public override void Init()
         {
             base.Init();
-            Content = _label.GetComponent<RectTransform>();
+            if (!_label) _label = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            if (!_contentRect) _contentRect = _label.GetComponent<RectTransform>();
         }
 
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Font(Label, _style.Text);
+            ApplyStyles.Font(_label, FontStyle);
         }
     }
 }

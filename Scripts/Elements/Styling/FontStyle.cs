@@ -4,9 +4,15 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Elements
 {
     [Serializable]
-    public class FontProperties
+    public class FontStyle
     {
-        public FontProperties(float size, Color color)
+        public FontStyle()
+        {
+            _size = 24;
+            _color = Color.white;
+        }
+        
+        public FontStyle(float size, Color color)
         {
             _size = size;
             _color = color;

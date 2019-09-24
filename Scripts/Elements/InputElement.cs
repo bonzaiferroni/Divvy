@@ -9,15 +9,19 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class InputElement : BackgroundElement, IContentElement
+    public class InputElement : BackgroundElement
     {
-        [SerializeField] private InputStyle _style;
-        public override BackgroundStyle BackgroundStyle => _style;
         
-        [SerializeField] private RectTransform _content;
-        public RectTransform Content => _content;
+        [HideInInspector] [SerializeField] private TMP_InputField _input;
+        [Header("Input Field")] [SerializeField] private FontStyle _textStyle = new FontStyle(24, Color.white);
+        public FontStyle TextStyle => _textStyle;
+        [SerializeField] private FontStyle _placeholderStyle = new FontStyle(24, new Color(1, 1, 1, .5f));
+        public FontStyle PlaceholderStyle => _placeholderStyle;
+        [SerializeField] private Vector2 _minSize;
+        public Vector2 MinSize => _minSize;
+        [SerializeField] private Vector2 _maxSize;
+        public Vector2 MaxSize => _maxSize;
         
-        private TMP_InputField Input { get; set; }
         private string LastValue { get; set; }
         private IEnumerator _UpdateNextFrame;
         
@@ -27,12 +31,12 @@ namespace Bonwerk.Divvy.Elements
 
         public string Text
         {
-            get => Input.text;
+            get => _input.text;
             set
             {
-                if (Input.text == value) return;
+                if (_input.text == value) return;
                 LastValue = value;
-                Input.text = value;
+                _input.text = value;
                 Parent.SetLayoutDirty();
             }
         }
@@ -51,10 +55,13 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            Input = GetComponent<TMP_InputField>();
-            Input.onValueChanged.AddListener(_OnValueChanged);
-            Input.onSubmit.AddListener(OnSubmit);
-            Input.onDeselect.AddListener(OnSubmit);
+            if (!_input) _input = GetComponent<TMP_InputField>();
+            if (!_contentRect) _contentRect = transform.GetChild(0).GetComponent<RectTransform>();
+            
+            // add listeners
+            _input.onValueChanged.AddListener(_OnValueChanged);
+            _input.onSubmit.AddListener(OnSubmit);
+            _input.onDeselect.AddListener(OnSubmit);
 
             _UpdateNextFrame = UpdateNextFrame();
             UpdateInteractable(Interactable);
@@ -63,8 +70,8 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Font(Input.textComponent, _style.Text);
-            ApplyStyles.Font(Input.placeholder as TMP_Text, _style.Placeholder);
+            ApplyStyles.Font(_input.textComponent, TextStyle);
+            ApplyStyles.Font(_input.placeholder as TMP_Text, PlaceholderStyle);
         }
 
         private void _OnValueChanged(string str)
@@ -89,27 +96,27 @@ namespace Bonwerk.Divvy.Elements
         public void Activate()
         {
             UpdateInteractable(true);
-            Input.ActivateInputField();
+            _input.ActivateInputField();
         }
 
         private void UpdateInteractable(bool interactable)
         {
-            if (!Background) return;
-            if (Input.interactable != interactable) Input.interactable = interactable;
-            if (Background.enabled != interactable) Background.enabled = interactable;
+            if (!_background) return;
+            if (_input.interactable != interactable) _input.interactable = interactable;
+            if (_background.enabled != interactable) _background.enabled = interactable;
         }
 
         private Vector2 GetContentSize()
         {
-            var element = Input.text.Length > 0 ? Input.textComponent : (TMP_Text) Input.placeholder;
+            var element = _input.text.Length > 0 ? _input.textComponent : (TMP_Text) _input.placeholder;
             var width = element.preferredWidth;
-            if (Input.text.Length > 0 && char.IsWhiteSpace(Input.text.LastOrDefault()))
+            if (_input.text.Length > 0 && char.IsWhiteSpace(_input.text.LastOrDefault()))
                 width += element.fontSize / 2;
             var height = element.preferredHeight;
-            if (_style.MinSize.x > 0) width = Mathf.Max(_style.MinSize.x, width);
-            if (_style.MinSize.y > 0) height = Mathf.Max(_style.MinSize.y, height);
-            if (_style.MaxSize.x > 0) width = Mathf.Min(_style.MaxSize.x, width);
-            if (_style.MaxSize.y > 0) height = Mathf.Min(_style.MaxSize.y, height);
+            if (MinSize.x > 0) width = Mathf.Max(MinSize.x, width);
+            if (MinSize.y > 0) height = Mathf.Max(MinSize.y, height);
+            if (MaxSize.x > 0) width = Mathf.Min(MaxSize.x, width);
+            if (MaxSize.y > 0) height = Mathf.Min(MaxSize.y, height);
             
             return new Vector2(width, height);
         }

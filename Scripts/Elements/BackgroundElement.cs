@@ -3,19 +3,17 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public abstract class BackgroundElement : Element, IBackgroundElement
+    public abstract class BackgroundElement : Element
     {
-        public Image Background { get; private set; }
+        [HideInInspector] [SerializeField] protected Image _background;
+        [Header("Background")] [SerializeField] private ImageStyle _backgroundStyle = new ImageStyle(new Color(0, 0, 0, .9f));
+        public ImageStyle BackgroundStyle => _backgroundStyle;
         
-        public abstract BackgroundStyle BackgroundStyle { get; }
-
-        public override ElementStyle ElementStyle => BackgroundStyle;
-
         public override void Init()
         {
             base.Init();
-            Background = GetComponent<Image>();
-            if (Background) ApplyStyles.Image(Background, BackgroundStyle.Background);
+            if (!_background) _background = GetComponent<Image>();
+            if (_background) ApplyStyles.Image(_background, BackgroundStyle);
         }
     }
 }

@@ -10,6 +10,14 @@ namespace Bonwerk.Divvy.Elements
     [RequireComponent(typeof(RectTransform))]
     public abstract class Element : MonoBehaviour, IElement
     {
+        [HideInInspector] [SerializeField] protected RectTransform _contentRect;
+        
+        [Header("Element")] [SerializeField] private ElementStyle _elementStyle;
+        public ElementStyle ElementStyle => _elementStyle;
+        public bool Expand => ElementStyle.Expand;
+        public Spacing Margin => ElementStyle.Margin;
+        public Spacing Padding => ElementStyle.Padding;
+        
         public bool IsVisible => Revealer.IsVisible;
 
         public IParentElement Parent { get; set; }
@@ -21,11 +29,6 @@ namespace Bonwerk.Divvy.Elements
         public bool StyleDirty { get; protected set; }
 
         public abstract Vector2 ContentSize { get; }
-        public abstract ElementStyle ElementStyle { get; }
-
-        public bool Expand => ElementStyle.Expand;
-        public Spacing Margin => ElementStyle.Margin;
-        public Spacing Padding => ElementStyle.Padding;
 
         public string Name => gameObject.name;
         public string Tag => gameObject.tag;
@@ -91,9 +94,9 @@ namespace Bonwerk.Divvy.Elements
 
         protected virtual void SetSize(Vector2 size, bool instant)
         {
-            if (this is IContentElement e)
+            if (_contentRect)
             {
-                e.Content.SetPadding(Padding);
+                _contentRect.SetPadding(Padding);
             }
 
             Sizer.SetTargetSize(size, instant);

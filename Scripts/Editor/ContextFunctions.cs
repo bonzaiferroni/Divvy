@@ -8,9 +8,7 @@ namespace Bonwerk.Divvy.Editor
     public static class ContextFunctions
     {
         // Add a menu item called "Double Mass" to a Rigidbody's context menu.
-        [MenuItem("CONTEXT/ButtonElement/Add Background")]
-        [MenuItem("CONTEXT/ImageElement/Add Background")]
-        [MenuItem("CONTEXT/Div/Add Background")]
+        [MenuItem("CONTEXT/BackgroundElement/Add Background")]
         private static void AddBackground(MenuCommand command)
         {
             var mono = (MonoBehaviour) command.context;

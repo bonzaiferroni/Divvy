@@ -45,41 +45,59 @@ namespace Bonwerk.Divvy.Editor
         // Add a menu item to create custom GameObjects.
         // Priority 1 ensures it is grouped with the other menu items of the same kind
         // and propagated to the hierarchy dropdown and hierarchy context menus.
-        [MenuItem("GameObject/Divvy/DivRoot", false, 1)]
+        [MenuItem("GameObject/DivvyUI/DivRoot", false, 0)]
         private static void DivRoot(MenuCommand menuCommand)
         {
             var go = Create("DivRoot");
             Integrate(go, menuCommand.context as GameObject);
         }
         
-        [MenuItem("GameObject/Divvy/Div", false, 1)]
+        [MenuItem("GameObject/DivvyUI/Div", false, 0)]
         private static void Div(MenuCommand menuCommand)
         {
             Create("Div", menuCommand);
         }
         
-        [MenuItem("GameObject/Divvy/Text", false, 1)]
+        [MenuItem("GameObject/DivvyUI/Text", false, 0)]
         private static void Text(MenuCommand menuCommand)
         {
             Create("Text", menuCommand);
         }
         
-        [MenuItem("GameObject/Divvy/Header", false, 1)]
+        [MenuItem("GameObject/DivvyUI/Header", false, 0)]
         private static void Header(MenuCommand menuCommand)
         {
             Create("Header", menuCommand);
         }
         
-        [MenuItem("GameObject/Divvy/TextButton", false, 1)]
+        [MenuItem("GameObject/DivvyUI/TextButton", false, 0)]
         private static void TextButton(MenuCommand menuCommand)
         {
             Create("TextButton", menuCommand);
         }
         
-        [MenuItem("GameObject/Divvy/SpriteButton", false, 1)]
+        [MenuItem("GameObject/DivvyUI/Image", false, 0)]
+        private static void Image(MenuCommand menuCommand)
+        {
+            Create("Image", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/SpriteButton", false, 0)]
         private static void SpriteButton(MenuCommand menuCommand)
         {
             Create("SpriteButton", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/LineBreak", false, 0)]
+        private static void LineBreak(MenuCommand menuCommand)
+        {
+            Create("LineBreak", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/InputField", false, 0)]
+        private static void InputField(MenuCommand menuCommand)
+        {
+            Create("InputField", menuCommand);
         }
     }
 }

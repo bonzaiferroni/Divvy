@@ -9,10 +9,22 @@ namespace Bonwerk.Divvy.Elements
     [ExecuteInEditMode]
     public class DivElement : BackgroundElement, IParentElement
     {
-        [SerializeField] private DivStyle _style;
-        public override BackgroundStyle BackgroundStyle => _style;
+        [Header("Div")] [SerializeField] private Vector2 _minSize;
+        public Vector2 MinSize => _minSize;
+
+        [SerializeField] private Vector2 _childOrientation = new Vector2(0, 1);
+        public Vector2 ChildOrientation => _childOrientation;
+
+        [SerializeField] private LayoutType _layout;
+        public LayoutType Layout => _layout;
+
+        [SerializeField] private bool _expandChildren;
+        public bool ExpandChildren => _expandChildren;
         
         [SerializeField] private bool _reverseOrder;
+
+        [SerializeField] private float _spacing;
+        public float Spacing => _spacing;
 
         private Vector2 _contentSize;
 
@@ -21,12 +33,6 @@ namespace Bonwerk.Divvy.Elements
         public bool LayoutDirty { get; private set; }
 
         public override Vector2 ContentSize => _contentSize;
-
-        public Vector2 MinSize => _style.MinSize;
-        public Vector2 ChildOrientation => _style.ChildOrientation;
-        public float Spacing => _style.Spacing;
-        public bool ExpandChildren => _style.ExpandChildren;
-        public LayoutType Layout => _style.Layout;
 
         public bool ReverseOrder
         {

@@ -4,31 +4,18 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class ImageElement : BackgroundElement, IContentElement
+    public class ImageElement : BackgroundElement
     {
-        [SerializeField] private ImageStyle _style;
-        [SerializeField] private Image _image;
-
-        public RectTransform Content { get; private set; }
-        
-        public override BackgroundStyle BackgroundStyle => _style;
-
-        public override Vector2 ContentSize => new Vector2(_style.Size.x, _style.Size.y);
+        [Header("Image")]
+        [HideInInspector] [SerializeField] private Image _image;
+        [SerializeField] private Vector2 _contentSize = new Vector2(128, 128);
+        public override Vector2 ContentSize => _contentSize;
+        [SerializeField] private ImageStyle _style = new ImageStyle(Color.white);
 
         public Sprite Sprite
         {
-            get { return _image.sprite; }
-            set { _image.sprite = value; }
-        }
-
-        public float Alpha
-        {
-            get { return _image.color.a; }
-            set
-            {
-                var c = _image.color;
-                _image.color = new Color(c.r, c.g, c.b, value);
-            }
+            get => _image.sprite;
+            set => _image.sprite = value;
         }
 
         public bool RaycastTarget
@@ -43,14 +30,14 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            Content = _image.GetComponent<RectTransform>();
+            if (!_image) _image = transform.GetChild(0).GetComponent<Image>();
+            if (!_contentRect) _contentRect = _image.GetComponent<RectTransform>();
         }
 
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            _image.color = _style.SpriteColor;
-            _image.sprite = _style.Sprite;
+            ApplyStyles.Image(_image, _style);
         }
     }
 }

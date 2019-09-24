@@ -1,18 +1,25 @@
+using System;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    [CreateAssetMenu(fileName = "Image", menuName = "Divvy/Image Style", order = 1)]
-    public class ImageStyle : BackgroundStyle
+    [Serializable]
+    public class ImageStyle
     {
-        [Header("Sprite Button")]
-        [SerializeField] private Color _spriteColor = Color.white;
-        public Color SpriteColor => _spriteColor;
+        public ImageStyle()
+        {
+            _color = Color.white;
+        }
+        
+        public ImageStyle(Color color)
+        {
+            _color = color;
+        }
+
+        [SerializeField] private Color _color;
+        public Color Color => _color;
 
         [SerializeField] private Sprite _sprite;
         public Sprite Sprite => _sprite;
-
-        [SerializeField] private Vector2 _size = new Vector2(128, 128);
-        public Vector2 Size => _size;
     }
 }
