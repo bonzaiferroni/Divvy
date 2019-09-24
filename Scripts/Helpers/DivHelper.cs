@@ -1,8 +1,10 @@
+using System;
 using Bonwerk.Divvy.Elements;
+using UnityEngine;
 
 namespace Bonwerk.Divvy.Helpers
 {
-    public static class DivHelper
+    public static class ElementHelper
     {
         public static IElement GetChild(this DivElement div, string objectTag)
         {
@@ -40,6 +42,15 @@ namespace Bonwerk.Divvy.Helpers
             }
 
             return null;
+        }
+
+        public static T GetAndValidate<T>(this Element element, string name) where T : MonoBehaviour
+        {
+            var component = element.GetComponentInChildren<T>();
+            if (component.name != name)
+                throw new Exception(
+                    $"Divvy initialization failed, found {typeof(T).Name} on GameObject named {component.name}, was expecting {name}");
+            return component;
         }
     }
 }
