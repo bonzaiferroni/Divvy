@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
@@ -23,5 +24,8 @@ namespace Bonwerk.Divvy.Elements
 
         [SerializeField] private Color _color;
         public Color Color => _color;
+
+        [SerializeField] private TMP_FontAsset _font;
+        public TMP_FontAsset Font => _font;
     }
 }

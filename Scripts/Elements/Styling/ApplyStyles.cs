@@ -15,6 +15,7 @@ namespace Bonwerk.Divvy.Elements
         {
             label.fontSize = style.Size;
             label.color = style.Color;
+            label.font = style.Font;
         }
 
         public static void Selectable(Selectable selectable, Image background, SelectableStyle style)

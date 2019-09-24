@@ -83,6 +83,7 @@ MonoBehaviour:
   _fontStyle:
     _size: 24
     _color: {r: 1, g: 1, b: 1, a: 1}
+    _font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
 --- !u!114 &5842313106944404863
 MonoBehaviour:
   m_ObjectHideFlags: 0

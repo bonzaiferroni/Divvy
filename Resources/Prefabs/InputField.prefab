@@ -452,9 +452,18 @@ MonoBehaviour:
   _textStyle:
     _size: 24
     _color: {r: 1, g: 1, b: 1, a: 1}
+    _font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   _placeholderStyle:
     _size: 24
     _color: {r: 1, g: 1, b: 1, a: 0.5}
+    _font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  _selectableStyle:
+    _animateBackground: 0
+    _normalColor: {r: 1, g: 1, b: 1, a: 1}
+    _highlightedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    _pressedColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}
+    _selectedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    _disabledColor: {r: 0.78, g: 0.78, b: 0.78, a: 0.5}
   _minSize: {x: 0, y: 0}
   _maxSize: {x: 0, y: 0}
   _interactable: 1
