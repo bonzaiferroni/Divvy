@@ -1,40 +1,28 @@
+using TMPro;
 using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
     public static class ApplyStyles
     {
-        public static void Background(Element e, ElementStyle s)
-        {
-            if (!(e is IBackgroundElement element) || !(s is IBackgroundStyle style)) return;
-            if (!element.Background) return;
-            element.Background.color = style.BackgroundColor;
-            element.Background.sprite = style.BackgroundSprite;
-        }
-
-        public static void Font(Element e, ElementStyle s)
-        {
-            if (!(e is IFontElement element) || !(s is IFontStyle style)) return;
-            if (!element.Label) return;
-            element.Label.fontSize = style.FontSize;
-            element.Label.color = style.FontColor;
-        }
-
-        public static void Selectable(Element e, ElementStyle s)
-        {
-            if (!(e is ISelectableElement element) || !(s is ISelectableStyle style)) return;
-            var background = (e as IBackgroundElement)?.Background;
-            
-            if (background)
-            {
-                if (style.AnimateBackground) element.Selectable.targetGraphic = background;
-            }
-        }
-
         public static void Image(Image image, ImageProperties style)
         {
             image.color = style.Color;
             image.sprite = style.Sprite;
+        }
+
+        public static void Font(TMP_Text label, FontProperties style)
+        {
+            label.fontSize = style.Size;
+            label.color = style.Color;
+        }
+
+        public static void Selectable(Selectable selectable, Image background, SelectableProperties style)
+        {
+            if (background && style.AnimateBackground)
+            {
+                selectable.targetGraphic = background;
+            }
         }
     }
 }

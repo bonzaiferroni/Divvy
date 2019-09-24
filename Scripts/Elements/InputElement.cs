@@ -12,6 +12,8 @@ namespace Bonwerk.Divvy.Elements
     public class InputElement : BackgroundElement, IContentElement
     {
         [SerializeField] private InputStyle _style;
+        public override BackgroundStyle BackgroundStyle => _style;
+        
         [SerializeField] private RectTransform _content;
         public RectTransform Content => _content;
         
@@ -20,12 +22,8 @@ namespace Bonwerk.Divvy.Elements
         private IEnumerator _UpdateNextFrame;
         
         public event Action<string> OnValueChanged;
-
-        public override ElementStyle ElementStyle => _style;
         
         public override Vector2 ContentSize => GetContentSize();
-        
-        private TextMeshProUGUI PlaceholderText => (TextMeshProUGUI) Input.placeholder;
 
         public string Text
         {
@@ -65,10 +63,8 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            Input.textComponent.fontSize = _style.FontSize;
-            PlaceholderText.fontSize = _style.FontSize;
-            Input.textComponent.color = _style.FontColor;
-            PlaceholderText.color = new Color(_style.FontColor.r, _style.FontColor.g, _style.FontColor.b, .5f);
+            ApplyStyles.Font(Input.textComponent, _style.Text);
+            ApplyStyles.Font(Input.placeholder as TMP_Text, _style.Placeholder);
         }
 
         private void _OnValueChanged(string str)
@@ -105,7 +101,7 @@ namespace Bonwerk.Divvy.Elements
 
         private Vector2 GetContentSize()
         {
-            var element = Input.text.Length > 0 ? Input.textComponent : PlaceholderText;
+            var element = Input.text.Length > 0 ? Input.textComponent : (TMP_Text) Input.placeholder;
             var width = element.preferredWidth;
             if (Input.text.Length > 0 && char.IsWhiteSpace(Input.text.LastOrDefault()))
                 width += element.fontSize / 2;

@@ -8,7 +8,7 @@ namespace Bonwerk.Divvy.Elements
     public class DivScroll : BackgroundElement, IParentElement, IContentElement
     {
         [SerializeField] private DivScrollStyle _style;
-        public override ElementStyle ElementStyle => _style;
+        public override BackgroundStyle BackgroundStyle => _style;
         
         [SerializeField] private DivElement _div;
         public DivElement Div => _div;

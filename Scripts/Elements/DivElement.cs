@@ -10,6 +10,8 @@ namespace Bonwerk.Divvy.Elements
     public class DivElement : BackgroundElement, IParentElement
     {
         [SerializeField] private DivStyle _style;
+        public override BackgroundStyle BackgroundStyle => _style;
+        
         [SerializeField] private bool _reverseOrder;
 
         private Vector2 _contentSize;
@@ -20,7 +22,6 @@ namespace Bonwerk.Divvy.Elements
 
         public override Vector2 ContentSize => _contentSize;
 
-        public override ElementStyle ElementStyle => _style;
         public Vector2 MinSize => _style.MinSize;
         public Vector2 ChildOrientation => _style.ChildOrientation;
         public float Spacing => _style.Spacing;

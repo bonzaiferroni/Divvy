@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public abstract class ButtonElement : BackgroundElement, ISelectableElement
+    public abstract class ButtonElement : BackgroundElement
     {
         public Button Button { get; private set; }
         
-        public Selectable Selectable => Button;
+        public abstract ButtonStyle ButtonStyle { get; }
+        public override BackgroundStyle BackgroundStyle => ButtonStyle;
 
         public override void Init()
         {
@@ -19,6 +20,12 @@ namespace Bonwerk.Divvy.Elements
         public void AddListener(UnityAction action)
         {
             Button.onClick.AddListener(action);
+        }
+
+        protected override void ApplyStyle(bool instant)
+        {
+            base.ApplyStyle(instant);
+            ApplyStyles.Selectable(Button, Background, ButtonStyle.Selectable);
         }
     }
 }

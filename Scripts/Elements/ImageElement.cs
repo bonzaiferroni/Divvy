@@ -11,7 +11,7 @@ namespace Bonwerk.Divvy.Elements
 
         public RectTransform Content { get; private set; }
         
-        public override ElementStyle ElementStyle => _style;
+        public override BackgroundStyle BackgroundStyle => _style;
 
         public override Vector2 ContentSize => new Vector2(_style.Size.x, _style.Size.y);
 

@@ -13,18 +13,6 @@ namespace Bonwerk.Divvy.Elements
     
     public interface IBackgroundStyle : IElementStyle
     {
-        Color BackgroundColor { get; }
-        Sprite BackgroundSprite { get; }
-    }
-    
-    public interface IFontStyle : IElementStyle
-    {
-        float FontSize { get; }
-        Color FontColor { get; }
-    }
-
-    public interface ISelectableStyle : IElementStyle
-    {
-        bool AnimateBackground { get; }
+        ImageProperties Background { get; }
     }
 }

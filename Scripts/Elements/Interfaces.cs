@@ -8,16 +8,6 @@ namespace Bonwerk.Divvy.Elements
     {
         Image Background { get; }
     }
-    
-    public interface IFontElement : IElement
-    {
-        TextMeshProUGUI Label { get; }
-    }
-
-    public interface ISelectableElement : IElement
-    {
-        Selectable Selectable { get; }
-    }
 
     public interface IContentElement : IElement
     {

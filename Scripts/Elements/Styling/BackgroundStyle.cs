@@ -4,11 +4,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class BackgroundStyle : ElementStyle, IBackgroundStyle
     {
-        [Header("Background")]
-        [SerializeField] private Sprite _backgroundSprite;
-        public Sprite BackgroundSprite => _backgroundSprite;
-        
-        [SerializeField] private Color _backgroundColor = Color.black;
-        public Color BackgroundColor => _backgroundColor;
+        [Header("Background")] [SerializeField]
+        private ImageProperties _background = new ImageProperties(Color.black);
+        public ImageProperties Background => _background;
     }
 }

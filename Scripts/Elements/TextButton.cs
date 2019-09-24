@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextButton : ButtonElement, IFontElement, IContentElement
+    public class TextButton : ButtonElement, IContentElement
     {
         [SerializeField] private TextButtonStyle _style;
+        public override ButtonStyle ButtonStyle => _style;
+        
         [SerializeField] private TextMeshProUGUI _label;
         public TextMeshProUGUI Label => _label;
-
-        public override ElementStyle ElementStyle => _style;
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
         
@@ -25,8 +25,7 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            _label.fontSize = _style.FontSize;
-            _label.color = _style.FontColor;
+            ApplyStyles.Font(Label, _style.Text);
         }
     }
 }

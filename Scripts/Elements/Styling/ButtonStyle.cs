@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public abstract class ButtonStyle : BackgroundStyle, ISelectableStyle
+    public abstract class ButtonStyle : BackgroundStyle
     {
-        [Header("Selectable")]
-        [SerializeField] private bool _animateBackground;
-        public bool AnimateBackground => _animateBackground;
+        [Header("Button")]
+        [SerializeField] private SelectableProperties _selectable = new SelectableProperties(false);
+        public SelectableProperties Selectable => _selectable;
     }
 }

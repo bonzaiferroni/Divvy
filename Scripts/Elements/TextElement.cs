@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextElement : BackgroundElement, IFontElement, IContentElement
+    public class TextElement : BackgroundElement, IContentElement
     {
         [SerializeField] private TextStyle _style;
+        public override BackgroundStyle BackgroundStyle => _style;
+        
         [SerializeField] private TextMeshProUGUI _label;
         public TextMeshProUGUI Label => _label;
-
-        public override ElementStyle ElementStyle => _style;
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
         
@@ -54,6 +54,12 @@ namespace Bonwerk.Divvy.Elements
         {
             base.Init();
             Content = Label.GetComponent<RectTransform>();
+        }
+
+        protected override void ApplyStyle(bool instant)
+        {
+            base.ApplyStyle(instant);
+            ApplyStyles.Font(Label, _style.Text);
         }
     }
 }

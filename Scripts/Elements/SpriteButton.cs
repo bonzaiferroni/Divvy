@@ -7,9 +7,9 @@ namespace Bonwerk.Divvy.Elements
     public class SpriteButton : ButtonElement, IContentElement
     {
         [SerializeField] private SpriteButtonStyle _style;
-        [SerializeField] private Image _image;
+        public override ButtonStyle ButtonStyle => _style;
         
-        public override ElementStyle ElementStyle => _style;
+        [SerializeField] private Image _image;
 
         public override Vector2 ContentSize => _style.Size;
 

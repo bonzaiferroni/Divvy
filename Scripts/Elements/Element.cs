@@ -59,9 +59,6 @@ namespace Bonwerk.Divvy.Elements
         protected virtual void ApplyStyle(bool instant)
         {
             StyleDirty = false;
-            ApplyStyles.Background(this, ElementStyle);
-            ApplyStyles.Font(this, ElementStyle);
-            ApplyStyles.Selectable(this, ElementStyle);
         }
 
         private void OnVisibilityChange(bool isVisible)
