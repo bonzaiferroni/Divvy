@@ -17,6 +17,8 @@ namespace Bonwerk.Divvy.Elements
         public FontStyle TextStyle => _textStyle;
         [SerializeField] private FontStyle _placeholderStyle = new FontStyle(24, new Color(1, 1, 1, .5f));
         public FontStyle PlaceholderStyle => _placeholderStyle;
+        [SerializeField] private SelectableStyle _selectableStyle;
+        public SelectableStyle SelectableStyle => _selectableStyle;
         [SerializeField] private Vector2 _minSize;
         public Vector2 MinSize => _minSize;
         [SerializeField] private Vector2 _maxSize;
@@ -72,6 +74,7 @@ namespace Bonwerk.Divvy.Elements
             base.ApplyStyle(instant);
             ApplyStyles.Font(_input.textComponent, TextStyle);
             ApplyStyles.Font(_input.placeholder as TMP_Text, PlaceholderStyle);
+            ApplyStyles.Selectable(_input, _background, SelectableStyle);
         }
 
         private void _OnValueChanged(string str)

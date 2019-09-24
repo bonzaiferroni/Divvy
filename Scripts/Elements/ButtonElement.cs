@@ -7,8 +7,7 @@ namespace Bonwerk.Divvy.Elements
     public abstract class ButtonElement : BackgroundElement
     {
         [HideInInspector] [SerializeField] private Button _button;
-        [Header("Button")] [SerializeField] private SelectableProperties _selectableStyle;
-        public SelectableProperties SelectableStyle => _selectableStyle;
+        [Header("Button")] [SerializeField] private SelectableStyle _selectableStyle;
 
         public override void Init()
         {
@@ -24,7 +23,7 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Selectable(_button, _background, SelectableStyle);
+            ApplyStyles.Selectable(_button, _background, _selectableStyle);
         }
     }
 }

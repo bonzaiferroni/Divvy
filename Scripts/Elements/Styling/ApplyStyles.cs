@@ -17,12 +17,20 @@ namespace Bonwerk.Divvy.Elements
             label.color = style.Color;
         }
 
-        public static void Selectable(Selectable selectable, Image background, SelectableProperties style)
+        public static void Selectable(Selectable selectable, Image background, SelectableStyle style)
         {
             if (background && style.AnimateBackground)
             {
                 selectable.targetGraphic = background;
             }
+
+            var colors = selectable.colors;
+            colors.normalColor = style.Normal;
+            colors.highlightedColor = style.Highlighted;
+            colors.pressedColor = style.Pressed;
+            colors.selectedColor = style.Selected;
+            colors.disabledColor = style.Disabled;
+            selectable.colors = colors;
         }
     }
 }

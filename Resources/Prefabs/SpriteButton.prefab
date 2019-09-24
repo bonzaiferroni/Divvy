@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6156491485591235223}
-  - component: {fileID: 6156491485591235222}
+  - component: {fileID: 2051824174765065199}
   - component: {fileID: 6156491485591235208}
   m_Layer: 5
   m_Name: SpriteButton
@@ -35,10 +35,10 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -100.86}
+  m_AnchoredPosition: {x: 10, y: -243.86}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &6156491485591235222
+--- !u!114 &2051824174765065199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd377017af964d729fb48a468845fa18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _contentRect: {fileID: 6156491485825262663}
   _elementStyle:
     _margin:
       Top: 0
@@ -66,11 +67,18 @@ MonoBehaviour:
     _easeAnimation: 0
     _expand: 0
     _isVisibleAtStart: 1
+  _background: {fileID: 0}
   _backgroundStyle:
     _color: {r: 0, g: 0, b: 0, a: 0.9}
     _sprite: {fileID: 0}
+  _button: {fileID: 6156491485591235208}
   _selectableStyle:
     _animateBackground: 0
+    _normalColor: {r: 1, g: 1, b: 1, a: 1}
+    _highlightedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    _pressedColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}
+    _selectedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    _disabledColor: {r: 0.78, g: 0.78, b: 0.78, a: 0.5}
   _image: {fileID: 6156491485825262662}
   _style:
     _color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,10 +105,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    m_PressedColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}
+    m_SelectedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    m_DisabledColor: {r: 0.78, g: 0.78, b: 0.78, a: 0.5}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 4594083719443264346}
   - component: {fileID: 4594083719443264345}
   m_Layer: 5
-  m_Name: Input
+  m_Name: InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,8 +427,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6306f266c5489890ad351739232c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _style: {fileID: 11400000, guid: 7d5b1549b68bae14ca90e4d1501824e0, type: 2}
-  _content: {fileID: 4594083718817725178}
+  _contentRect: {fileID: 0}
+  _elementStyle:
+    _margin:
+      Top: 0
+      Right: 0
+      Bottom: 0
+      Left: 0
+    _padding:
+      Top: 0
+      Right: 0
+      Bottom: 0
+      Left: 0
+    _revealType: 0
+    _animationTime: 0.2
+    _easeAnimation: 0
+    _expand: 0
+    _isVisibleAtStart: 1
+  _background: {fileID: 0}
+  _backgroundStyle:
+    _color: {r: 0, g: 0, b: 0, a: 0.9}
+    _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _input: {fileID: 0}
+  _textStyle:
+    _size: 24
+    _color: {r: 1, g: 1, b: 1, a: 1}
+  _placeholderStyle:
+    _size: 24
+    _color: {r: 1, g: 1, b: 1, a: 0.5}
+  _minSize: {x: 0, y: 0}
+  _maxSize: {x: 0, y: 0}
   _interactable: 1
 --- !u!222 &4594083719443264347
 CanvasRenderer:

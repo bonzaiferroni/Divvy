@@ -25,10 +25,11 @@ namespace Bonwerk.Divvy.Editor
 
             // Calculate rects
             var width = position.width / 4;
-            var top = new Rect(position.x, position.y, width - 5, position.height);
-            var right = new Rect(position.x + 1 * width, position.y, width - 5, position.height);
-            var bottom = new Rect(position.x + 2 * width, position.y, width - 5, position.height);
-            var left = new Rect(position.x + 3 * width, position.y, width - 5, position.height);
+            var boxWidth = (position.width - 15) / 4;
+            var top = new Rect(position.x, position.y, boxWidth, position.height);
+            var right = new Rect(position.x + 1 * width, position.y, boxWidth, position.height);
+            var bottom = new Rect(position.x + 2 * width, position.y, boxWidth, position.height);
+            var left = new Rect(position.x + 3 * width, position.y, boxWidth, position.height);
 
             // Draw fields - pass GUIContent.none to each so they are drawn without labels
             EditorGUI.PropertyField(top, property.FindPropertyRelative("Top"), GUIContent.none);
