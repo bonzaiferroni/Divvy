@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class BookDiv : Div
+    public class PageDiv : Div
     {
         [SerializeField] private bool _allowOff;
 

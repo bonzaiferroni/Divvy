@@ -136,10 +136,10 @@ namespace Bonwerk.Divvy.Editor
             Create("ToggleDiv", menuCommand);
         }
         
-        [MenuItem("GameObject/DivvyUI/BookDiv", false, 0)]
-        private static void BookDiv(MenuCommand menuCommand)
+        [MenuItem("GameObject/DivvyUI/PageDiv", false, 0)]
+        private static void PageDiv(MenuCommand menuCommand)
         {
-            Create("BookDiv", menuCommand);
+            Create("PageDiv", menuCommand);
         }
     }
 }
