@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1292452578823947560
+--- !u!1 &5790329005482234465
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2608889034448950394}
-  - component: {fileID: 8108749503337620490}
+  - component: {fileID: 5790329005482234478}
+  - component: {fileID: 5790329005482234479}
   m_Layer: 5
-  m_Name: Div
+  m_Name: ToggleDiv
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2608889034448950394
+--- !u!224 &5790329005482234478
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292452578823947560}
+  m_GameObject: {fileID: 5790329005482234465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,19 +33,19 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -305.86}
+  m_AnchoredPosition: {x: 10, y: -431.5}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
---- !u!114 &8108749503337620490
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5790329005482234479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292452578823947560}
+  m_GameObject: {fileID: 5790329005482234465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c4b24a6ed149b4bde9d150a581a165, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dc8cac15e6647feb70cfb084dc4db4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _contentRect: {fileID: 0}
@@ -67,11 +67,12 @@ MonoBehaviour:
     _isVisibleAtStart: 1
   _background: {fileID: 0}
   _backgroundStyle:
-    _color: {r: 0, g: 0, b: 0, a: 0.9019608}
+    _color: {r: 0, g: 0, b: 0, a: 0.9}
     _sprite: {fileID: 0}
   _minSize: {x: 0, y: 0}
   _childOrientation: {x: 0, y: 1}
-  _layout: 0
+  _layout: 1
   _expandChildren: 0
   _reverseOrder: 0
-  _spacing: 0
+  _spacing: 5
+  _allowOff: 0

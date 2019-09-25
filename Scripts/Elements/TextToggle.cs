@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class TextButton : ButtonElement
+    public class TextToggle : OverlayToggle
     {
         [HideInInspector] [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private FontStyle _fontStyle;

@@ -6,7 +6,7 @@ namespace Bonwerk.Divvy.Helpers
 {
     public static class ElementHelper
     {
-        public static IElement GetChild(this DivElement div, string objectTag)
+        public static IElement GetChild(this Div div, string objectTag)
         {
             foreach (var child in div.Children)
             {
@@ -15,7 +15,7 @@ namespace Bonwerk.Divvy.Helpers
 
             foreach (var child in div.Children)
             {
-                var childDiv = child as DivElement;
+                var childDiv = child as Div;
                 if (childDiv == null) continue;
                 var grandChild = childDiv.GetChild(objectTag);
                 if (grandChild == null) continue;
@@ -25,7 +25,7 @@ namespace Bonwerk.Divvy.Helpers
             return null;
         }
 
-        public static T GetChild<T>(this DivElement div, string objectTag) where T : class, IElement
+        public static T GetChild<T>(this Div div, string objectTag) where T : class, IElement
         {
             foreach (var child in div.Children)
             {
@@ -34,7 +34,7 @@ namespace Bonwerk.Divvy.Helpers
 
             foreach (var child in div.Children)
             {
-                var childDiv = child as DivElement;
+                var childDiv = child as Div;
                 if (childDiv == null) continue;
                 var grandChild = childDiv.GetChild<T>(objectTag);
                 if (grandChild == null) continue;
@@ -46,11 +46,13 @@ namespace Bonwerk.Divvy.Helpers
 
         public static T GetAndValidate<T>(this Element element, string name) where T : MonoBehaviour
         {
-            var component = element.GetComponentInChildren<T>();
-            if (component.name != name)
-                throw new Exception(
-                    $"Divvy initialization failed, found {typeof(T).Name} on GameObject named {component.name}, was expecting {name}");
-            return component;
+            var components = element.GetComponentsInChildren<T>();
+            foreach (var component in components)
+            {
+                if (component.name == name) return component;
+            }
+            throw new Exception(
+                $"Divvy {element.GetType().Name}: expecting {typeof(T).Name} on GameObject named {name}");
         }
     }
 }

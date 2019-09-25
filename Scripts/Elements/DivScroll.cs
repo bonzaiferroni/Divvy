@@ -7,7 +7,7 @@ namespace Bonwerk.Divvy.Elements
     public class DivScroll : BackgroundElement, IParentElement
     {
         [Header("DivScroll")]
-        [HideInInspector] [SerializeField] private DivElement _div;
+        [HideInInspector] [SerializeField] private Div _div;
         [HideInInspector] [SerializeField] private ScrollRect _scrollRect;
         [HideInInspector] [SerializeField] private Image _scrollBackground;
         
@@ -34,7 +34,7 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            if (!_div) _div = GetComponentInChildren<DivElement>();
+            if (!_div) _div = GetComponentInChildren<Div>();
             if (!_scrollRect) _scrollRect = GetComponentInChildren<ScrollRect>();
             if (!_scrollBackground) _scrollBackground = _scrollRect.GetComponent<Image>();
             if (!_contentRect) _contentRect = _scrollRect.GetComponent<RectTransform>();

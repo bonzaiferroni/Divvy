@@ -120,7 +120,7 @@ namespace Bonwerk.Divvy.Elements
                 case RevealType.Instant:
                     return new InstantRevealer(Positioner, ElementStyle.EaseAnimation);
                 case RevealType.Fade:
-                    if (this is DivElement) throw new Exception("FadeRevealer cannot be used on DivElement");
+                    if (this is Div) throw new Exception("FadeRevealer cannot be used on Div");
                     return new FadeRevealer(GetComponentsInChildren<Graphic>(), ElementStyle.AnimationTime,
                         ElementStyle.EaseAnimation);
                 case RevealType.Scale:

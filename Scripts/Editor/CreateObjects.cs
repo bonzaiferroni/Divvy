@@ -25,7 +25,7 @@ namespace Bonwerk.Divvy.Editor
         
         private static bool HasDivParent(GameObject parent)
         {
-            if (!parent.GetComponent<DivElement>())
+            if (!parent.GetComponent<Div>())
             {
                 Debug.LogWarning("Element must have parent");
                 return false;
@@ -106,16 +106,34 @@ namespace Bonwerk.Divvy.Editor
             Create("DivScroll", menuCommand);
         }
         
-        [MenuItem("GameObject/DivvyUI/Toggle", false, 0)]
-        private static void Toggle(MenuCommand menuCommand)
+        [MenuItem("GameObject/DivvyUI/ComboToggle", false, 0)]
+        private static void ComboToggle(MenuCommand menuCommand)
         {
-            Create("Toggle", menuCommand);
+            Create("ComboToggle", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/TextToggle", false, 0)]
+        private static void TextToggle(MenuCommand menuCommand)
+        {
+            Create("TextToggle", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/SpriteToggle", false, 0)]
+        private static void SpriteToggle(MenuCommand menuCommand)
+        {
+            Create("SpriteToggle", menuCommand);
         }
         
         [MenuItem("GameObject/DivvyUI/Slider", false, 0)]
         private static void Slider(MenuCommand menuCommand)
         {
             Create("Slider", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/ToggleDiv", false, 0)]
+        private static void ToggleDiv(MenuCommand menuCommand)
+        {
+            Create("ToggleDiv", menuCommand);
         }
     }
 }

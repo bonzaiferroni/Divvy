@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class SpriteButton : ButtonElement
+    public class SpriteToggle : OverlayToggle
     {
         [HideInInspector][SerializeField] private Image _image;
         [SerializeField] private ImageStyle _spriteStyle;
@@ -14,7 +14,7 @@ namespace Bonwerk.Divvy.Elements
         public override void Init()
         {
             base.Init();
-            if (!_image) _image = transform.GetChild(0).GetComponent<Image>();
+            if (!_image) _image = this.GetAndValidate<Image>("Sprite");
             if (!_contentRect) _contentRect = _image.GetComponent<RectTransform>();
         }
 

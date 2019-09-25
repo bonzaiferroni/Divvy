@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Bonwerk.Divvy.Elements
 {
     [ExecuteInEditMode]
-    public class DivElement : BackgroundElement, IParentElement
+    public class Div : BackgroundElement, IParentElement
     {
         [Header("Div")] [SerializeField] private Vector2 _minSize;
         public Vector2 MinSize => _minSize;
@@ -88,7 +88,7 @@ namespace Bonwerk.Divvy.Elements
             AddChild(child, index + 1);
         }
 
-        public void AddChild(IElement child, int index = -1, bool instantPositioning = true)
+        public virtual void AddChild(IElement child, int index = -1, bool instantPositioning = true)
         {
             child.Parent?.RemoveChild(child);
             if (index >= 0)
@@ -105,7 +105,7 @@ namespace Bonwerk.Divvy.Elements
             SetLayoutDirty();
         }
 
-        public void RemoveChild(IElement child)
+        public virtual void RemoveChild(IElement child)
         {
             if (!ReferenceEquals(child.Parent, this)) throw new Exception("Cannot remove child with a different parent");
             child.Parent = null;
