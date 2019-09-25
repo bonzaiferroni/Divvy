@@ -99,5 +99,23 @@ namespace Bonwerk.Divvy.Editor
         {
             Create("InputField", menuCommand);
         }
+        
+        [MenuItem("GameObject/DivvyUI/DivScroll", false, 0)]
+        private static void DivScroll(MenuCommand menuCommand)
+        {
+            Create("DivScroll", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/Toggle", false, 0)]
+        private static void Toggle(MenuCommand menuCommand)
+        {
+            Create("Toggle", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/Slider", false, 0)]
+        private static void Slider(MenuCommand menuCommand)
+        {
+            Create("Slider", menuCommand);
+        }
     }
 }

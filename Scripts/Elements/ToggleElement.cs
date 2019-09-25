@@ -7,9 +7,9 @@ namespace Bonwerk.Divvy.Elements
 {
     public class ToggleElement : BackgroundElement
     {
-        [SerializeField] private TextMeshProUGUI _label;
-        [SerializeField] private Toggle _toggle;
-        [SerializeField] private Vector2 _toggleSize = new Vector2(24, 24);
+        [HideInInspector] [SerializeField] private TextMeshProUGUI _label;
+        [HideInInspector] [SerializeField] private Toggle _toggle;
+        [Header("Toggle") ][SerializeField] private Vector2 _toggleSize = new Vector2(24, 24);
         [SerializeField] private FontStyle _fontStyle;
         [SerializeField] private ImageStyle _toggleBackgroundStyle;
         [SerializeField] private ImageStyle _toggleForegroundStyle;
