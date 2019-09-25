@@ -5,8 +5,11 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ElementRevealer
     {
-        protected ElementRevealer(float animationTime, bool easeAnimation)
+        private float _targetRef;
+        
+        protected ElementRevealer(IElement element, float animationTime, bool easeAnimation)
         {
+            Element = element;
             AnimationTime = animationTime;
             EaseAnimation = easeAnimation;
         }
@@ -18,14 +21,15 @@ namespace Bonwerk.Divvy.Elements
         public float CurrentVisibility { get; private set; } = 1;
         public float TargetVisibility { get; private set; } = 1;
         
-        public event Action<bool> OnVisibilityChange;
-        public event Action<bool> OnFinishedAnimation;
+        private IElement Element { get; }
+        
+        public delegate void VisibilityListener(IElement context, bool isVisible);
+        public event VisibilityListener OnVisibilityChange;
+        public event VisibilityListener OnFinishedAnimation;
         
         public abstract bool InstantType { get; }
         
         protected abstract void Modify(float amount);
-        
-        private float _targetRef;
 
         public void Refresh(bool instant)
         {
@@ -35,7 +39,7 @@ namespace Bonwerk.Divvy.Elements
                 CurrentVisibility = TargetVisibility;
                 Modify(CurrentVisibility);
                 Transitioning = false;
-                OnFinishedAnimation?.Invoke(IsVisible);
+                OnFinishedAnimation?.Invoke(Element, IsVisible);
                 return;
             }
 
@@ -71,7 +75,12 @@ namespace Bonwerk.Divvy.Elements
             TargetVisibility = target;
             Transitioning = true;
 
-            OnVisibilityChange?.Invoke(IsVisible);
+            if (instant)
+            {
+                CurrentVisibility = target;
+            }
+
+            OnVisibilityChange?.Invoke(Element, IsVisible);
         }
 
         public void SetVisibility(bool show, bool instant = false)
@@ -95,4 +104,6 @@ namespace Bonwerk.Divvy.Elements
             SetVisibility(!IsVisible, instant);
         }
     }
+
+    
 }

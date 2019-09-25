@@ -4,8 +4,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public class CanvasRevealer : ElementRevealer
     {
-        public CanvasRevealer(CanvasGroup canvasGroup, float animationTime, bool easeAnimation) : base(animationTime,
-            easeAnimation)
+        public CanvasRevealer(IElement element, CanvasGroup canvasGroup, float animationTime, bool easeAnimation) : 
+            base(element, animationTime, easeAnimation)
         {
             CanvasGroup = canvasGroup;
         }

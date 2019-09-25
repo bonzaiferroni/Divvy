@@ -47,6 +47,7 @@ namespace Bonwerk.Divvy.Elements
 
             Revealer.SetVisibility(ElementStyle.IsVisibleAtStart, true);
             StyleDirty = true;
+            Parent = null;
         }
 
         // called every frame
@@ -64,7 +65,7 @@ namespace Bonwerk.Divvy.Elements
             StyleDirty = false;
         }
 
-        private void OnVisibilityChange(bool isVisible)
+        private void OnVisibilityChange(IElement element, bool isVisible)
         {
             Parent?.SetLayoutDirty();
         }
@@ -118,15 +119,15 @@ namespace Bonwerk.Divvy.Elements
             switch (ElementStyle.RevealType)
             {
                 case RevealType.Instant:
-                    return new InstantRevealer(Positioner, ElementStyle.EaseAnimation);
+                    return new InstantRevealer(this, Positioner, ElementStyle.EaseAnimation);
                 case RevealType.Fade:
                     if (this is Div) throw new Exception("FadeRevealer cannot be used on Div");
-                    return new FadeRevealer(GetComponentsInChildren<Graphic>(), ElementStyle.AnimationTime,
+                    return new FadeRevealer(this, GetComponentsInChildren<Graphic>(), ElementStyle.AnimationTime,
                         ElementStyle.EaseAnimation);
                 case RevealType.Scale:
-                    return new ScaleRevealer(transform, ElementStyle.AnimationTime, ElementStyle.EaseAnimation);
+                    return new ScaleRevealer(this, transform, ElementStyle.AnimationTime, ElementStyle.EaseAnimation);
                 case RevealType.Canvas:
-                    return new CanvasRevealer(GetComponent<CanvasGroup>(), ElementStyle.AnimationTime,
+                    return new CanvasRevealer(this, GetComponent<CanvasGroup>(), ElementStyle.AnimationTime,
                         ElementStyle.EaseAnimation);
                 default:
                     throw new ArgumentOutOfRangeException();

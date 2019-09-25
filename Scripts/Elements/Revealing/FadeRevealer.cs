@@ -5,8 +5,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public class FadeRevealer : ElementRevealer
     {
-        public FadeRevealer(Graphic[] graphics, float animationTime, bool easeAnimation) : base(animationTime,
-            easeAnimation)
+        public FadeRevealer(IElement element, Graphic[] graphics, float animationTime, bool easeAnimation) :
+            base(element, animationTime, easeAnimation)
         {
             Graphics = graphics;
             InitialValues = new float[graphics.Length];

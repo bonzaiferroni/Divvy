@@ -4,15 +4,16 @@ namespace Bonwerk.Divvy.Elements
 {
     public class InstantRevealer : ElementRevealer
     {
-        public InstantRevealer(ElementPositioner position, bool easeAnimation) : base(0, easeAnimation)
+        public InstantRevealer(IElement element, ElementPositioner position, bool easeAnimation) : 
+            base(element, 0, easeAnimation)
         {
             Position = position;
         }
-        
+
         private ElementPositioner Position { get; }
 
         private bool InPosition { get; set; } = true;
-        
+
         public override bool InstantType => true;
 
         protected override void Modify(float amount)

@@ -9,6 +9,7 @@ namespace Bonwerk.Divvy.Elements
         string Tag { get; }
         IParentElement Parent { get; set; }
         RectTransform Transform { get; }
+        ElementRevealer Revealer { get; }
         
         // style
         Vector2 Size { get; }

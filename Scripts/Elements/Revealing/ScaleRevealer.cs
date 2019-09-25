@@ -4,8 +4,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public class ScaleRevealer : ElementRevealer
     {
-        public ScaleRevealer(Transform transform, float animationTime, bool easeAnimation) : base(animationTime,
-            easeAnimation)
+        public ScaleRevealer(IElement element, Transform transform, float animationTime, bool easeAnimation) : 
+            base(element, animationTime, easeAnimation)
         {
             Transform = transform;
         }
