@@ -16,6 +16,12 @@ namespace Bonwerk.Divvy.Elements
         [SerializeField] private RevealType _revealType = RevealType.Instant;
         public RevealType RevealType => _revealType;
 
+        [SerializeField] private AnimationType _positioningAnimationType = AnimationType.Instant;
+        public AnimationType PositioningAnimationType => _positioningAnimationType;
+        
+        [SerializeField] private AnimationType _sizingAnimationType = AnimationType.Instant;
+        public AnimationType SizingAnimationType => _sizingAnimationType;
+
         [SerializeField] private float _animationTime = .2f;
         public float AnimationTime => _animationTime;
 

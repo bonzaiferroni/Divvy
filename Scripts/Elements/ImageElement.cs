@@ -27,17 +27,17 @@ namespace Bonwerk.Divvy.Elements
             }
         }
         
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
-            if (!_image) _image = transform.GetChild(0).GetComponent<Image>();
+            base.Construct();
+            if (!_image) _image = this.GetAndValidate<Image>("Sprite");
             if (!_contentRect) _contentRect = _image.GetComponent<RectTransform>();
         }
 
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Image(_image, _style);
+            AddGraphic(_image, _style);
         }
     }
 }

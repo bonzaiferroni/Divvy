@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Helpers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
@@ -47,17 +49,17 @@ namespace Bonwerk.Divvy.Elements
             set => _label.color = value;
         }
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
-            if (!_label) _label = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            base.Construct();
+            if (!_label) _label = this.GetAndValidate<TextMeshProUGUI>("Label");
             if (!_contentRect) _contentRect = _label.GetComponent<RectTransform>();
         }
 
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Font(_label, Style);
+            AddGraphic(_label, Style);
         }
     }
 }

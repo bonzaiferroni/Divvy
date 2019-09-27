@@ -31,15 +31,18 @@ namespace Bonwerk.Divvy.Elements
 
         public List<IElement> Children => _div.Children;
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_div) _div = GetComponentInChildren<Div>();
             if (!_scrollRect) _scrollRect = GetComponentInChildren<ScrollRect>();
             if (!_scrollBackground) _scrollBackground = _scrollRect.GetComponent<Image>();
             if (!_contentRect) _contentRect = _scrollRect.GetComponent<RectTransform>();
-            
-            // init child
+        }
+
+        protected override void Connect()
+        {
+            base.Connect();
             _div.Parent = this;
             _div.Init();
         }
@@ -48,11 +51,11 @@ namespace Bonwerk.Divvy.Elements
         {
             base.ApplyStyle(instant);
             _scrollRect.movementType = MovementType;
-            ApplyStyles.Image(_scrollBackground, ScrollBackgroundStyle);
-            ApplyStyles.Image(_scrollRect.horizontalScrollbar.GetComponent<Image>(), ScrollBarStyle);
-            ApplyStyles.Image(_scrollRect.horizontalScrollbar.handleRect.GetComponent<Image>(), ScrollHandleStyle);
-            ApplyStyles.Image(_scrollRect.verticalScrollbar.GetComponent<Image>(), ScrollBarStyle);
-            ApplyStyles.Image(_scrollRect.verticalScrollbar.handleRect.GetComponent<Image>(), ScrollHandleStyle);
+            AddGraphic(_scrollBackground, ScrollBackgroundStyle);
+            AddGraphic(_scrollRect.horizontalScrollbar.GetComponent<Image>(), ScrollBarStyle);
+            AddGraphic(_scrollRect.horizontalScrollbar.handleRect.GetComponent<Image>(), ScrollHandleStyle);
+            AddGraphic(_scrollRect.verticalScrollbar.GetComponent<Image>(), ScrollBarStyle);
+            AddGraphic(_scrollRect.verticalScrollbar.handleRect.GetComponent<Image>(), ScrollHandleStyle);
             _scrollRect.horizontalScrollbar.GetComponent<RectTransform>().sizeDelta = new Vector2(0, HandleWidth);
             _scrollRect.verticalScrollbar.GetComponent<RectTransform>().sizeDelta = new Vector2(HandleWidth, 0);
         }
@@ -61,6 +64,12 @@ namespace Bonwerk.Divvy.Elements
         {
             base.Refresh(instant);
             _div.Refresh(instant);
+        }
+
+        public override void Rebuild(bool instant)
+        {
+            base.Rebuild(instant);
+            _div.Rebuild(instant);
         }
 
         public void SetLayoutDirty()

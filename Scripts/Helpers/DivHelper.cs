@@ -44,7 +44,7 @@ namespace Bonwerk.Divvy.Helpers
             return null;
         }
 
-        public static T GetAndValidate<T>(this Element element, string name) where T : MonoBehaviour
+        public static T GetAndValidate<T>(this Element element, string name) where T : Component
         {
             var components = element.GetComponentsInChildren<T>();
             foreach (var component in components)

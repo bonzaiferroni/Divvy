@@ -15,9 +15,9 @@ namespace Bonwerk.Divvy.Elements
 
         public override Vector2 ContentSize => _sliderSize;
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_slider) _slider = this.GetAndValidate<Slider>("Content");
             if (!_sliderBackground) _sliderBackground = this.GetAndValidate<Image>("Background");
         }
@@ -25,9 +25,9 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Image(_sliderBackground, _sliderBackgroundStyle);
-            ApplyStyles.Image(_slider.fillRect.GetComponent<Image>(), _fillStyle);
-            ApplyStyles.Image((Image) _slider.targetGraphic, _handleStyle);
+            AddGraphic(_sliderBackground, _sliderBackgroundStyle);
+            AddGraphic(_slider.fillRect.GetComponent<Image>(), _fillStyle);
+            AddGraphic((Image) _slider.targetGraphic, _handleStyle);
             var rect = _slider.handleRect;
             rect.sizeDelta = new Vector2(_sliderSize.y, rect.sizeDelta.y);
         }

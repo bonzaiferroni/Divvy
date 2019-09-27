@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bonwerk.Divvy.Data;
 using Bonwerk.Divvy.Helpers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,40 +29,51 @@ namespace Bonwerk.Divvy.Elements
         public ElementSizer Sizer { get; private set; }
         public bool StyleDirty { get; protected set; }
 
-        public abstract Vector2 ContentSize { get; }
-
         public string Name => gameObject.name;
         public string Tag => gameObject.tag;
         public Vector2 Size => PaddedSize + new Vector2(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
         public Vector2 PaddedSize => Sizer.Target;
+        
+        private GraphicList Graphics { get; } = new GraphicList();
+        
+        public abstract Vector2 ContentSize { get; }
 
         // called once at DivRoot.Awake() or instantiation
-        public virtual void Init()
+        public void Init()
+        {
+            Construct();
+            Connect();
+            ApplyStyle(true);
+            Revealer.SetVisibility(ElementStyle.IsVisibleAtStart, true);
+        }
+
+        protected virtual void Construct()
         {
             Transform = GetComponent<RectTransform>();
-            Positioner = new DirectPositioner(Transform, ElementStyle.AnimationTime);
-            Sizer = new DirectSizer(Transform, ElementStyle.AnimationTime);
+            Positioner = CreatePositioner();
+            Sizer = CreateSizer();
             Revealer = CreateRevealer();
-
-            Revealer.OnVisibilityChange += OnVisibilityChange;
-
-            Revealer.SetVisibility(ElementStyle.IsVisibleAtStart, true);
             StyleDirty = true;
             Parent = null;
+        }
+
+        protected virtual void Connect()
+        {
+            Revealer.OnVisibilityChange += OnVisibilityChange;
         }
 
         // called every frame
         public virtual void Refresh(bool instant)
         {
             if (StyleDirty) ApplyStyle(instant);
-            if (IsVisible && Positioner.Transporting) Positioner.Refresh(instant);
+            if (IsVisible && Positioner.Transporting) Positioner.Refresh(instant || Revealer.CurrentVisibility == 0);
             if (Revealer.Transitioning) Revealer.Refresh(instant);
             if (Sizer.Resizing) Sizer.Refresh(instant);
         }
 
-        // called when StyleDirty == true
         protected virtual void ApplyStyle(bool instant)
         {
+            Graphics.Clear();
             StyleDirty = false;
         }
 
@@ -88,7 +100,7 @@ namespace Bonwerk.Divvy.Elements
         }
 
         // called when Parent.LayoutDirty == true
-        public virtual void SetSize(bool instant)
+        public virtual void Rebuild(bool instant)
         {
             SetSize(ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom), instant);
         }
@@ -119,11 +131,9 @@ namespace Bonwerk.Divvy.Elements
             switch (ElementStyle.RevealType)
             {
                 case RevealType.Instant:
-                    return new InstantRevealer(this, Positioner, ElementStyle.EaseAnimation);
+                    return new InstantRevealer(this, Graphics);
                 case RevealType.Fade:
-                    if (this is Div) throw new Exception("FadeRevealer cannot be used on Div");
-                    return new FadeRevealer(this, GetComponentsInChildren<Graphic>(), ElementStyle.AnimationTime,
-                        ElementStyle.EaseAnimation);
+                    return new FadeRevealer(this, Graphics, ElementStyle.AnimationTime, ElementStyle.EaseAnimation);
                 case RevealType.Scale:
                     return new ScaleRevealer(this, transform, ElementStyle.AnimationTime, ElementStyle.EaseAnimation);
                 case RevealType.Canvas:
@@ -132,6 +142,44 @@ namespace Bonwerk.Divvy.Elements
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public ElementPositioner CreatePositioner()
+        {
+            switch (ElementStyle.PositioningAnimationType)
+            {
+                case AnimationType.Instant:
+                    return new InstantPositioner(Transform);
+                case AnimationType.Direct:
+                    return new DirectPositioner(Transform, ElementStyle.AnimationTime);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        public ElementSizer CreateSizer()
+        {
+            switch (ElementStyle.PositioningAnimationType)
+            {
+                case AnimationType.Instant:
+                    return new InstantSizer(Transform);
+                case AnimationType.Direct:
+                    return new DirectSizer(Transform, ElementStyle.AnimationTime);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        protected void AddGraphic(TMP_Text label, FontStyle style)
+        {
+            ApplyStyles.Font(label, style);
+            Graphics.Add(new ElementGraphic(label, style));
+        }
+
+        protected void AddGraphic(Image image, ImageStyle style)
+        {
+            ApplyStyles.Image(image, style);
+            Graphics.Add(new ElementGraphic(image, style));
         }
     }
 

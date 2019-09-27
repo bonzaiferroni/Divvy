@@ -9,20 +9,28 @@ namespace Bonwerk.Divvy.Elements
     {
         [SerializeField] private bool _allowOff;
         
-        private List<ToggleElement> Toggles { get; } = new List<ToggleElement>();
+        public List<ToggleElement> Toggles { get; } = new List<ToggleElement>();
 
         private ToggleElement _current;
-        private ToggleElement Current
+        public ToggleElement Current
         {
             get => _current;
-            set => SetCurrent(value);
+            private set => SetCurrent(value);
         }
 
-        public event ToggleDivListener OnValueChanged;
+        public delegate void ToggleDivListener(ToggleElement context, bool isOn, int index);
+        public event ToggleDivListener OnToggleChanged;
         
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
+            _current = null;
+            OnToggleChanged = null;
+        }
+
+        protected override void Connect()
+        {
+            base.Connect();
             InitAllowOff();
         }
 
@@ -55,18 +63,16 @@ namespace Bonwerk.Divvy.Elements
             InitAllowOff();
         }
 
+        public void ActivateIndex(int index)
+        {
+            Current = Toggles[index];
+        }
+
         private void _OnValueChanged(ToggleElement context, bool isOn)
         {
-            var index = -1;
-            for (int i = 0; i < Toggles.Count; i++)
-            {
-                var toggle = Toggles[i];
-                if (!ReferenceEquals(context, toggle)) continue;
-                index = i;
-                break;
-            }
+            var index = Toggles.IndexOf(context);
 
-            OnValueChanged?.Invoke(context, isOn, index);
+            OnToggleChanged?.Invoke(context, isOn, index);
 
             if (isOn)
             {
@@ -81,7 +87,7 @@ namespace Bonwerk.Divvy.Elements
         public void InitAllowOff()
         {
             if (_allowOff || Current || Toggles.Count == 0) return;
-            Toggles[0].IsOn = true;
+            ActivateIndex(0);
         }
 
         private void SetCurrent(ToggleElement value)
@@ -92,8 +98,7 @@ namespace Bonwerk.Divvy.Elements
             }
 
             _current = value;
+            if (_current != null && !_current.IsOn) _current.IsOn = true;
         }
     }
-
-    public delegate void ToggleDivListener(ToggleElement context, bool isOn, int index);
 }

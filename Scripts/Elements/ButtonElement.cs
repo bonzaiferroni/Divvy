@@ -9,9 +9,9 @@ namespace Bonwerk.Divvy.Elements
         [HideInInspector] [SerializeField] private Button _button;
         [Header("Button")] [SerializeField] private SelectableStyle _selectableStyle;
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_button) _button = GetComponent<Button>();
         }
 

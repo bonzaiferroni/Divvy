@@ -30,12 +30,9 @@ namespace Bonwerk.Divvy.Elements
         {
             if (position == Target) return;
             Target = position;
+            Resizing = true;
 				
-            if (!instant)
-            {
-                Resizing = true;
-            }
-            else
+            if (instant)
             {
                 FinishResize();
             }

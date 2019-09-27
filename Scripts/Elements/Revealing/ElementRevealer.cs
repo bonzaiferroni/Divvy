@@ -21,7 +21,7 @@ namespace Bonwerk.Divvy.Elements
         public float CurrentVisibility { get; private set; } = 1;
         public float TargetVisibility { get; private set; } = 1;
         
-        private IElement Element { get; }
+        protected IElement Element { get; }
         
         public delegate void VisibilityListener(IElement context, bool isVisible);
         public event VisibilityListener OnVisibilityChange;
@@ -36,10 +36,7 @@ namespace Bonwerk.Divvy.Elements
             var delta = TargetVisibility - CurrentVisibility;
             if (instant || InstantType || AnimationTime <= 0 || Mathf.Abs(delta) < .001f)
             {
-                CurrentVisibility = TargetVisibility;
-                Modify(CurrentVisibility);
-                Transitioning = false;
-                OnFinishedAnimation?.Invoke(Element, IsVisible);
+                FinishReveal();
                 return;
             }
 
@@ -54,7 +51,7 @@ namespace Bonwerk.Divvy.Elements
                 var currentDistance = Mathf.Abs(delta);
                 if (nextDistance >= currentDistance)
                 {
-                    Refresh(true);
+                    FinishReveal();
                 }
                 else
                 {
@@ -77,10 +74,18 @@ namespace Bonwerk.Divvy.Elements
 
             if (instant)
             {
-                CurrentVisibility = target;
+                FinishReveal();
             }
 
             OnVisibilityChange?.Invoke(Element, IsVisible);
+        }
+
+        protected void FinishReveal()
+        {
+            CurrentVisibility = TargetVisibility;
+            Modify(CurrentVisibility);
+            Transitioning = false;
+            OnFinishedAnimation?.Invoke(Element, IsVisible);
         }
 
         public void SetVisibility(bool show, bool instant = false)
@@ -104,6 +109,4 @@ namespace Bonwerk.Divvy.Elements
             SetVisibility(!IsVisible, instant);
         }
     }
-
-    
 }

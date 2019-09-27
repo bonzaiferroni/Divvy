@@ -16,9 +16,9 @@ namespace Bonwerk.Divvy.Elements
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth + 5 + _toggleSize.x,
             Mathf.Max(_label.preferredHeight, _toggleSize.y));
         
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_label) _label = this.GetAndValidate<TextMeshProUGUI>("Label");
         }
 
@@ -31,9 +31,9 @@ namespace Bonwerk.Divvy.Elements
         {
             base.ApplyStyle(instant);
             _toggle.targetGraphic.GetComponent<RectTransform>().sizeDelta = _toggleSize;
-            ApplyStyles.Font(_label, _fontStyle);
-            ApplyStyles.Image((Image) _toggle.targetGraphic, _toggleBackgroundStyle);
-            ApplyStyles.Image((Image) _toggle.graphic, _toggleForegroundStyle);
+            AddGraphic(_label, _fontStyle);
+            AddGraphic((Image) _toggle.targetGraphic, _toggleBackgroundStyle);
+            AddGraphic((Image) _toggle.graphic, _toggleForegroundStyle);
         }
     }
 }

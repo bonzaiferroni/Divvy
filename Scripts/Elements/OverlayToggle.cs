@@ -16,7 +16,7 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Image((Image) _toggle.graphic, _overlayStyle);
+            AddGraphic((Image) _toggle.graphic, _overlayStyle);
         }
     }
 }

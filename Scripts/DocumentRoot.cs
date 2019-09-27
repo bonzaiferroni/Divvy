@@ -4,14 +4,14 @@ using UnityEngine;
 namespace Bonwerk.Divvy
 {
     [ExecuteInEditMode]
-    public class DivRoot : MonoBehaviour
+    public class DocumentRoot : MonoBehaviour
     {
-        [Header("Root Div")] [SerializeField] private Element _div;
+        [Header("Root Element")] [SerializeField] private Element _element;
 
-        public Element Div
+        public Element Element
         {
-            get => _div;
-            set => _div = value;
+            get => _element;
+            set => _element = value;
         }
 
         private void Awake()
@@ -33,16 +33,16 @@ namespace Bonwerk.Divvy
 
         public void Init()
         {
-            Div = GetComponent<Element>();
-            if (!Div) return;
-            Div.Init();
-            Div.Refresh(true);
+            Element = GetComponent<Element>();
+            if (!Element) return;
+            Element.Init();
+            Element.Refresh(true);
         }
 
         private void Refresh()
         {
-            if (!Div) return;
-            Div.Refresh(false);
+            if (!Element) return;
+            Element.Refresh(false);
         }
     }
 }

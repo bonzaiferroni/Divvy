@@ -54,17 +54,20 @@ namespace Bonwerk.Divvy.Elements
             }
         }
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_input) _input = GetComponent<TMP_InputField>();
-            if (!_contentRect) _contentRect = transform.GetChild(0).GetComponent<RectTransform>();
-            
-            // add listeners
+            if (!_contentRect) _contentRect = this.GetAndValidate<RectTransform>("Text Area");
+        }
+
+        protected override void Connect()
+        {
+            base.Connect();
             _input.onValueChanged.AddListener(_OnValueChanged);
             _input.onSubmit.AddListener(OnSubmit);
             _input.onDeselect.AddListener(OnSubmit);
-
+            
             _UpdateNextFrame = UpdateNextFrame();
             UpdateInteractable(Interactable);
         }
@@ -72,8 +75,8 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Font(_input.textComponent, TextStyle);
-            ApplyStyles.Font(_input.placeholder as TMP_Text, PlaceholderStyle);
+            AddGraphic(_input.textComponent, TextStyle);
+            AddGraphic(_input.placeholder as TMP_Text, PlaceholderStyle);
             ApplyStyles.Selectable(_input, _background, SelectableStyle);
         }
 

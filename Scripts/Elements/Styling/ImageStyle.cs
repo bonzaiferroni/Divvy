@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Elements
 {
     [Serializable]
-    public class ImageStyle
+    public class ImageStyle : IGraphicStyle
     {
         public ImageStyle()
         {
@@ -21,5 +21,8 @@ namespace Bonwerk.Divvy.Elements
 
         [SerializeField] private Sprite _sprite;
         public Sprite Sprite => _sprite;
+        
+        [SerializeField] private bool _raycastTarget = true;
+        public bool RaycastTarget => _raycastTarget;
     }
 }

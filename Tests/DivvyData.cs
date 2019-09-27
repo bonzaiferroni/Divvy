@@ -15,7 +15,7 @@ namespace DivLib.Tests
             RootObject.transform.SetParent(Canvas.transform);
             StandardizeRect(RootObject);
             RootParent = RootObject.AddComponent<Div>();
-            RootObject.AddComponent<DivRoot>();
+            RootObject.AddComponent<DocumentRoot>();
             for (var i = 0; i < subCount; i++)
             {
                 var horizontalParentGo = new GameObject("HorizontalParent_" + i, typeof(RectTransform));

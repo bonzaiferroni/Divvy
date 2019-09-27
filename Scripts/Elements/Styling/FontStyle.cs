@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Bonwerk.Divvy.Elements
 {
     [Serializable]
-    public class FontStyle
+    public class FontStyle : IGraphicStyle
     {
         public FontStyle()
         {
@@ -27,5 +27,8 @@ namespace Bonwerk.Divvy.Elements
 
         [SerializeField] private TMP_FontAsset _font;
         public TMP_FontAsset Font => _font;
+
+        [SerializeField] private bool _raycastTarget = true;
+        public bool RaycastTarget => _raycastTarget;
     }
 }

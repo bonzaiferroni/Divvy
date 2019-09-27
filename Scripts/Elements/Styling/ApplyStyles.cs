@@ -9,6 +9,7 @@ namespace Bonwerk.Divvy.Elements
         {
             image.color = style.Color;
             image.sprite = style.Sprite;
+            image.raycastTarget = style.RaycastTarget;
         }
 
         public static void Font(TMP_Text label, FontStyle style)
@@ -16,6 +17,7 @@ namespace Bonwerk.Divvy.Elements
             label.fontSize = style.Size;
             label.color = style.Color;
             label.font = style.Font;
+            label.raycastTarget = style.RaycastTarget;
         }
 
         public static void Selectable(Selectable selectable, Image background, SelectableStyle style)

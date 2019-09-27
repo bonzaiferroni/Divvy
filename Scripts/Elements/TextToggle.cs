@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Bonwerk.Divvy.Helpers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
@@ -12,9 +14,9 @@ namespace Bonwerk.Divvy.Elements
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_label) _label = this.GetAndValidate<TextMeshProUGUI>("Label");
             if (!_contentRect) _contentRect = _label.GetComponent<RectTransform>();
         }
@@ -22,7 +24,7 @@ namespace Bonwerk.Divvy.Elements
         protected override void ApplyStyle(bool instant)
         {
             base.ApplyStyle(instant);
-            ApplyStyles.Font(_label, FontStyle);
+            AddGraphic(_label, FontStyle);
         }
     }
 }

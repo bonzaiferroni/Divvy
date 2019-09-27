@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
@@ -32,12 +33,9 @@ namespace Bonwerk.Divvy.Elements
         {
             if (position == Target) return;
             Target = position;
+            Transporting = true;
 				
-            if (!instant)
-            {
-                Transporting = true;
-            }
-            else
+            if (instant)
             {
                 FinishTransport();
             }

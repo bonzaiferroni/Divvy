@@ -9,11 +9,16 @@ namespace Bonwerk.Divvy.Elements
         [Header("Background")] [SerializeField] private ImageStyle _backgroundStyle = new ImageStyle(new Color(0, 0, 0, .9f));
         public ImageStyle BackgroundStyle => _backgroundStyle;
         
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
             if (!_background) _background = GetComponent<Image>();
-            if (_background) ApplyStyles.Image(_background, BackgroundStyle);
+        }
+
+        protected override void ApplyStyle(bool instant)
+        {
+            base.ApplyStyle(instant);
+            if (_background) AddGraphic(_background, BackgroundStyle);
         }
     }
 }

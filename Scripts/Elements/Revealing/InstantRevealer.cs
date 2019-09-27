@@ -1,32 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
     public class InstantRevealer : ElementRevealer
     {
-        public InstantRevealer(IElement element, ElementPositioner position, bool easeAnimation) : 
-            base(element, 0, easeAnimation)
+        public InstantRevealer(IElement element, GraphicList graphics) : 
+            base(element, 0, false)
         {
-            Position = position;
+            Graphics = graphics;
         }
 
-        private ElementPositioner Position { get; }
-
-        private bool InPosition { get; set; } = true;
+        private GraphicList Graphics { get; }
 
         public override bool InstantType => true;
 
         protected override void Modify(float amount)
         {
-            if (InPosition && !IsVisible)
+            foreach (var g in Graphics)
             {
-                Position.SetTargetPosition(Vector3.up * 10000, true);
-                InPosition = false;
-            }
-            else if (!InPosition && IsVisible)
-            {
-                Position.FinishTransport();
-                InPosition = true;
+                var graphic = g.Graphic;
+                var color = g.Style.Color;
+                color.a = IsVisible ? color.a : 0;
+                
+                graphic.color = color;
+                
+                var raycastTarget = IsVisible && g.Style.RaycastTarget;
+                if (graphic.raycastTarget != raycastTarget) graphic.raycastTarget = raycastTarget;
             }
         }
     }

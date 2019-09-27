@@ -19,12 +19,19 @@ namespace Bonwerk.Divvy.Elements
 
         protected abstract Toggle GetToggle();
 
+        public delegate void ToggleListener(ToggleElement context, bool isOn);
         public event ToggleListener OnValueChanged;
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
+            base.Construct();
+            OnValueChanged = null;
             _toggle = GetToggle();
+        }
+
+        protected override void Connect()
+        {
+            base.Connect();
             _toggle.onValueChanged.AddListener(_OnValueChanged);
         }
 
@@ -39,6 +46,4 @@ namespace Bonwerk.Divvy.Elements
             ApplyStyles.Selectable(_toggle, _background, _selectableStyle);
         }
     }
-    
-    public delegate void ToggleListener(ToggleElement context, bool isOn);
 }

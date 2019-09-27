@@ -10,15 +10,13 @@ namespace Bonwerk.Divvy.Elements
         IParentElement Parent { get; set; }
         RectTransform Transform { get; }
         ElementRevealer Revealer { get; }
-        
-        // style
         Vector2 Size { get; }
         bool Expand { get; }
         
         void Init();
 
         void Refresh(bool instant);
-        void SetSize(bool instant);
+        void Rebuild(bool instant);
         void SetAnchor(Vector2 orientation);
         void SetPosition(Vector2 position, bool instant);
         

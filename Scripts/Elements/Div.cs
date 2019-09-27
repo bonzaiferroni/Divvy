@@ -47,11 +47,15 @@ namespace Bonwerk.Divvy.Elements
 
         // life cycle  
 
-        public override void Init()
+        protected override void Construct()
         {
-            base.Init();
-            FindChildren();
+            base.Construct();
             SetLayoutDirty();
+        }
+
+        protected override void Connect()
+        {
+            FindChildren();
         }
 
         private void FindChildren()
@@ -65,18 +69,39 @@ namespace Bonwerk.Divvy.Elements
                 child.Init();
                 AddChild(child);
             }
-
-            LayoutDirty = true;
         }
 
         public override void Refresh(bool instant)
         {
-            if (LayoutDirty) SetSize(instant);
+            base.Refresh(instant);
             foreach (var child in Children)
             {
                 child.Refresh(instant);
             }
-            base.Refresh(instant);
+
+            Rebuild(instant);
+        }
+
+        public override void Rebuild(bool instant)
+        {
+            var initialSize = _contentSize;
+            while (LayoutDirty) 
+            {
+                LayoutDirty = false;
+            
+                foreach (var child in Children)
+                {
+                    child.Rebuild(instant);
+                }
+            
+                PositionChildren(instant);    
+            }
+
+            if (_contentSize != initialSize)
+            {
+                Parent?.SetLayoutDirty();
+                base.Rebuild(instant);
+            }
         }
 
         // public
@@ -109,7 +134,7 @@ namespace Bonwerk.Divvy.Elements
         {
             if (!ReferenceEquals(child.Parent, this)) throw new Exception("Cannot remove child with a different parent");
             child.Parent = null;
-            LayoutDirty = true;
+            SetLayoutDirty();
             Children.Remove(child);
         }
 
@@ -119,20 +144,6 @@ namespace Bonwerk.Divvy.Elements
         }
 
         // Position Children
-
-        public override void SetSize(bool instant)
-        {
-            if (!LayoutDirty) return;
-            LayoutDirty = false;
-            
-            foreach (var child in Children)
-            {
-                child.SetSize(instant);
-            }
-            
-            PositionChildren(instant);
-            base.SetSize(instant);
-        }
 
         private void PositionChildren(bool instant)
         {
@@ -175,8 +186,8 @@ namespace Bonwerk.Divvy.Elements
 
             var contentSize = position - paddingPosition;
             var contentWidth = Mathf.Max(Mathf.Abs(contentSize.x), maxSize.x, MinSize.x);
-            var contentHeight = Mathf.Max(Mathf.Abs(contentSize.y), maxSize.y, MinSize.y); 
-            AdjustSize(new Vector2(contentWidth, contentHeight));
+            var contentHeight = Mathf.Max(Mathf.Abs(contentSize.y), maxSize.y, MinSize.y);
+            _contentSize = new Vector2(contentWidth, contentHeight);
         }
 
         public override void FinishTransport()
@@ -187,13 +198,6 @@ namespace Bonwerk.Divvy.Elements
             }
 
             base.FinishTransport();
-        }
-
-        private void AdjustSize(Vector2 newSize)
-        {
-            if (newSize == _contentSize) return;
-            _contentSize = newSize;
-            Parent?.SetLayoutDirty();
         }
     }
 }
