@@ -14,9 +14,9 @@ namespace Bonwerk.Divvy.Elements
             PageDiv = null;
         }
 
-        protected override void Connect()
+        protected override void Associate()
         {
-            base.Connect();
+            base.Associate();
             if (!ToggleDiv || !PageDiv) throw new DivvyException("TabsDiv requires ToggleDiv and PageDiv children");
             InitVisible();
         }

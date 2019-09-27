@@ -40,9 +40,9 @@ namespace Bonwerk.Divvy.Elements
             if (!_contentRect) _contentRect = _scrollRect.GetComponent<RectTransform>();
         }
 
-        protected override void Connect()
+        protected override void Associate()
         {
-            base.Connect();
+            base.Associate();
             _div.Parent = this;
             _div.Init();
         }

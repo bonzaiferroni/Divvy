@@ -42,7 +42,7 @@ namespace Bonwerk.Divvy.Elements
         public void Init()
         {
             Construct();
-            Connect();
+            Associate();
             ApplyStyle(true);
             Revealer.SetVisibility(ElementStyle.IsVisibleAtStart, true);
         }
@@ -57,7 +57,7 @@ namespace Bonwerk.Divvy.Elements
             Parent = null;
         }
 
-        protected virtual void Connect()
+        protected virtual void Associate()
         {
             Revealer.OnVisibilityChange += OnVisibilityChange;
         }

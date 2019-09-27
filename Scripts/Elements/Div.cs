@@ -53,7 +53,7 @@ namespace Bonwerk.Divvy.Elements
             SetLayoutDirty();
         }
 
-        protected override void Connect()
+        protected override void Associate()
         {
             FindChildren();
         }

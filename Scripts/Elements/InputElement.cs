@@ -61,9 +61,9 @@ namespace Bonwerk.Divvy.Elements
             if (!_contentRect) _contentRect = this.GetAndValidate<RectTransform>("Text Area");
         }
 
-        protected override void Connect()
+        protected override void Associate()
         {
-            base.Connect();
+            base.Associate();
             _input.onValueChanged.AddListener(_OnValueChanged);
             _input.onSubmit.AddListener(OnSubmit);
             _input.onDeselect.AddListener(OnSubmit);

@@ -29,9 +29,9 @@ namespace Bonwerk.Divvy.Elements
             _toggle = GetToggle();
         }
 
-        protected override void Connect()
+        protected override void Associate()
         {
-            base.Connect();
+            base.Associate();
             _toggle.onValueChanged.AddListener(_OnValueChanged);
         }
 
