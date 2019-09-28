@@ -147,5 +147,11 @@ namespace Bonwerk.Divvy.Editor
         {
             Create("TabsDiv", menuCommand);
         }
+        
+        [MenuItem("GameObject/DivvyUI/BasicElement", false, 0)]
+        private static void BasicElement(MenuCommand menuCommand)
+        {
+            Create("BasicElement", menuCommand);
+        }
     }
 }
