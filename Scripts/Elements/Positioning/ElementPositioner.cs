@@ -7,6 +7,8 @@ namespace Bonwerk.Divvy.Elements
     [Serializable]
     public abstract class ElementPositioner
     {
+        protected Vector2 _velocity;
+        
         public ElementPositioner(RectTransform transform, float animationTime)
         {
             Transform = transform;
@@ -40,10 +42,15 @@ namespace Bonwerk.Divvy.Elements
             {
                 FinishTransport();
             }
+            else if (!EaseAnimation && AnimationTime > 0)
+            {
+                _velocity = (Target - Current) / AnimationTime;
+            }
         }
 
         public virtual void FinishTransport()
         {
+            _velocity = Vector2.zero;
             Current = Target;
             Transporting = false;
         }

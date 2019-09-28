@@ -5,7 +5,7 @@ namespace Bonwerk.Divvy.Elements
 {
     public class DirectSizer : ElementSizer
     {
-        private Vector2 _velocity;
+        
         
         public DirectSizer(RectTransform transform, float animationTime) : base(transform, animationTime)
         {
@@ -26,22 +26,18 @@ namespace Bonwerk.Divvy.Elements
             }
             else
             {
-                var nextDistance = Time.deltaTime / AnimationTime * DivvyConstants.UnitsPerSecond;
-                if (nextDistance * nextDistance >= squaredMagnitude)
+                var nextDistance = _velocity * Time.deltaTime;
+                var nextPosition = Current + nextDistance;
+                var nextDelta = Target - nextPosition;
+                if (Vector2.Dot(nextDelta, _velocity) < .99f )
                 {
                     FinishResize();
                 }
                 else
                 {
-                    Current += delta.normalized * nextDistance;
+                    Current = nextPosition;
                 }
             }
-        }
-        
-        public override void FinishResize()
-        {
-            base.FinishResize();
-            _velocity = Vector2.zero;
         }
     }
 }

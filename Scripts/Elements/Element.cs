@@ -114,10 +114,6 @@ namespace Bonwerk.Divvy.Elements
         // called when Parent.LayoutDirty == true
         public virtual void Rebuild(bool instant)
         {
-            if (Name == "Div2")
-            {
-                
-            }
             SetSize(ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom), instant);
         }
 
@@ -177,7 +173,7 @@ namespace Bonwerk.Divvy.Elements
         
         public ElementSizer CreateSizer()
         {
-            switch (ElementStyle.PositioningAnimationType)
+            switch (ElementStyle.SizingAnimationType)
             {
                 case AnimationType.Instant:
                     return new InstantSizer(Transform);

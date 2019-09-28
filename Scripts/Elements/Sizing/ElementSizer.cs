@@ -4,6 +4,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public abstract class ElementSizer
     {
+        protected Vector2 _velocity;
+        
         public ElementSizer(RectTransform transform, float animationTime)
         {
             Transform = transform;
@@ -36,10 +38,15 @@ namespace Bonwerk.Divvy.Elements
             {
                 FinishResize();
             }
+            else if (!EaseAnimation && AnimationTime > 0)
+            {
+                _velocity = (Target - Current) / AnimationTime;
+            }
         }
 
         public virtual void FinishResize()
         {
+            _velocity = Vector2.zero;
             Current = Target;
             Resizing = false;
         }

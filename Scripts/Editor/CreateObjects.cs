@@ -153,5 +153,11 @@ namespace Bonwerk.Divvy.Editor
         {
             Create("BasicElement", menuCommand);
         }
+        
+        [MenuItem("GameObject/DivvyUI/ProgressBar", false, 0)]
+        private static void ProgressBar(MenuCommand menuCommand)
+        {
+            Create("ProgressBar", menuCommand);
+        }
     }
 }
