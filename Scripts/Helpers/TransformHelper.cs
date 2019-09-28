@@ -1,7 +1,7 @@
 using Bonwerk.Divvy.Data;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Helpers
+namespace Bonwerk.Divvy
 {
     public static class TransformHelper
     {

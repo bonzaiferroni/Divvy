@@ -159,5 +159,11 @@ namespace Bonwerk.Divvy.Editor
         {
             Create("ProgressBar", menuCommand);
         }
+        
+        [MenuItem("GameObject/DivvyUI/ProgressCircle", false, 0)]
+        private static void ProgressCircle(MenuCommand menuCommand)
+        {
+            Create("ProgressCircle", menuCommand);
+        }
     }
 }

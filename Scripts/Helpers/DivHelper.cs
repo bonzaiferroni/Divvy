@@ -2,7 +2,7 @@ using System;
 using Bonwerk.Divvy.Elements;
 using UnityEngine;
 
-namespace Bonwerk.Divvy.Helpers
+namespace Bonwerk.Divvy
 {
     public static class ElementHelper
     {

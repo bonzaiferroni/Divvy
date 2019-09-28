@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class ProgressBar : ProgressElement
+    public class ProgressCircle : ProgressElement
     {
         protected override void DisplayFill(float value)
         {
-            _progressRect.sizeDelta = new Vector2(ContentSize.x * value, ContentSize.y);
+            _progress.fillAmount = value;
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1872054819182618840}
   - component: {fileID: 1872054819182618841}
   m_Layer: 5
-  m_Name: Bar
+  m_Name: Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4765931, g: 0.5647531, b: 0.6603774, a: 1}
+  m_Color: {r: 0, g: 0.7003763, b: 0.8396226, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -147,16 +147,16 @@ MonoBehaviour:
   _backgroundStyle:
     _color: {r: 0, g: 0, b: 0, a: 0.9}
     _sprite: {fileID: 0}
-    _raycastTarget: 1
-  _barBackground: {fileID: 1872054821155883627}
-  _bar: {fileID: 1872054819182618841}
-  _barRect: {fileID: 1872054819182618842}
-  _barBackgroundStyle:
-    _color: {r: 0.5283019, g: 0.51584196, b: 0.51584196, a: 1}
+    _raycastTarget: 0
+  _progressBackground: {fileID: 1872054821155883627}
+  _progress: {fileID: 1872054819182618841}
+  _progressRect: {fileID: 1872054819182618842}
+  _progressBackgroundStyle:
+    _color: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 1}
     _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     _raycastTarget: 0
-  _barStyle:
-    _color: {r: 0.4765931, g: 0.5647531, b: 0.6603774, a: 1}
+  _progressStyle:
+    _color: {r: 0, g: 0.7003763, b: 0.8396226, a: 1}
     _sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     _raycastTarget: 0
   _initialFill: 0.52
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5283019, g: 0.51584196, b: 0.51584196, a: 1}
+  m_Color: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
