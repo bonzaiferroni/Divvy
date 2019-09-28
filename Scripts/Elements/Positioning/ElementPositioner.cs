@@ -32,6 +32,7 @@ namespace Bonwerk.Divvy.Elements
         public void SetTargetPosition(Vector2 position, bool instant)
         {
             if (position == Target) return;
+            
             Target = position;
             Transporting = true;
 				

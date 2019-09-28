@@ -16,6 +16,12 @@ namespace Bonwerk.Divvy.Elements
 
         public override bool InstantType => true;
 
+        protected override float FindInitialState()
+        {
+            if (Graphics.Count == 0) return 0;
+            return Graphics[0].Graphic.color.a == Graphics[0].Style.Color.a ? 1 : 0;
+        }
+
         protected override void Modify(float amount)
         {
             foreach (var g in Graphics)

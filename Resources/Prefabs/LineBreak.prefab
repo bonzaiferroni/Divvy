@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -107,7 +107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -45.22}
+  m_AnchoredPosition: {x: 10, y: -55.22}
   m_SizeDelta: {x: 133.07, y: 2}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8734693992894793376
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927092f1161245ff90122dbcd8947c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _contentRect: {fileID: 8734693991573154862}
+  _canvasGroup: {fileID: 0}
+  _canvas: {fileID: 0}
   _elementStyle:
     _margin:
       Top: 0
@@ -134,15 +137,20 @@ MonoBehaviour:
       Bottom: 0
       Left: 0
     _revealType: 0
+    _positioningAnimationType: 0
+    _sizingAnimationType: 0
     _animationTime: 0.2
     _easeAnimation: 0
     _expand: 1
     _isVisibleAtStart: 1
+  _background: {fileID: 0}
   _backgroundStyle:
     _color: {r: 1, g: 1, b: 1, a: 1}
     _sprite: {fileID: 0}
+    _raycastTarget: 0
   _image: {fileID: 8734693991573154861}
   _contentSize: {x: 0, y: 2}
   _style:
     _color: {r: 1, g: 1, b: 1, a: 1}
     _sprite: {fileID: 0}
+    _raycastTarget: 0

@@ -28,8 +28,17 @@ namespace Bonwerk.Divvy.Elements
         public event VisibilityListener OnFinishedAnimation;
         
         public abstract bool InstantType { get; }
+
+        protected abstract float FindInitialState();
         
         protected abstract void Modify(float amount);
+
+        public void Init()
+        {
+            CurrentVisibility = FindInitialState();
+            TargetVisibility = CurrentVisibility;
+            IsVisible = CurrentVisibility > 0;
+        }
 
         public void Refresh(bool instant)
         {

@@ -1,3 +1,4 @@
+using Bonwerk.Divvy.Helpers;
 using TMPro;
 using UnityEngine.UI;
 
@@ -7,15 +8,15 @@ namespace Bonwerk.Divvy.Elements
     {
         public static void Image(Image image, ImageStyle style)
         {
-            image.color = style.Color;
+            image.ChangeRgbOnly(style.Color);            
             image.sprite = style.Sprite;
             image.raycastTarget = style.RaycastTarget;
         }
 
         public static void Font(TMP_Text label, FontStyle style)
         {
+            label.ChangeRgbOnly(style.Color);
             label.fontSize = style.Size;
-            label.color = style.Color;
             label.font = style.Font;
             label.raycastTarget = style.RaycastTarget;
         }

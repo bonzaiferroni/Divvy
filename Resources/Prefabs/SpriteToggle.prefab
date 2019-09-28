@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.2}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 2933419227603515180}
   - component: {fileID: 2933419227603515181}
   - component: {fileID: 2933419227603515182}
-  - component: {fileID: 2933419227603515183}
+  - component: {fileID: 2129134865406824452}
   m_Layer: 5
   m_Name: SpriteToggle
   m_TagString: Untagged
@@ -200,6 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contentRect: {fileID: 2933419226625646838}
+  _canvasGroup: {fileID: 0}
+  _canvas: {fileID: 0}
   _elementStyle:
     _margin:
       Top: 0
@@ -212,14 +214,17 @@ MonoBehaviour:
       Bottom: 0
       Left: 0
     _revealType: 0
+    _positioningAnimationType: 0
+    _sizingAnimationType: 0
     _animationTime: 0.2
     _easeAnimation: 0
     _expand: 0
     _isVisibleAtStart: 1
-  _background: {fileID: 2933419227603515183}
+  _background: {fileID: 2129134865406824452}
   _backgroundStyle:
     _color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
     _sprite: {fileID: 0}
+    _raycastTarget: 0
   _toggle: {fileID: 2933419227603515181}
   _selectableStyle:
     _animateBackground: 0
@@ -231,10 +236,12 @@ MonoBehaviour:
   _overlayStyle:
     _color: {r: 1, g: 1, b: 1, a: 0.2}
     _sprite: {fileID: 0}
+    _raycastTarget: 0
   _image: {fileID: 2933419226625646833}
   _spriteStyle:
     _color: {r: 1, g: 1, b: 1, a: 1}
     _sprite: {fileID: 21300000, guid: af45ce5d3dd9d5f4f99c268ce418379b, type: 3}
+    _raycastTarget: 1
   _contentSize: {x: 32, y: 32}
 --- !u!114 &2933419227603515181
 MonoBehaviour:
@@ -291,7 +298,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2933419227603515187}
   m_CullTransparentMesh: 0
---- !u!114 &2933419227603515183
+--- !u!114 &2129134865406824452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

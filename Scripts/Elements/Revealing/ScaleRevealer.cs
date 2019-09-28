@@ -14,6 +14,11 @@ namespace Bonwerk.Divvy.Elements
 
         public override bool InstantType => false;
 
+        protected override float FindInitialState()
+        {
+            return Transform.localScale.x / 1;
+        }
+
         protected override void Modify(float amount)
         {
             Transform.localScale = Vector3.one * amount;

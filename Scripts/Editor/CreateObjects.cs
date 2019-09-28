@@ -45,10 +45,10 @@ namespace Bonwerk.Divvy.Editor
         // Add a menu item to create custom GameObjects.
         // Priority 1 ensures it is grouped with the other menu items of the same kind
         // and propagated to the hierarchy dropdown and hierarchy context menus.
-        [MenuItem("GameObject/DivvyUI/DivRoot", false, 0)]
-        private static void DivRoot(MenuCommand menuCommand)
+        [MenuItem("GameObject/DivvyUI/DocRoot", false, 0)]
+        private static void DocRoot(MenuCommand menuCommand)
         {
-            var go = Create("DivRoot");
+            var go = Create("DocRoot");
             Integrate(go, menuCommand.context as GameObject);
         }
         
@@ -140,6 +140,12 @@ namespace Bonwerk.Divvy.Editor
         private static void PageDiv(MenuCommand menuCommand)
         {
             Create("PageDiv", menuCommand);
+        }
+        
+        [MenuItem("GameObject/DivvyUI/TabsDiv", false, 0)]
+        private static void TabsDiv(MenuCommand menuCommand)
+        {
+            Create("TabsDiv", menuCommand);
         }
     }
 }

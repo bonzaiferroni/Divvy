@@ -16,14 +16,18 @@ namespace Bonwerk.Divvy.Elements
 
         public override bool InstantType => false;
 
+        protected override float FindInitialState()
+        {
+            if (Graphics.Count == 0) return 0;
+            return Graphics[0].Graphic.color.a / Graphics[0].Style.Color.a;
+        }
+
         protected override void Modify(float amount)
         {
             foreach (var g in Graphics)
             {
                 var graphic = g.Graphic;
-                var color = g.Style.Color;
-                color.a *= amount;
-                graphic.color = color;
+                graphic.ChangeAlphaOnly(amount);
                 
                 var raycastTarget = IsVisible && g.Style.RaycastTarget;
                 if (graphic.raycastTarget != raycastTarget) graphic.raycastTarget = raycastTarget; 

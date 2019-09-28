@@ -1,23 +1,26 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Bonwerk.Divvy.Elements
 {
-    public class CanvasRevealer : ElementRevealer
+    public class CanvasRevealer: ElementRevealer
     {
-        public CanvasRevealer(IElement element, CanvasGroup canvasGroup, float animationTime, bool easeAnimation) : 
-            base(element, animationTime, easeAnimation)
+        public CanvasRevealer(IElement element, Canvas canvas) : base(element, 0, false)
         {
-            CanvasGroup = canvasGroup;
+            Canvas = canvas;
         }
 
-        private CanvasGroup CanvasGroup { get; }
+        private Canvas Canvas { get; }
 
-        public override bool InstantType => false;
+        public override bool InstantType => true;
+
+        protected override float FindInitialState()
+        {
+            return Canvas.enabled ? 1 : 0;
+        }
 
         protected override void Modify(float amount)
         {
-            CanvasGroup.alpha = amount;
-            if (CanvasGroup.blocksRaycasts != IsVisible) CanvasGroup.blocksRaycasts = IsVisible;
+            Canvas.enabled = IsVisible;
         }
     }
 }

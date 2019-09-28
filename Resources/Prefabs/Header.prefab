@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -5}
+  m_AnchoredPosition: {x: 10, y: -10}
   m_SizeDelta: {x: 118.47, y: 40.22}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1338528884266179043
@@ -58,7 +58,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba897d556e994db7b4fb13546496ee71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contentRect: {fileID: 0}
+  _contentRect: {fileID: 9043880022696481498}
+  _canvasGroup: {fileID: 0}
+  _canvas: {fileID: 0}
   _elementStyle:
     _margin:
       Top: 0
@@ -71,6 +73,8 @@ MonoBehaviour:
       Bottom: 0
       Left: 0
     _revealType: 0
+    _positioningAnimationType: 0
+    _sizingAnimationType: 0
     _animationTime: 0.2
     _easeAnimation: 0
     _expand: 0
@@ -79,11 +83,13 @@ MonoBehaviour:
   _backgroundStyle:
     _color: {r: 0, g: 0, b: 0, a: 0.9019608}
     _sprite: {fileID: 0}
+    _raycastTarget: 0
   _label: {fileID: 273911600656819719}
   _style:
     _size: 36
     _color: {r: 1, g: 1, b: 1, a: 1}
     _font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    _raycastTarget: 0
 --- !u!1 &3684548859903066630
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

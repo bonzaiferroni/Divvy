@@ -12,6 +12,8 @@ namespace Bonwerk.Divvy.Elements
     public abstract class Element : MonoBehaviour, IElement
     {
         [HideInInspector] [SerializeField] protected RectTransform _contentRect;
+        [HideInInspector] [SerializeField] protected CanvasGroup _canvasGroup;
+        [HideInInspector] [SerializeField] protected Canvas _canvas;
         
         [Header("Element")] [SerializeField] private ElementStyle _elementStyle;
         public ElementStyle ElementStyle => _elementStyle;
@@ -44,11 +46,21 @@ namespace Bonwerk.Divvy.Elements
             Construct();
             Associate();
             ApplyStyle(true);
+            Revealer.Init();
             Revealer.SetVisibility(ElementStyle.IsVisibleAtStart, true);
         }
 
         protected virtual void Construct()
         {
+            if (ElementStyle.RevealType == RevealType.CanvasGroup)
+            {
+                if (!_canvasGroup) _canvasGroup = GetComponent<CanvasGroup>();
+            }
+            if (ElementStyle.RevealType == RevealType.Canvas)
+            {
+                if (!_canvas) _canvas = GetComponent<Canvas>();
+            }
+            
             Transform = GetComponent<RectTransform>();
             Positioner = CreatePositioner();
             Sizer = CreateSizer();
@@ -102,6 +114,10 @@ namespace Bonwerk.Divvy.Elements
         // called when Parent.LayoutDirty == true
         public virtual void Rebuild(bool instant)
         {
+            if (Name == "Div2")
+            {
+                
+            }
             SetSize(ContentSize + new Vector2(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom), instant);
         }
 
@@ -137,7 +153,9 @@ namespace Bonwerk.Divvy.Elements
                 case RevealType.Scale:
                     return new ScaleRevealer(this, transform, ElementStyle.AnimationTime, ElementStyle.EaseAnimation);
                 case RevealType.Canvas:
-                    return new CanvasRevealer(this, GetComponent<CanvasGroup>(), ElementStyle.AnimationTime,
+                    return new CanvasRevealer(this, _canvas);
+                case RevealType.CanvasGroup:
+                    return new CanvasGroupRevealer(this, _canvasGroup, ElementStyle.AnimationTime,
                         ElementStyle.EaseAnimation);
                 default:
                     throw new ArgumentOutOfRangeException();

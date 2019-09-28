@@ -265,7 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -402,7 +402,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4594083719443264351}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -412,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -260.86}
+  m_AnchoredPosition: {x: 10, y: -62.22}
   m_SizeDelta: {x: 133.07, y: 36.82}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4594083719443264356
@@ -427,7 +427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6306f266c5489890ad351739232c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contentRect: {fileID: 0}
+  _contentRect: {fileID: 4594083718817725178}
+  _canvasGroup: {fileID: 0}
+  _canvas: {fileID: 0}
   _elementStyle:
     _margin:
       Top: 0
@@ -440,23 +442,28 @@ MonoBehaviour:
       Bottom: 0
       Left: 0
     _revealType: 0
+    _positioningAnimationType: 0
+    _sizingAnimationType: 0
     _animationTime: 0.2
     _easeAnimation: 0
     _expand: 0
     _isVisibleAtStart: 1
-  _background: {fileID: 0}
+  _background: {fileID: 4594083719443264346}
   _backgroundStyle:
     _color: {r: 0, g: 0, b: 0, a: 0.9}
     _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  _input: {fileID: 0}
+    _raycastTarget: 0
+  _input: {fileID: 4594083719443264345}
   _textStyle:
     _size: 24
     _color: {r: 1, g: 1, b: 1, a: 1}
     _font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    _raycastTarget: 1
   _placeholderStyle:
     _size: 24
     _color: {r: 1, g: 1, b: 1, a: 0.5}
     _font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    _raycastTarget: 0
   _selectableStyle:
     _animateBackground: 0
     _normalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -488,12 +495,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -524,10 +531,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    m_PressedColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}
+    m_SelectedColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
+    m_DisabledColor: {r: 0.78, g: 0.78, b: 0.78, a: 0.5}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

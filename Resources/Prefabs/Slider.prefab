@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60, y: -466.32}
+  m_AnchoredPosition: {x: 60, y: -289.04}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7838643160810485547
@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contentRect: {fileID: 0}
+  _canvasGroup: {fileID: 0}
+  _canvas: {fileID: 0}
   _elementStyle:
     _margin:
       Top: 0
@@ -62,6 +64,8 @@ MonoBehaviour:
       Bottom: 0
       Left: 0
     _revealType: 0
+    _positioningAnimationType: 0
+    _sizingAnimationType: 0
     _animationTime: 0.2
     _easeAnimation: 0
     _expand: 0
@@ -70,18 +74,22 @@ MonoBehaviour:
   _backgroundStyle:
     _color: {r: 0, g: 0, b: 0, a: 0.9}
     _sprite: {fileID: 0}
+    _raycastTarget: 0
   _slider: {fileID: 7838643160810899493}
   _sliderBackground: {fileID: 7838643161439801209}
   _sliderSize: {x: 100, y: 20}
   _handleStyle:
     _color: {r: 1, g: 1, b: 1, a: 1}
     _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    _raycastTarget: 1
   _fillStyle:
     _color: {r: 1, g: 1, b: 1, a: 1}
     _sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    _raycastTarget: 0
   _sliderBackgroundStyle:
     _color: {r: 1, g: 1, b: 1, a: 1}
     _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    _raycastTarget: 1
 --- !u!1 &7838643160810899495
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

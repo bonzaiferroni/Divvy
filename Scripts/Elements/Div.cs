@@ -51,6 +51,7 @@ namespace Bonwerk.Divvy.Elements
         {
             base.Construct();
             SetLayoutDirty();
+            _contentSize = new Vector2(-1, -1);
         }
 
         protected override void Associate()

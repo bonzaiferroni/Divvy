@@ -6,5 +6,6 @@ namespace Bonwerk.Divvy.Elements
         Fade,
         Scale,
         Canvas,
+        CanvasGroup,
     }
 }

@@ -6,9 +6,8 @@ namespace Bonwerk.Divvy.Elements
 {
     public class ImageElement : BackgroundElement
     {
-        [Header("Image")]
         [HideInInspector] [SerializeField] private Image _image;
-        [SerializeField] private Vector2 _contentSize = new Vector2(128, 128);
+        [Header("Image")] [SerializeField] private Vector2 _contentSize = new Vector2(128, 128);
         public override Vector2 ContentSize => _contentSize;
         [SerializeField] private ImageStyle _style = new ImageStyle(Color.white);
 
