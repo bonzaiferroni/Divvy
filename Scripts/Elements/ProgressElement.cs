@@ -83,6 +83,7 @@ namespace Bonwerk.Divvy.Elements
         {
             if (value >= 1)
             {
+                _progress.color = Color.Lerp(_progressStyle.Color, Color.white, (Fill - (value - 1)) / Fill);
                 if (!_reportedFull)
                 {
                     _reportedFull = true;
@@ -91,6 +92,7 @@ namespace Bonwerk.Divvy.Elements
             }
             else
             {
+                if (_progress.color != _progressStyle.Color) _progress.color = _progressStyle.Color;
                 if (_reportedFull)
                 {
                     _reportedFull = false;
