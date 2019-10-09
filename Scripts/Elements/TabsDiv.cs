@@ -66,7 +66,7 @@ namespace Bonwerk.Divvy.Elements
 
         private void OnPageChange(IElement element, bool isvisible, int index)
         {
-            // todo: reverse control
+            // reverse control
         }
     }
 }
