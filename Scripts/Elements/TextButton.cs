@@ -13,6 +13,17 @@ namespace Bonwerk.Divvy.Elements
 
         public override Vector2 ContentSize => new Vector2(_label.preferredWidth, _label.preferredHeight);
 
+        public string Text
+        {
+            get => _label.text;
+            set
+            {
+                if (value == _label.text) return;
+                _label.text = value;
+                Parent?.SetLayoutDirty();
+            }
+        }
+
         protected override void Construct()
         {
             base.Construct();
