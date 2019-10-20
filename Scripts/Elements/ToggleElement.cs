@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Bonwerk.Divvy.Elements
@@ -27,6 +28,7 @@ namespace Bonwerk.Divvy.Elements
             base.Construct();
             OnValueChanged = null;
             _toggle = GetToggle();
+            _toggle.onValueChanged.RemoveAllListeners();
         }
 
         protected override void Associate()
@@ -44,6 +46,21 @@ namespace Bonwerk.Divvy.Elements
         {
             base.ApplyStyle(instant);
             ApplyStyles.Selectable(_toggle, _background, _selectableStyle);
+        }
+
+        public void AddListener(UnityAction<bool> listener)
+        {
+            _toggle.onValueChanged.AddListener(listener);
+        }
+
+        public void RemoveListener(UnityAction<bool> listener)
+        {
+            _toggle.onValueChanged.RemoveListener(listener);
+        }
+
+        public void AddToGroup(ToggleGroup toggleGroup)
+        {
+            toggleGroup.RegisterToggle(_toggle);
         }
     }
 }
