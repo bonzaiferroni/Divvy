@@ -18,7 +18,7 @@ namespace Bonwerk.Divvy.Elements
         void Refresh(bool instant);
         void Rebuild(bool instant);
         void SetAnchor(Vector2 orientation);
-        void SetPosition(Vector2 position, bool instant);
+        void SetPosition(Vector2 position, Vector2 direction, bool instant);
         
         void FinishTransport();
         void ExpandSize(Vector2 maxSize, bool instant);

@@ -159,14 +159,14 @@ namespace Bonwerk.Divvy.Elements
             var paddingPosition = new Vector2(paddingX, paddingY);
             var position = paddingPosition;
             var maxSize = Vector2.zero;
-
+            
             for (int i = 0; i < Children.Count; i++)
             {
                 var index = ReverseOrder ? Children.Count - i - 1 : i;
                 var child = Children[index];
                 if (!child.IsVisible) continue;
                 child.SetAnchor(childOrientation);
-                child.SetPosition(position, instant);
+                child.SetPosition(position, direction, instant);
                 position += child.Size * direction;
                 maxSize = new Vector2(Mathf.Max(maxSize.x, child.Size.x), Mathf.Max(maxSize.y, child.Size.y));
                 if (i + 1 < Children.Count) position += direction * Spacing;

@@ -99,11 +99,11 @@ namespace Bonwerk.Divvy.Elements
         }
 
         // called when Parent.LayoutDirty == true
-        public void SetPosition(Vector2 position, bool instant)
+        public void SetPosition(Vector2 position, Vector2 direction, bool instant)
         {
-            var pivot = Transform.pivot;
-            position += new Vector2(pivot.x * PaddedSize.x, (1 - pivot.y) * -PaddedSize.y);
             var anchor = Transform.anchorMin;
+            var pivot = Transform.pivot;
+            position += new Vector2(pivot.x * PaddedSize.x, (1 - pivot.y) * -PaddedSize.y) * direction;
             var marginX = (1 - anchor.x) * Margin.Left + anchor.x * -Margin.Right;
             var marginY = (1 - anchor.y) * Margin.Bottom + anchor.y * -Margin.Top;
             position += new Vector2(marginX, marginY);
