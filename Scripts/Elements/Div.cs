@@ -165,11 +165,11 @@ namespace Bonwerk.Divvy.Elements
                 var index = ReverseOrder ? Children.Count - i - 1 : i;
                 var child = Children[index];
                 if (!child.IsVisible) continue;
+                if (i > 0) position += direction * Spacing;
                 child.SetAnchor(childOrientation);
                 child.SetPosition(position, direction, instant);
                 position += child.Size * direction;
                 maxSize = new Vector2(Mathf.Max(maxSize.x, child.Size.x), Mathf.Max(maxSize.y, child.Size.y));
-                if (i + 1 < Children.Count) position += direction * Spacing;
             }
 
             foreach (var child in Children)
